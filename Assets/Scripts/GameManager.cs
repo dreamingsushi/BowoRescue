@@ -1,7 +1,8 @@
 using UnityEngine;
 using Photon.Pun;
+using Unity.Cinemachine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviourPunCallbacks
 {
     [SerializeField] GameObject playerPrefab;
 
@@ -12,14 +13,15 @@ public class GameManager : MonoBehaviour
         {
             if (playerPrefab!=null)
             {
-                int randomPoint = Random.Range(-2, 2);
+                int randomPoint = Random.Range(0,0);
                 PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(randomPoint, 1f, randomPoint), Quaternion.identity);
             }
             else
             {
                 Debug.Log("Place playerPrefab!");
             }
-        }       
+        }
     }
+
 
 }

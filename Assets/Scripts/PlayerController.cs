@@ -2,12 +2,15 @@ using Photon.Pun;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
+using Unity.Cinemachine;
 
 public class PlayerController : MonoBehaviourPunCallbacks
 {
+    [Header("Movement")]
     [SerializeField] private float m_Speed;
     [SerializeField] private float m_RotationSpeed;
     [SerializeField] private Vector2 m_Direction;
+    [SerializeField] float gravity = -9.81f;
 
     [Header("Dash Settings")]
     [SerializeField] private float dashSpeed = 10f;
@@ -17,10 +20,13 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [Header("Interaction")]
     [SerializeField] private Transform itemHolder;
 
+    private Vector3 velocity;
     private bool isDashing = false;
     private bool canDash = true;
     private bool isHeld = false;
     private GameObject heldItem = null;
+    private CharacterController controller;
+    [SerializeField] private CinemachineCamera cinemachineCamera;
 
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -30,42 +36,73 @@ public class PlayerController : MonoBehaviourPunCallbacks
     {
         if (context.performed && canDash)
         {
-
-            StartCoroutine(Dash());
-            Debug.Log("dash");
+            if (photonView.IsMine)
+            {
+                StartCoroutine(Dash());
+            }
         }
     }
     public void OnInteract(InputAction.CallbackContext context)
     {
-        if (context.performed)
-        {
-            if (isHeld)
-            {
-                DropItem();
-            }
-            else
-            {
-                PickupItem();
-            }
-        }
-
-    }
-    void Update()
-    {
-
-    }
-    void FixedUpdate()
-    {
         if (photonView.IsMine)
         {
-            if (m_Direction != Vector2.zero)
+            if (context.performed)
             {
-                MovePlayer();
+                if (isHeld)
+                {
+                    DropItem();
+                }
+                else
+                {
+                    PickupItem();
+                }
             }
         }
-
-
     }
+
+    void Awake()
+    {
+        controller = GetComponent<CharacterController>();
+        if (!photonView.IsMine) return;
+        cinemachineCamera = FindAnyObjectByType<CinemachineCamera>();
+        cinemachineCamera.Target.TrackingTarget = transform;
+    }
+
+    void Update()
+    {
+        if (!photonView.IsMine) return;
+
+        Vector3 movement = new Vector3(m_Direction.x, 0 , m_Direction.y);
+
+        if (movement.magnitude > 0.1f)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(movement);
+            //transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, m_RotationSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(movement), m_RotationSpeed);
+        }
+
+        if (!isDashing)
+        {
+            if (controller.isGrounded && velocity.y < 0)
+                velocity.y = -2f;
+            else
+                velocity.y += gravity * Time.deltaTime;
+            controller.Move((movement * m_Speed + velocity) * Time.deltaTime);
+        }
+    }
+
+    // void FixedUpdate()
+    // {
+    //     if (photonView.IsMine)
+    //     {
+    //         if (m_Direction != Vector2.zero)
+    //         {
+    //             MovePlayer();
+    //         }
+    //     }
+
+
+    // }
     void MovePlayer()
     {
         Vector3 movement = new Vector3(m_Direction.x, 0 , m_Direction.y);
@@ -83,7 +120,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
         while (Time.time < startTime + dashTime)
         {
-            transform.Translate(dashDirection * dashSpeed * Time.deltaTime, Space.World);
+            controller.Move(dashDirection * dashSpeed * Time.deltaTime);
+            //transform.Translate(dashDirection * dashSpeed * Time.deltaTime, Space.World);
             yield return null;
         }
 
@@ -95,15 +133,16 @@ public class PlayerController : MonoBehaviourPunCallbacks
     void PickupItem()
     {
         float pickupRange = 2f;
+        float radius = 0.5f;
         Vector3 origin = new Vector3(transform.position.x, transform.position.y - 0.8f, transform.position.z);
 
-        if (Physics.Raycast(origin, transform.forward, out RaycastHit hit, pickupRange))
+        if (Physics.SphereCast(origin, radius, transform.forward, out RaycastHit hit, pickupRange))
+    {
+        if (hit.collider.CompareTag("PickupItem"))
         {
-            if (hit.collider.CompareTag("PickupItem"))
-            {
-                Pickup(hit.collider.gameObject);
-            }
+            Pickup(hit.collider.gameObject);
         }
+    }
     }
 
     void Pickup(GameObject item)
@@ -124,5 +163,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
         heldItem = null;
         isHeld = false;
     }
+    
 }
 
