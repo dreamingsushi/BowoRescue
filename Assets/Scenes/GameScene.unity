@@ -1252,6 +1252,46 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3516348869302402940, guid: 81babe5aad07f5b4e958602ee763d3a9, type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3516348869302402940, guid: 81babe5aad07f5b4e958602ee763d3a9, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_ActionId
+      value: a25bd712-5d0e-4c34-b42d-d0fe4114bc68
+      objectReference: {fileID: 0}
+    - target: {fileID: 3516348869302402940, guid: 81babe5aad07f5b4e958602ee763d3a9, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_ActionName
+      value: 'Player/Jump[/Keyboard/space]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 3516348869302402940, guid: 81babe5aad07f5b4e958602ee763d3a9, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3516348869302402940, guid: 81babe5aad07f5b4e958602ee763d3a9, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3516348869302402940, guid: 81babe5aad07f5b4e958602ee763d3a9, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 207736896}
+    - target: {fileID: 3516348869302402940, guid: 81babe5aad07f5b4e958602ee763d3a9, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3516348869302402940, guid: 81babe5aad07f5b4e958602ee763d3a9, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnJump
+      objectReference: {fileID: 0}
+    - target: {fileID: 3516348869302402940, guid: 81babe5aad07f5b4e958602ee763d3a9, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PlayerController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3516348869302402940, guid: 81babe5aad07f5b4e958602ee763d3a9, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 5487816788402234322, guid: 81babe5aad07f5b4e958602ee763d3a9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.185245
@@ -1737,6 +1777,17 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 206302243}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &207736896 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3165310938296066321, guid: 81babe5aad07f5b4e958602ee763d3a9, type: 3}
+  m_PrefabInstance: {fileID: 180157909}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 089336ca35aa80448a67107f84ff484a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &211415352
 GameObject:
   m_ObjectHideFlags: 0
@@ -29384,7 +29435,7 @@ Transform:
   m_GameObject: {fileID: 8515472686749511784}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 3.44, y: -5.5735445, z: 1.8}
+  m_LocalPosition: {x: 3.44, y: -6.3041496, z: 1.8}
   m_LocalScale: {x: 0.67, y: 0.67, z: 0.67}
   m_ConstrainProportionsScale: 1
   m_Children:

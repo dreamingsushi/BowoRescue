@@ -9,8 +9,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [Header("Movement")]
     [SerializeField] private float m_Speed;
     [SerializeField] private float m_RotationSpeed;
-    [SerializeField] private Vector2 m_Direction;
+    [SerializeField] public Vector2 m_Direction;
     [SerializeField] float gravity = -9.81f;
+    [SerializeField] private float jumpHeight = 2f;
 
     [Header("Dash Settings")]
     [SerializeField] private float dashSpeed = 10f;
@@ -21,11 +22,14 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [SerializeField] private Transform itemHolder;
 
     private Vector3 velocity;
-    private bool isDashing = false;
+    public bool isWalking = false;
+    public bool isJumping = false;
+    public bool isDashing = false;
     private bool canDash = true;
     private bool isHeld = false;
     private GameObject heldItem = null;
-    private CharacterController controller;
+    [SerializeField] private CharacterController controller;
+    private Animator animator;
     [SerializeField] private CinemachineCamera cinemachineCamera;
 
     public void OnMove(InputAction.CallbackContext context)
@@ -59,6 +63,16 @@ public class PlayerController : MonoBehaviourPunCallbacks
             }
         }
     }
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        if (!photonView.IsMine) return;
+        
+        if (context.performed && controller.isGrounded)
+        {
+            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            isJumping = true;
+        }
+    }
 
     void Awake()
     {
@@ -68,46 +82,34 @@ public class PlayerController : MonoBehaviourPunCallbacks
         cinemachineCamera.Target.TrackingTarget = transform;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (!photonView.IsMine) return;
 
         Vector3 movement = new Vector3(m_Direction.x, 0 , m_Direction.y);
 
+        isWalking = movement.magnitude > 0.1f; 
+
         if (movement.magnitude > 0.1f)
         {
-            Quaternion targetRotation = Quaternion.LookRotation(movement);
-            //transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, m_RotationSpeed * Time.deltaTime);
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(movement), m_RotationSpeed);
         }
 
         if (!isDashing)
         {
             if (controller.isGrounded && velocity.y < 0)
+            {
                 velocity.y = -2f;
-            else
-                velocity.y += gravity * Time.deltaTime;
+            }
+            velocity.y += gravity * Time.deltaTime;
+
             controller.Move((movement * m_Speed + velocity) * Time.deltaTime);
         }
-    }
 
-    // void FixedUpdate()
-    // {
-    //     if (photonView.IsMine)
-    //     {
-    //         if (m_Direction != Vector2.zero)
-    //         {
-    //             MovePlayer();
-    //         }
-    //     }
-
-
-    // }
-    void MovePlayer()
-    {
-        Vector3 movement = new Vector3(m_Direction.x, 0 , m_Direction.y);
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(movement), m_RotationSpeed);
-        transform.Translate(movement * m_Speed * Time.deltaTime, Space.World);
+        if (controller.isGrounded && velocity.y < 0)
+        {
+            isJumping = false; // Landed back on ground
+        }
     }
 
     private IEnumerator Dash()
@@ -121,7 +123,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
         while (Time.time < startTime + dashTime)
         {
             controller.Move(dashDirection * dashSpeed * Time.deltaTime);
-            //transform.Translate(dashDirection * dashSpeed * Time.deltaTime, Space.World);
             yield return null;
         }
 
@@ -148,18 +149,18 @@ public class PlayerController : MonoBehaviourPunCallbacks
     void Pickup(GameObject item)
     {
         heldItem = item;
-        heldItem.transform.SetParent(itemHolder); // Set as child of ItemHolder
-        heldItem.transform.localPosition = Vector3.zero; // Reset position
-        heldItem.transform.localRotation = Quaternion.identity; // Reset rotation
-        heldItem.GetComponent<Rigidbody>().isKinematic = true; // Disable physics
+        heldItem.transform.SetParent(itemHolder);
+        heldItem.transform.localPosition = Vector3.zero;
+        heldItem.transform.localRotation = Quaternion.identity;
+        heldItem.GetComponent<Rigidbody>().isKinematic = true;
         isHeld = true;
     }
 
     void DropItem()
     {
-        heldItem.transform.SetParent(null); // Remove parent
-        heldItem.GetComponent<Rigidbody>().isKinematic = false; // Enable physics
-        heldItem.GetComponent<Rigidbody>().AddForce(transform.forward * 2f, ForceMode.Impulse); // Add slight throw
+        heldItem.transform.SetParent(null);
+        heldItem.GetComponent<Rigidbody>().isKinematic = false;
+        heldItem.GetComponent<Rigidbody>().AddForce(transform.forward * 2f, ForceMode.Impulse);
         heldItem = null;
         isHeld = false;
     }
