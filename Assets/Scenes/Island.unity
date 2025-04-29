@@ -14591,7 +14591,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAttacking: 0
-  attackDuration: 0.2
+  canAttack: 1
+  attackDuration: 0.001
+  attackCooldown: 0.5
+  maxCombo: 3
+  comboResetTime: 1
 --- !u!95 &9168013927117106460
 Animator:
   serializedVersion: 7
