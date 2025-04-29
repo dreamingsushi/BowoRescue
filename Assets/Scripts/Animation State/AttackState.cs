@@ -1,18 +1,17 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class IdleState : BaseState
+public class AttackState : BaseState
 {
-    public IdleState(PlayerStateMachine player) : base(player) { }
+    public AttackState(PlayerStateMachine player) : base(player) { }
 
     public override void EnterState()
     {
-        
+        player.animator.SetTrigger("Attack");
     }
 
     public override void ExitState()
     {
-
+        
     }
 
     public override void UpdateState()
@@ -21,9 +20,9 @@ public class IdleState : BaseState
         {
             player.TransitionToState(new WalkState(player));
         }
-        else if (player.playerAttack.isAttacking)
+        else if (!player.controller.isWalking)
         {
-            player.TransitionToState(new AttackState(player));
+            player.TransitionToState(new IdleState(player));
         }
     }
 

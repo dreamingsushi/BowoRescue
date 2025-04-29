@@ -24,6 +24,10 @@ public class WalkState : BaseState
         {
             player.TransitionToState(new AttackState(player));
         }
+        else if (player.controller.isJumping)
+        {
+            player.TransitionToState(new JumpState(player));
+        }
     }
 
     public override BaseState GetNextState()

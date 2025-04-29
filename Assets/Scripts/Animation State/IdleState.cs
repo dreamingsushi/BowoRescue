@@ -1,12 +1,13 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class AttackState : BaseState
+public class IdleState : BaseState
 {
-    public AttackState(PlayerStateMachine player) : base(player) { }
+    public IdleState(PlayerStateMachine player) : base(player) { }
 
     public override void EnterState()
     {
-        player.animator.SetTrigger("Attack");
+        
     }
 
     public override void ExitState()
@@ -20,9 +21,13 @@ public class AttackState : BaseState
         {
             player.TransitionToState(new WalkState(player));
         }
-        else if (!player.controller.isWalking)
+        else if (player.playerAttack.isAttacking)
         {
-            player.TransitionToState(new IdleState(player));
+            player.TransitionToState(new AttackState(player));
+        }
+        else if (player.controller.isJumping)
+        {
+            player.TransitionToState(new JumpState(player));
         }
     }
 

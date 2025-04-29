@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private bool canDash = true;
     private bool isHeld = false;
     private GameObject heldItem = null;
-    [SerializeField] private CharacterController controller;
+    [SerializeField] public CharacterController controller;
     private Animator animator;
     [SerializeField] private CinemachineCamera cinemachineCamera;
 
@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     }
     public void OnDash(InputAction.CallbackContext context)
     {
-        if (context.performed && canDash)
+        if (context.performed && canDash && controller.isGrounded)
         {
             if (photonView.IsMine)
             {
@@ -108,7 +108,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
         if (controller.isGrounded && velocity.y < 0)
         {
-            isJumping = false; // Landed back on ground
+            isJumping = false;
         }
     }
 

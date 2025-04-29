@@ -5,7 +5,6 @@ using Photon.Pun;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public GameObject regenVFX;
     [Header("Health Settings")]
     public int maxHealth = 100;
     public int currentHealth;
@@ -25,6 +24,4 @@ public class PlayerHealth : MonoBehaviour
 
     [Header("Knockback Settings")]
     public float knockbackForce = 5f;
-    
-    private CharacterController characterController;
 }
