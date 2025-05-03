@@ -16,13 +16,16 @@ public class AttackState : BaseState
 
     public override void UpdateState()
     {
-        if (player.controller.isWalking)
+        if (!player.playerAttack.isAttacking)
         {
-            player.TransitionToState(new WalkState(player));
-        }
-        else if (!player.controller.isWalking)
-        {
-            player.TransitionToState(new IdleState(player));
+            if (player.controller.isWalking)
+            {
+                player.TransitionToState(new WalkState(player));
+            }
+            else if (!player.controller.isWalking)
+            {
+                player.TransitionToState(new IdleState(player));
+            }
         }
     }
 

@@ -1,21 +1,50 @@
+using System.Collections;
 using UnityEngine;
 
 public class EnemyAttackState : EnemyBaseState
 {
-    public EnemyAttackState(Enemy enemy, Animator animator) : base(enemy, animator) { }
+    private bool isAttacking = false;
+    public EnemyAttackState(EnemyStateManager enemy) : base(enemy) { }
 
-    public override void Enter()
+    public override void EnterState()
     {
-        animator.Play("Attack");
+        enemy.animator.SetBool("IsAttacking" , true);
+        enemy.enemyAI.agent.isStopped = true;
+        enemy.StartCoroutine(AttackLoop());
     }
 
-    public override void Update()
+    public override void UpdateState()
     {
-        if (!enemy.IsInAttackRange())
+        if (!enemy.enemyAI.IsPlayerInAttackRange() && !isAttacking)
         {
-            enemy.TransitionToState(new EnemyChaseState(enemy, animator));
+            enemy.animator.SetBool("IsAttacking" , false);
+            enemy.TransitionToState(new EnemyChaseState(enemy));
+        }
+        else
+        {
+            enemy.enemyAI.RotateTowardsPlayer();
         }
     }
 
-    public override void Exit() { }
+
+    public override void ExitState()
+    {
+        enemy.enemyAI.agent.isStopped = false;
+    }
+
+    private IEnumerator AttackLoop()
+    {
+        while(enemy.enemyAI.IsPlayerInAttackRange())
+        {
+            Attack();
+            yield return new WaitForSeconds(1f);
+            isAttacking = false;
+        }
+    }
+
+    private void Attack()
+    {
+        isAttacking = true;
+        enemy.animator.SetTrigger("Attack");
+    }
 }

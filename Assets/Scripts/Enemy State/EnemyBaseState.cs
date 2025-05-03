@@ -1,15 +1,12 @@
 using UnityEngine;
 
 public abstract class EnemyBaseState {
-    public Enemy enemy;
-    public Animator animator;
-
-    public EnemyBaseState(Enemy enemy, Animator animator) {
+    protected EnemyStateManager enemy;
+    public EnemyBaseState(EnemyStateManager enemy) {
         this.enemy = enemy;
-        this.animator = animator;
     }
 
-    public abstract void Enter();
-    public abstract void Update();
-    public abstract void Exit();
+    public abstract void EnterState();
+    public abstract void UpdateState();
+    public abstract void ExitState();
 }

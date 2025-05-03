@@ -9,6 +9,7 @@ public class PlayerAttack : MonoBehaviourPunCallbacks
     public bool isAttacking = false;
     public bool canAttack = true;
     public Trail vfx;
+    public Collider dmgCollider;
 
     [SerializeField] private float attackDuration = 0.5f;
     [SerializeField] private float attackCooldown = 0.5f;
@@ -27,11 +28,13 @@ public class PlayerAttack : MonoBehaviourPunCallbacks
     {
         isAttacking = true;
         vfx.enabled = true;
+        dmgCollider.enabled = true;
         canAttack = false;
         yield return new WaitForSeconds(attackDuration);
+        dmgCollider.enabled = false;
+        vfx.enabled = false;
         isAttacking = false;
         yield return new WaitForSeconds(attackCooldown);
-        vfx.enabled = false;
         canAttack = true;
     }
 }

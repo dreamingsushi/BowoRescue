@@ -2,22 +2,28 @@ using UnityEngine;
 
 public class EnemyChaseState : EnemyBaseState
 {
-    public EnemyChaseState(Enemy enemy, Animator animator) : base(enemy, animator) { }
+    public EnemyChaseState(EnemyStateManager enemy) : base(enemy) { }
 
-    public override void Enter()
+    public override void EnterState()
     {
-        animator.Play("Run");
+        enemy.animator.SetBool("IsRunning", true);
+
+        enemy.animator.SetBool("IsAttacking", false);
     }
 
-    public override void Update()
+    public override void UpdateState()
     {
-        enemy.MoveToPlayer();
+        enemy.enemyAI.MoveTowardsPlayer();
+        enemy.enemyAI.RotateTowardsPlayer();
 
-        if (enemy.IsInAttackRange())
+        if (enemy.enemyAI.IsPlayerInAttackRange())
         {
-            enemy.TransitionToState(new EnemyAttackState(enemy, animator));
+            enemy.TransitionToState(new EnemyAttackState(enemy));
         }
     }
 
-    public override void Exit() { }
+    public override void ExitState() 
+    { 
+        enemy.animator.SetBool("IsRunning", false);
+    }
 }

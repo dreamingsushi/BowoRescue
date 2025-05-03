@@ -2,21 +2,23 @@ using UnityEngine;
 
 public class EnemyIdleState : EnemyBaseState
 {
-    public EnemyIdleState(Enemy enemy, Animator animator) : base(enemy, animator) { }
+    public EnemyIdleState(EnemyStateManager enemy) : base(enemy) { }
 
-    public override void Enter()
+    public override void EnterState()
     {
-        animator.Play("Idle");
+        enemy.animator.SetBool("IsIdle", true);
     }
 
-    public override void Update()
+    public override void UpdateState()
     {
-        if (enemy.IsPlayerInRange())
+        if (enemy.enemyAI.IsPlayerInRange())
         {
-            enemy.TransitionToState(new EnemyChaseState(enemy, animator));
+            enemy.TransitionToState(new EnemyChaseState(enemy));
         }
     }
 
-    public override void Exit() { }
+    public override void ExitState() { 
+        enemy.animator.SetBool("IsIdle", false);
+    }
 }
 
