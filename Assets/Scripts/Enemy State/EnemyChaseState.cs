@@ -20,6 +20,11 @@ public class EnemyChaseState : EnemyBaseState
         {
             enemy.TransitionToState(new EnemyAttackState(enemy));
         }
+
+        if (enemy.enemyAI.isStunned)
+        {
+            enemy.TransitionToState(new EnemyHurtState(enemy));
+        }
     }
 
     public override void ExitState() 

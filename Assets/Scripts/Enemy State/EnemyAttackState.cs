@@ -24,6 +24,11 @@ public class EnemyAttackState : EnemyBaseState
         {
             enemy.enemyAI.RotateTowardsPlayer();
         }
+
+        if (enemy.enemyAI.isStunned)
+        {
+            enemy.TransitionToState(new EnemyHurtState(enemy));
+        }
     }
 
 

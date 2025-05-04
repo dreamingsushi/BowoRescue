@@ -3,12 +3,20 @@ using UnityEngine;
 public class DamageCollider : MonoBehaviour
 {
     public float damageAmount;
+    public float knockbackStrength = 20f;
     void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out IDamageable target))
+        if (other.TryGetComponent(out IDamageable damageable))
         {
-            target.TakeDamage(damageAmount, transform.position);
-            Debug.Log("Attacked" + target);
+            damageable.TakeDamage(damageAmount);
+            Debug.Log("Attacked" + damageable);
+        }
+
+        if (other.TryGetComponent(out IKnockbackable knockbackable))
+        {
+            Vector3 direction = (other.transform.position - transform.position).normalized;
+            Vector3 force = direction * knockbackStrength;
+            knockbackable.GetKnockedBack(force);
         }
     }
 }
