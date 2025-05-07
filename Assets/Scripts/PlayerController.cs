@@ -18,8 +18,10 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [SerializeField] private float dashTime = 0.2f;
     [SerializeField] private float dashCooldown = 0.2f;
 
-    [Header("Interaction")]
+    [Header("Pickup Settings")]
     [SerializeField] private Transform itemHolder;
+    [SerializeField] private float pickupRange = 2f;
+    [SerializeField] private float pickupRadius = 0.5f;
 
     private Vector3 velocity;
     public bool isWalking = false;
@@ -133,11 +135,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     void PickupItem()
     {
-        float pickupRange = 2f;
-        float radius = 0.5f;
         Vector3 origin = new Vector3(transform.position.x, transform.position.y - 0.8f, transform.position.z);
 
-        if (Physics.SphereCast(origin, radius, transform.forward, out RaycastHit hit, pickupRange))
+        if (Physics.SphereCast(origin, pickupRadius, transform.forward, out RaycastHit hit, pickupRange))
     {
         if (hit.collider.CompareTag("PickupItem"))
         {
@@ -163,6 +163,20 @@ public class PlayerController : MonoBehaviourPunCallbacks
         heldItem.GetComponent<Rigidbody>().AddForce(transform.forward * 2f, ForceMode.Impulse);
         heldItem = null;
         isHeld = false;
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.cyan;
+        Vector3 origin = new Vector3(transform.position.x, transform.position.y - 0.8f, transform.position.z);
+        Vector3 endPoint = origin + transform.forward * pickupRange;
+
+        // Draw a line showing pickup range
+        Gizmos.DrawLine(origin, endPoint);
+
+        // Draw wire spheres at start and end to visualize the pickup area
+        Gizmos.DrawWireSphere(origin, pickupRadius);
+        Gizmos.DrawWireSphere(endPoint, pickupRadius);
     }
     
 }
