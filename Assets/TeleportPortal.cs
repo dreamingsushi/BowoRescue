@@ -7,9 +7,13 @@ public class TeleportPortal : MonoBehaviour
     public TeleportPortal destinationPortal;
     public Collider destinationPortalCollider;
     public PlayerController playerController;
+    private Vector3 originalScale;
 
     private bool isTeleporting = false;
-
+    private void Start()
+    {
+        originalScale = playerController.gameObject.transform.localScale;
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (!isTeleporting && other.CompareTag("Player"))
@@ -25,6 +29,7 @@ public class TeleportPortal : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isTeleporting = false;
+            destinationPortal.isTeleporting = true;
             Debug.Log("Player exited portal");
         }
     }
@@ -33,14 +38,16 @@ public class TeleportPortal : MonoBehaviour
     private IEnumerator Teleport(Transform player)
     {
         isTeleporting = true;
+        destinationPortal.isTeleporting = false;
         playerController.enabled = false;
-        Vector3 originalScale = player.localScale;
+        playerController.DisableInputs();
+        Vector3 playerOriginalScale = player.localScale;
 
         // Step 1: Sink into current portal
-        yield return StartCoroutine(SinkIntoPortal(player, 0.25f, originalScale));
+        yield return StartCoroutine(SinkIntoPortal(player, 0.25f, playerOriginalScale));
 
         // Step 2: Move player to destination
-        player.position = destinationPortal.transform.position;
+        player.position = destinationPortal.transform.position + new Vector3(0, 1.2f, 0);
 
         // Step 3: Temporarily disable destination portal collider
         destinationPortalCollider.enabled = false;
@@ -49,11 +56,14 @@ public class TeleportPortal : MonoBehaviour
         yield return destinationPortal.StartCoroutine(destinationPortal.PopOutOfPortal(player, 0.25f, originalScale));
 
         // Step 5: Wait until player exits destination portal, then re-enable it
-        yield return new WaitUntil(() => !destinationPortalCollider.bounds.Contains(player.position));
+        yield return new WaitForSeconds(0.01f);
+        //yield return new WaitUntil(() => !destinationPortalCollider.bounds.Contains(player.position));
         destinationPortalCollider.enabled = true;
 
-        yield return new WaitForSeconds(0.25f);
+        playerController.EnableInputs();
         playerController.enabled = true;
+        playerController.Jump();
+
         isTeleporting = false;
     }
 

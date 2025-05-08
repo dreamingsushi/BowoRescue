@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [SerializeField] public CharacterController controller;
     private Animator animator;
     [SerializeField] private CinemachineCamera cinemachineCamera;
+    private PlayerInput playerInput;
 
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -76,13 +77,31 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
     }
 
+    public void Jump()
+    {
+        velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+    }
+
+    public void DisableInputs()
+    {
+        playerInput.DeactivateInput();
+    }
+
+    public void EnableInputs()
+    {
+        playerInput.ActivateInput();
+    }
+
+
     void Awake()
     {
         controller = GetComponent<CharacterController>();
         if (!photonView.IsMine) return;
         cinemachineCamera = FindAnyObjectByType<CinemachineCamera>();
         cinemachineCamera.Target.TrackingTarget = transform;
+        playerInput = GetComponent<PlayerInput>();  
     }
+
 
     void FixedUpdate()
     {
