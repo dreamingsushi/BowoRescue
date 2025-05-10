@@ -23,7 +23,7 @@ MonoBehaviour:
       - CheatingNotImportant
     - QuestionId: CostSensitivity
       Answers:
-      - BestMargin
+      - NoCost
     - QuestionId: NetcodeArchitecture
       Answers:
       - ClientServer
@@ -32,5 +32,5 @@ MonoBehaviour:
       - 4
   Preset: 9
   SelectedSolutions:
-    SelectedHostingModel: 1
+    SelectedHostingModel: 4
     SelectedNetcodeSolution: 1

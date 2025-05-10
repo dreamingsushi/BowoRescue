@@ -1,10 +1,10 @@
-using Photon.Pun;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
 using Tiny;
 
-public class PlayerAttack : MonoBehaviourPunCallbacks
+public class PlayerAttack : NetworkBehaviour
 {
     public bool isHoldingWeapon = false;
     public bool isAttacking = false;
@@ -17,7 +17,7 @@ public class PlayerAttack : MonoBehaviourPunCallbacks
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        if (!photonView.IsMine) return;
+        if (!IsOwner) return;
         if (!isHoldingWeapon) return;
 
         if (context.performed && canAttack)

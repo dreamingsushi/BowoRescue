@@ -1,10 +1,10 @@
-using Photon.Pun;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
 using Unity.Cinemachine;
 
-public class PlayerController : MonoBehaviourPunCallbacks
+public class PlayerController : NetworkBehaviour
 {
     [Header("Movement")]
     [SerializeField] private float m_Speed;
@@ -34,6 +34,14 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private Animator animator;
     [SerializeField] private CinemachineCamera cinemachineCamera;
     private PlayerInput playerInput;
+    private Vector2 serverInput;
+
+    [ServerRpc]
+    void SendInputServerRpc(Vector2 input)
+    {
+        serverInput = input;
+    }
+
 
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -43,7 +51,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     {
         if (context.performed && canDash && controller.isGrounded)
         {
-            if (photonView.IsMine)
+            if (IsOwner)
             {
                 StartCoroutine(Dash());
             }
@@ -51,7 +59,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     }
     public void OnInteract(InputAction.CallbackContext context)
     {
-        if (photonView.IsMine)
+        if (IsOwner)
         {
             if (context.performed)
             {
@@ -68,7 +76,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     }
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (!photonView.IsMine) return;
+        if (!IsOwner) return;
         
         if (context.performed && controller.isGrounded)
         {
@@ -96,7 +104,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     void Awake()
     {
         controller = GetComponent<CharacterController>();
-        if (!photonView.IsMine) return;
+        if (!IsOwner) return;
         cinemachineCamera = FindAnyObjectByType<CinemachineCamera>();
         cinemachineCamera.Target.TrackingTarget = transform;
         playerInput = GetComponent<PlayerInput>();  
@@ -105,7 +113,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     void FixedUpdate()
     {
-        if (!photonView.IsMine) return;
+        if (IsOwner)
+        {
+            SendInputServerRpc(m_Direction);
+        }
+
+        if (!IsOwner) return;
 
         Vector3 movement = new Vector3(m_Direction.x, 0 , m_Direction.y);
 
