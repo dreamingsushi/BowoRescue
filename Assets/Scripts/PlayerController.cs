@@ -157,32 +157,27 @@ public class PlayerController : MonoBehaviourPunCallbacks
         Vector3 origin = new Vector3(transform.position.x, transform.position.y - 0.8f, transform.position.z);
 
         if (Physics.SphereCast(origin, pickupRadius, transform.forward, out RaycastHit hit, pickupRange))
-    {
-        if (hit.collider.CompareTag("PickupItem"))
         {
-            Pickup(hit.collider.gameObject);
+            IPickupable pickupable = hit.collider.GetComponent<IPickupable>();
+            if (pickupable != null && !isHeld)
+            {
+                heldItem = hit.collider.gameObject;
+                pickupable.OnPickup(itemHolder);
+                isHeld = true;
+            }
         }
-    }
-    }
-
-    void Pickup(GameObject item)
-    {
-        heldItem = item;
-        heldItem.transform.SetParent(itemHolder);
-        heldItem.transform.localPosition = Vector3.zero;
-        heldItem.transform.localRotation = Quaternion.identity;
-        heldItem.GetComponent<Rigidbody>().isKinematic = true;
-        isHeld = true;
     }
 
     void DropItem()
     {
-        heldItem.transform.SetParent(null);
-        heldItem.GetComponent<Rigidbody>().isKinematic = false;
-        heldItem.GetComponent<Rigidbody>().AddForce(transform.forward * 2f, ForceMode.Impulse);
-        heldItem = null;
-        isHeld = false;
+        if (heldItem.TryGetComponent<IPickupable>(out var pickupable))
+        {
+            pickupable.OnDrop(transform.forward * 2f);
+            heldItem = null;
+            isHeld = false;
+        }
     }
+
 
     void OnDrawGizmosSelected()
     {

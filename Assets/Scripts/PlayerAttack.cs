@@ -6,6 +6,7 @@ using Tiny;
 
 public class PlayerAttack : MonoBehaviourPunCallbacks
 {
+    public bool isHoldingWeapon = false;
     public bool isAttacking = false;
     public bool canAttack = true;
     public Trail vfx;
@@ -17,6 +18,7 @@ public class PlayerAttack : MonoBehaviourPunCallbacks
     public void OnAttack(InputAction.CallbackContext context)
     {
         if (!photonView.IsMine) return;
+        if (!isHoldingWeapon) return;
 
         if (context.performed && canAttack)
         {

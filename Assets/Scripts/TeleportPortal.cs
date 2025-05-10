@@ -29,7 +29,6 @@ public class TeleportPortal : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isTeleporting = false;
-            destinationPortal.isTeleporting = true;
             Debug.Log("Player exited portal");
         }
     }
@@ -38,7 +37,6 @@ public class TeleportPortal : MonoBehaviour
     private IEnumerator Teleport(Transform player)
     {
         isTeleporting = true;
-        destinationPortal.isTeleporting = false;
         playerController.enabled = false;
         playerController.DisableInputs();
         Vector3 playerOriginalScale = player.localScale;
@@ -50,7 +48,7 @@ public class TeleportPortal : MonoBehaviour
         player.position = destinationPortal.transform.position + new Vector3(0, 1.2f, 0);
 
         // Step 3: Temporarily disable destination portal collider
-        destinationPortalCollider.enabled = false;
+        destinationPortal.isTeleporting = true;
 
         // Step 4: Pop out of destination portal
         yield return destinationPortal.StartCoroutine(destinationPortal.PopOutOfPortal(player, 0.25f, originalScale));
@@ -58,7 +56,7 @@ public class TeleportPortal : MonoBehaviour
         // Step 5: Wait until player exits destination portal, then re-enable it
         yield return new WaitForSeconds(0.01f);
         //yield return new WaitUntil(() => !destinationPortalCollider.bounds.Contains(player.position));
-        destinationPortalCollider.enabled = true;
+        destinationPortal.isTeleporting = false;
 
         playerController.EnableInputs();
         playerController.enabled = true;
