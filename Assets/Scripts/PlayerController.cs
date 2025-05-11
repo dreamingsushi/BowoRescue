@@ -42,6 +42,11 @@ public class PlayerController : NetworkBehaviour
         serverInput = input;
     }
 
+    public override void OnNetworkSpawn()
+    {
+        MultiTargetCamera.Instance.AddTarget(transform);
+    }
+
 
     public void OnMove(InputAction.CallbackContext context)
     {

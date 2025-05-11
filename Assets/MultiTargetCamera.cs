@@ -3,17 +3,20 @@ using Unity.Cinemachine;
 
 public class MultiTargetCamera : MonoBehaviour
 {
+    public static MultiTargetCamera Instance;
+
     public CinemachineTargetGroup targetGroup;
 
-    void Start()
+    void Awake()
     {
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        Instance = this;
+    }
 
-        targetGroup.Targets.Clear(); // Clear any existing targets
-
-        foreach (GameObject player in players)
+    public void AddTarget(Transform target)
+    {
+        if (targetGroup != null && target != null)
         {
-            targetGroup.AddMember(player.transform, 1f, 0.5f);
+            targetGroup.AddMember(target, 1f, 0.5f);
         }
     }
 }

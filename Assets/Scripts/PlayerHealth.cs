@@ -1,9 +1,9 @@
 using System.Collections;
 using UnityEngine;
-using System;
-using Photon.Pun;
+using Unity.Netcode;
 
-public class PlayerHealth : MonoBehaviourPun, IDamageable
+
+public class PlayerHealth : NetworkBehaviour, IDamageable
 {
     [Header("Health Settings")]
     public int maxHealth = 100;
@@ -36,7 +36,7 @@ public class PlayerHealth : MonoBehaviourPun, IDamageable
 
     public void TakeDamage(float damageAmount)
     {
-        if (!photonView.IsMine) return;
+        if (!IsOwner) return;
         if (isInvincible || currentHealth <= 0) return;
 
         // Apply armor and damage reduction
@@ -61,7 +61,7 @@ public class PlayerHealth : MonoBehaviourPun, IDamageable
 
     public void Heal(int amount)
     {
-        if (!photonView.IsMine) return;
+        if (!IsOwner) return;
 
         currentHealth += amount;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);

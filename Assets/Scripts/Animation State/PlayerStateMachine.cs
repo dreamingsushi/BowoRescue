@@ -1,7 +1,7 @@
-using Photon.Realtime;
+using Unity.Netcode;
 using UnityEngine;
 
-public class PlayerStateMachine : MonoBehaviour
+public class PlayerStateMachine : NetworkBehaviour
 {
     public PlayerController controller;
     public PlayerHealth health;
@@ -19,6 +19,8 @@ public class PlayerStateMachine : MonoBehaviour
 
     void Update()
     {
+        if (!IsOwner) return;
+        
         stateTimer += Time.deltaTime;
         currentState?.UpdateState(); // Call current state's Update
 
