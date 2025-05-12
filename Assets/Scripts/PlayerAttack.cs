@@ -6,6 +6,7 @@ using Tiny;
 
 public class PlayerAttack : NetworkBehaviour
 {
+    public GameObject weapon;
     public bool isHoldingWeapon = false;
     public bool isAttacking = false;
     public bool canAttack = true;

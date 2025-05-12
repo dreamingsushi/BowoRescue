@@ -19,9 +19,9 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private float dashCooldown = 0.2f;
 
     [Header("Pickup Settings")]
-    [SerializeField] private Transform itemHolder;
     [SerializeField] private float pickupRange = 2f;
     [SerializeField] private float pickupRadius = 0.5f;
+    [SerializeField] private Vector3 offset = new Vector3(0, 0.6f, 0.8f);
 
     private Vector3 velocity;
     public bool isWalking = false;
@@ -109,10 +109,10 @@ public class PlayerController : NetworkBehaviour
     void Awake()
     {
         controller = GetComponent<CharacterController>();
+        playerInput = GetComponent<PlayerInput>(); 
         if (!IsOwner) return;
         cinemachineCamera = FindAnyObjectByType<CinemachineCamera>();
-        cinemachineCamera.Target.TrackingTarget = transform;
-        playerInput = GetComponent<PlayerInput>();  
+        cinemachineCamera.Target.TrackingTarget = transform; 
     }
 
 
@@ -180,7 +180,8 @@ public class PlayerController : NetworkBehaviour
             if (pickupable != null && !isHeld)
             {
                 heldItem = hit.collider.gameObject;
-                pickupable.OnPickup(itemHolder);
+                pickupable.OnPickup(transform);
+                heldItem.transform.localPosition = offset;
                 isHeld = true;
             }
         }

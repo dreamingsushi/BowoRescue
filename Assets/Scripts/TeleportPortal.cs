@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class TeleportPortal : MonoBehaviour
 {
@@ -7,17 +8,15 @@ public class TeleportPortal : MonoBehaviour
     public TeleportPortal destinationPortal;
     public Collider destinationPortalCollider;
     public PlayerController playerController;
-    private Vector3 originalScale;
+    [SerializeField] private Vector3 originalScale;
 
     private bool isTeleporting = false;
-    private void Start()
-    {
-        originalScale = playerController.gameObject.transform.localScale;
-    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (!isTeleporting && other.CompareTag("Player"))
         {
+            playerController = other.gameObject.GetComponent<PlayerController>();
             Debug.Log("Teleporting");
             StartCoroutine(Teleport(other.transform));
         }
@@ -25,7 +24,6 @@ public class TeleportPortal : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        // Reset teleporting flag only when the player exits
         if (other.CompareTag("Player"))
         {
             isTeleporting = false;
@@ -63,6 +61,7 @@ public class TeleportPortal : MonoBehaviour
         playerController.Jump();
 
         isTeleporting = false;
+        playerController = null;
     }
 
 

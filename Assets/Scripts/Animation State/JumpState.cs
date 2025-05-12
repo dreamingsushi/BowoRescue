@@ -26,6 +26,10 @@ public class JumpState : BaseState
         {
             player.TransitionToState(new WalkState(player));
         }
+        else if (player.health.isInvincible)
+        {
+            //layer.TransitionToState(new HurtState(player));
+        }
     }
 
     public override BaseState GetNextState()

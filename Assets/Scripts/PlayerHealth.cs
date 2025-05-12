@@ -21,7 +21,7 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
     public bool canRegenerate = true;
     public int regenAmount = 1;
     public float regenInterval = 2f;
-
+    [SerializeField] private Animator anim;
     private Coroutine regenCoroutine;
 
     void Start()
@@ -38,6 +38,8 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
     {
         if (!IsOwner) return;
         if (isInvincible || currentHealth <= 0) return;
+
+        anim.SetTrigger("Hurt");
 
         // Apply armor and damage reduction
         float reducedDamage = damageAmount - armor;

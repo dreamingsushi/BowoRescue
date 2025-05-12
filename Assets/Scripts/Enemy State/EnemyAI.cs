@@ -23,8 +23,37 @@ public class EnemyAI : MonoBehaviour
 
     void Update()
     {
+        FindClosestPlayer();
+        
         inattackrange = IsPlayerInAttackRange();
     }
+
+    public void FindClosestPlayer()
+    {
+        Collider[] colliders = Physics.OverlapSphere(transform.position, detectionRadius);
+        float closestDistance = Mathf.Infinity; // Start with an infinite distance
+        Transform nearestPlayer = null;
+
+        foreach (Collider collider in colliders)
+        {
+            if (collider.CompareTag("Player"))
+            {
+                float distance = Vector3.Distance(transform.position, collider.transform.position);
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    nearestPlayer = collider.transform;
+                }
+            }
+        }
+
+        // If a nearest player is found, set it
+        if (nearestPlayer != null)
+        {
+            player = nearestPlayer;
+        }
+    }
+
 
     public bool IsPlayerInRange()
     {
@@ -86,7 +115,7 @@ public class EnemyAI : MonoBehaviour
         rb.isKinematic = false;
         isStunned = true;
         rb.AddForce(force);
-        enemyHealth.TriggerHurtMaterial();
+        enemyHealth.TriggerHurtMaterialClientRpc();
 
         yield return new WaitForFixedUpdate();
         float timeout = 1.5f;

@@ -26,7 +26,12 @@ public class AttackState : BaseState
             {
                 player.TransitionToState(new IdleState(player));
             }
+            else if (player.health.isInvincible)
+            {
+                //player.TransitionToState(new HurtState(player));
+            }
         }
+        
     }
 
     public override BaseState GetNextState()
