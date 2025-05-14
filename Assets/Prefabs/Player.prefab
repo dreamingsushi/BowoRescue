@@ -2678,6 +2678,7 @@ MonoBehaviour:
   pickupRange: 2
   pickupRadius: 0.5
   offset: {x: 0, y: -0.6, z: 0.5}
+  pushForce: 5
   isWalking: 0
   isJumping: 0
   isDashing: 0

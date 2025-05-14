@@ -5,46 +5,28 @@ using UnityEngine.Assertions.Must;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] private GameObject PlayerNameInputField;
-    [SerializeField] private GameObject MainMenuDisplay;
-    [SerializeField] private GameObject RoomOptions;
-    [SerializeField] private GameObject CreateRoomDisplay;
-    [SerializeField] private GameObject LobbySession;
-    [SerializeField] private GameObject Room;
+    [SerializeField] private GameObject MainMenuPanel;
+    [SerializeField] private GameObject StartMenuPanel;
+    [SerializeField] private GameObject SettingsPanel;
 
     void Start()
     {
-        ActivatePanel(PlayerNameInputField.name);
+        ActivatePanel(StartMenuPanel.name);
     }
     public void GoToMainMenu()
     {
-        ActivatePanel(MainMenuDisplay.name);
+        ActivatePanel(MainMenuPanel.name);
     }
-    public void GoToRoomOptions()
+    public void GoToSettings()
     {
-        ActivatePanel(RoomOptions.name);
-    }
-    public void GoToCreateRoomDisplay()
-    {
-        ActivatePanel(CreateRoomDisplay.name);
-    }
-    public void GoToLobbySession()
-    {
-        ActivatePanel(LobbySession.name);
-    }
-    public void GoToRoom()
-    {
-        ActivatePanel(Room.name);
+        ActivatePanel(SettingsPanel.name);
     }
 
     public void ActivatePanel(string panelToBeActivated)
     {
-        PlayerNameInputField.SetActive(panelToBeActivated.Equals(PlayerNameInputField.name));
-        MainMenuDisplay.SetActive(panelToBeActivated.Equals(MainMenuDisplay.name));
-        RoomOptions.SetActive(panelToBeActivated.Equals(RoomOptions.name));
-        CreateRoomDisplay.SetActive(panelToBeActivated.Equals(CreateRoomDisplay.name));
-        LobbySession.SetActive(panelToBeActivated.Equals(LobbySession.name));
-        Room.SetActive(panelToBeActivated.Equals(Room.name));
+        MainMenuPanel.SetActive(panelToBeActivated.Equals(MainMenuPanel.name));
+        StartMenuPanel.SetActive(panelToBeActivated.Equals(StartMenuPanel.name));
+        SettingsPanel.SetActive(panelToBeActivated.Equals(SettingsPanel.name));
     }
 
     public void ExitGame()

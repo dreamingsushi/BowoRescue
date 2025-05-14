@@ -22,19 +22,23 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private float pickupRange = 2f;
     [SerializeField] private float pickupRadius = 0.5f;
     [SerializeField] private Vector3 offset = new Vector3(0, 0.6f, 0.8f);
+    [SerializeField] private float pushForce = 5f;
 
     private Vector3 velocity;
     public bool isWalking = false;
     public bool isJumping = false;
     public bool isDashing = false;
+    public bool isPushing { get; private set; }
     private bool canDash = true;
     private bool isHeld = false;
     private GameObject heldItem = null;
     [SerializeField] public CharacterController controller;
-    private Animator animator;
     [SerializeField] private CinemachineCamera cinemachineCamera;
     private PlayerInput playerInput;
     private Vector2 serverInput;
+    private Vector3 pushDirection;
+    private Vector2 lockedPushInput = Vector2.zero;
+    
 
     [ServerRpc]
     void SendInputServerRpc(Vector2 input)
@@ -50,7 +54,30 @@ public class PlayerController : NetworkBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        m_Direction = context.ReadValue<Vector2>();
+        Vector2 input = context.ReadValue<Vector2>();
+        if (isPushing)
+        {
+            if (Mathf.Abs(pushDirection.x) > 0) // pushing along X
+            {
+                input.y = 0;
+
+                if (lockedPushInput != Vector2.zero && Mathf.Sign(input.x) != Mathf.Sign(lockedPushInput.x))
+                    input.x = 0;
+            }
+            else if (Mathf.Abs(pushDirection.z) > 0) // pushing along Z
+            {
+                input.x = 0;
+
+                if (lockedPushInput != Vector2.zero && Mathf.Sign(input.y) != Mathf.Sign(lockedPushInput.y))
+                    input.y = 0;
+            }
+        }
+        else
+        {
+            lockedPushInput = Vector2.zero;
+        }
+
+        m_Direction = input;
     }
     public void OnDash(InputAction.CallbackContext context)
     {
@@ -76,7 +103,17 @@ public class PlayerController : NetworkBehaviour
                 {
                     PickupItem();
                 }
+
+                if (!isPushing)
+                {
+                    PushBox();
+                }
+                else
+                {
+                    isPushing = false;
+                }
             }
+
         }
     }
     public void OnJump(InputAction.CallbackContext context)
@@ -141,7 +178,6 @@ public class PlayerController : NetworkBehaviour
                 velocity.y = -2f;
             }
             velocity.y += gravity * Time.deltaTime;
-
             controller.Move((movement * m_Speed + velocity) * Time.deltaTime);
         }
 
@@ -196,6 +232,50 @@ public class PlayerController : NetworkBehaviour
             isHeld = false;
         }
     }
+
+    void PushBox()
+    {
+        Vector3 origin = new Vector3(transform.position.x, transform.position.y - 0.8f, transform.position.z);
+
+        if (Physics.SphereCast(origin, pickupRadius, transform.forward, out RaycastHit hit, pickupRange))
+        {
+            IPushable pushable = hit.collider.GetComponent<IPushable>();
+            if (pushable != null && !isPushing)
+            {
+                isPushing = true;
+            }
+        }
+    }
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (!isPushing) return;
+        IPushable pushable = hit.collider.GetComponent<IPushable>();
+        if (pushable == null) return;
+
+        Vector3 direction = hit.collider.transform.position - transform.position;
+        direction.y = 0f;
+
+        Vector3 snapped = Vector3.zero;
+        if (Mathf.Abs(direction.x) > Mathf.Abs(direction.z))
+        {
+            snapped = direction.x > 0 ? Vector3.right : Vector3.left;
+        }
+        else
+        {
+            snapped = direction.z > 0 ? Vector3.forward : Vector3.back;
+        }
+
+        pushDirection = snapped;
+
+        if (Mathf.Abs(pushDirection.x) > 0)
+        lockedPushInput = new Vector2(Mathf.Sign(pushDirection.x), 0);
+        else if (Mathf.Abs(pushDirection.z) > 0)
+        lockedPushInput = new Vector2(0, Mathf.Sign(pushDirection.z));
+
+        pushable.AddForce(snapped * pushForce);
+    }
+
 
 
     void OnDrawGizmosSelected()
