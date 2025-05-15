@@ -13,8 +13,17 @@ using Unity.VisualScripting;
 
 public class MainMenuManager : NetworkBehaviour
 {
+    public static MainMenuManager Instance { get; private set; }
     void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+        
         if (NetworkManager.Singleton != null)
         {
             DontDestroyOnLoad(NetworkManager.Singleton.gameObject);
@@ -23,16 +32,20 @@ public class MainMenuManager : NetworkBehaviour
 
     public void OnHostButtonClicked()
     {
-        //NetworkManager.Singleton.StartHost();
-
         CreateLobby();
 
-        //SceneManager.LoadScene("LobbyScene");
+        NetworkManager.Singleton.StartHost();
+
+        SceneManager.LoadScene("LobbyScene");
     }
 
     public void OnJoinButtonClicked()
     {
         QuickJoinLobby();
+
+        NetworkManager.Singleton.StartClient();
+
+        SceneManager.LoadScene("LobbyScene");
     }
 
     public void ListLobbiesButton()
@@ -45,6 +58,9 @@ public class MainMenuManager : NetworkBehaviour
     private float heartbeatTimer;
     private float lobbyUpdateTimer;
     private string playerName;
+    public void SetJoinedLobby(Lobby lobby) => joinedLobby = lobby;
+    public Lobby GetJoinedLobby() => joinedLobby;
+    public bool IsHosting() => hostLobby != null;
     private async void Start()
     {
         await UnityServices.InitializeAsync();
@@ -227,4 +243,27 @@ public class MainMenuManager : NetworkBehaviour
                 Debug.Log(e);
             }
         }
-    }
+
+        private async void MigrateLobbyHost() {
+            try {
+                hostLobby = await LobbyService.Instance.UpdateLobbyAsync(hostLobby. Id, new UpdateLobbyOptions {
+                        HostId = joinedLobby.Players[1].Id
+                });
+
+                joinedLobby = hostLobby;
+                PrintPlayer(hostLobby);
+            } catch (LobbyServiceException e) {
+                Debug.Log(e);
+            }
+        }
+
+        private async void DeleteLobby()
+        {
+            try {
+                await LobbyService.Instance.DeleteLobbyAsync(joinedLobby.Id);
+            } catch (LobbyServiceException e)
+            {
+                Debug.Log(e);
+            }
+        }
+}
