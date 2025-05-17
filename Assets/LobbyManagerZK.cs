@@ -26,6 +26,7 @@ public class LobbyManagerZK : NetworkBehaviour
         public List<Lobby> lobbyList;
     }
     public const string KEY_PLAYER_NAME = "PlayerName";
+    public const string KEY_PLAYER_READY = "IsReady";
 
     public class LobbyEventArgs : EventArgs
     {
@@ -300,6 +301,39 @@ public class LobbyManagerZK : NetworkBehaviour
             }
         }
     }
+
+    public async void UpdatePlayerReady(bool isReady)
+    {
+        if (joinedLobby != null)
+        {
+            try
+            {
+                UpdatePlayerOptions options = new UpdatePlayerOptions();
+
+                options.Data = new Dictionary<string, PlayerDataObject>() {
+                    {
+                        KEY_PLAYER_READY, new PlayerDataObject(
+                            visibility: PlayerDataObject.VisibilityOptions.Public,
+                            value: isReady.ToString().ToLower())
+                    }
+                };
+
+                string playerId = AuthenticationService.Instance.PlayerId;
+
+                Lobby lobby = await LobbyService.Instance.UpdatePlayerAsync(joinedLobby.Id, playerId, options);
+                joinedLobby = lobby;
+
+                OnJoinedLobbyUpdate?.Invoke(this, new LobbyEventArgs { lobby = joinedLobby });
+            }
+            catch (LobbyServiceException e)
+            {
+                Debug.Log(e);
+            }
+        }
+    }
+
+    
+
 
     public async void LeaveLobby()
     {

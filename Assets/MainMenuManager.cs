@@ -24,7 +24,7 @@ public class MainMenuManager : NetworkBehaviour
         LobbyManagerZK.Instance.OnJoinedLobby -= HandleLobbyJoinedHost;
 
         NetworkManager.Singleton.StartHost();
-        SceneManager.LoadScene("LobbyScene");
+        NetworkManager.Singleton.SceneManager.LoadScene("LobbyScene", LoadSceneMode.Single);
     }
 
     public void OnJoinButtonClicked()
@@ -38,7 +38,6 @@ public class MainMenuManager : NetworkBehaviour
         LobbyManagerZK.Instance.OnJoinedLobby -= HandleLobbyJoinedClient;
 
         NetworkManager.Singleton.StartClient();
-        SceneManager.LoadScene("LobbyScene");
     }
 
 

@@ -48,6 +48,14 @@ public class PlayerController : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
+        StartCoroutine(WaitForCamera());
+    }
+
+    private IEnumerator WaitForCamera()
+    {
+        while (MultiTargetCamera.Instance == null)
+            yield return null;
+
         MultiTargetCamera.Instance.AddTarget(transform);
     }
 
@@ -146,10 +154,7 @@ public class PlayerController : NetworkBehaviour
     void Awake()
     {
         controller = GetComponent<CharacterController>();
-        playerInput = GetComponent<PlayerInput>(); 
-        if (!IsOwner) return;
-        cinemachineCamera = FindAnyObjectByType<CinemachineCamera>();
-        cinemachineCamera.Target.TrackingTarget = transform; 
+        playerInput = GetComponent<PlayerInput>();
     }
 
 

@@ -270,7 +270,7 @@ GameObject:
   - component: {fileID: 222255883198151918}
   - component: {fileID: 1212794824034788769}
   - component: {fileID: 3447708726181315208}
-  - component: {fileID: 2107040773046049425}
+  - component: {fileID: 5446880448443447693}
   m_Layer: 0
   m_Name: MaleCharacterPBR
   m_TagString: Untagged
@@ -337,7 +337,7 @@ MonoBehaviour:
   health: {fileID: 8890873965373619219}
   playerAttack: {fileID: 8258732273839877915}
   animator: {fileID: 1212794824034788769}
---- !u!114 &2107040773046049425
+--- !u!114 &5446880448443447693
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -346,7 +346,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1183012555595627279}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8d0727d5ae3244e3b569694d3912374, type: 3}
+  m_Script: {fileID: 11500000, guid: db5459ffadb094a43bd3d01b1f9e9dc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
@@ -2595,7 +2595,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 900640310
+  GlobalObjectIdHash: 1526736378
   InScenePlacedSourceGlobalObjectIdHash: 1526736378
   DeferredDespawnTick: 0
   Ownership: 1

@@ -38,6 +38,16 @@ public class PlayerCard : MonoBehaviour
     {
         this.player = player;
         playerNameText.text = player.Data[LobbyManagerZK.KEY_PLAYER_NAME].Value;
+
+        if (player.Data.TryGetValue(LobbyManagerZK.KEY_PLAYER_READY, out var readyData))
+        {
+            bool isReady = readyData.Value == "true";
+            SetReadyStatus(isReady);
+        }
+        else
+        {
+            SetReadyStatus(false); // Default
+        }
     }
 
     private void KickPlayer()
@@ -47,4 +57,5 @@ public class PlayerCard : MonoBehaviour
             LobbyManagerZK.Instance.KickPlayer(player.Id);
         }
     }
+
 }

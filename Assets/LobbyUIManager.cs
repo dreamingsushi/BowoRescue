@@ -8,9 +8,8 @@ using Unity.Services.Lobbies.Models;
 using Unity.Services.Authentication;
 using System;
 
-public class LobbyUIManager : NetworkBehaviour
+public class LobbyUIManager : MonoBehaviour
 {
-    public static LobbyUI Instance { get; private set; }
     [SerializeField] private Transform playerSingleTemplate;
     [SerializeField] private Transform container;
     [SerializeField] private TextMeshProUGUI lobbyNameText;
@@ -20,6 +19,9 @@ public class LobbyUIManager : NetworkBehaviour
     [Header("UI References")]
     public Button startGameButton;
     public Button leaveLobbyButton;
+    public Button readyButton;
+
+    private bool isReady = false;
 
 
     private void Start()
@@ -34,6 +36,7 @@ public class LobbyUIManager : NetworkBehaviour
 
         startGameButton.onClick.AddListener(OnStartGamePressed);
         leaveLobbyButton.onClick.AddListener(OnLeaveLobbyPressed);
+        readyButton.onClick.AddListener(ToggleReadyStatus);
     }
 
 
@@ -75,6 +78,9 @@ public class LobbyUIManager : NetworkBehaviour
         lobbyNameText.text = lobby.Name;
         playerCountText.text = lobby.Players.Count + "/" + lobby.MaxPlayers;
 
+        bool isHost = LobbyManagerZK.Instance.IsLobbyHost();
+        startGameButton.gameObject.SetActive(isHost && AreAllPlayersReady());
+
         Show();
     }
 
@@ -99,7 +105,7 @@ public class LobbyUIManager : NetworkBehaviour
 
     void OnStartGamePressed()
     {
-        if (!IsHost) return;
+        if (!LobbyManagerZK.Instance.IsLobbyHost()) return;
 
         // Optional: Only start if all players are ready
         if (!AreAllPlayersReady()) return;
@@ -119,10 +125,33 @@ public class LobbyUIManager : NetworkBehaviour
         var lobby = LobbyManagerZK.Instance.GetJoinedLobby();
         foreach (var player in lobby.Players)
         {
-            if (!player.Data.ContainsKey("Ready") || player.Data["Ready"].Value != "true")
+            if (!player.Data.TryGetValue(LobbyManagerZK.KEY_PLAYER_READY, out var readyData) || readyData.Value != "true")
+            {
                 return false;
+            }
         }
         return true;
     }
+
+    private void ToggleReadyStatus()
+    {
+        isReady = !isReady;
+
+        LobbyManagerZK.Instance.UpdatePlayerReady(isReady);
+    }
+
+    private void OnDestroy()
+    {
+        if (LobbyManagerZK.Instance != null)
+        {
+            LobbyManagerZK.Instance.OnJoinedLobby -= UpdateLobby_Event;
+            LobbyManagerZK.Instance.OnJoinedLobbyUpdate -= UpdateLobby_Event;
+            LobbyManagerZK.Instance.OnLobbyGameModeChanged -= UpdateLobby_Event;
+            LobbyManagerZK.Instance.OnLeftLobby -= LobbyManager_OnLeftLobby;
+            LobbyManagerZK.Instance.OnKickedFromLobby -= LobbyManager_OnLeftLobby;
+        }
+    }
+
+    
     
 }

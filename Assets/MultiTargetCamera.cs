@@ -9,8 +9,16 @@ public class MultiTargetCamera : MonoBehaviour
 
     void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Debug.LogWarning("More than one MultiTargetCamera detected. Destroying duplicate.");
+            Destroy(gameObject);
+            return;
+        }
+
         Instance = this;
     }
+
 
     public void AddTarget(Transform target)
     {
