@@ -75,7 +75,7 @@ public class TeleportPortal : MonoBehaviour
         float elapsed = 0f;
         while (elapsed < duration)
         {
-            float t = elapsed / duration;
+            float t = Mathf.SmoothStep(0f, 1f, elapsed / duration);
             player.localScale = Vector3.Lerp(originalScale, endScale, t);
             player.position = Vector3.Lerp(startPos, endPos, t);
             elapsed += Time.deltaTime;
@@ -100,7 +100,7 @@ public class TeleportPortal : MonoBehaviour
         float elapsed = 0f;
         while (elapsed < duration)
         {
-            float t = elapsed / duration;
+            float t = Mathf.SmoothStep(0f, 1f, elapsed / duration);
             player.localScale = Vector3.Lerp(startScale, endScale, t);
             player.position = Vector3.Lerp(startPos, endPos, t);
             elapsed += Time.deltaTime;

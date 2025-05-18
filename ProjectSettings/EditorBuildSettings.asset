@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 545af8ef35f09f24d84e7a63d1b2f495
   - enabled: 1
-    path: Assets/Scenes/GameScene.unity
+    path: Assets/Scenes/GameScene2.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 0
     path: Assets/NGO_Minimal_Setup/NGO_Setup.unity
@@ -21,7 +21,7 @@ EditorBuildSettings:
     path: Assets/Scenes/LobbyScene.unity
     guid: a574a4349d8ed7146841ade4241860a7
   - enabled: 1
-    path: Assets/Scenes/Island.unity
+    path: Assets/Scenes/GameScene.unity
     guid: deeabd629348d2a4496646c31aa28941
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 5819961220d1784478a7b1d46b5bfed0, type: 3}

@@ -17,6 +17,7 @@ public class MultiTargetCamera : MonoBehaviour
         }
 
         Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
 

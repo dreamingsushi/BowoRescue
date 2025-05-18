@@ -4,6 +4,10 @@ using Unity.Services.Core;
 using Unity.Services.Authentication;
 using Unity.Services.Lobbies.Models;
 using Unity.Services.Lobbies;
+using Unity.Services.Relay;
+using Unity.Services.Relay.Models;
+using Unity.Netcode.Transports.UTP;
+using Unity.Networking.Transport.Relay;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using System;
@@ -27,6 +31,7 @@ public class LobbyManagerZK : NetworkBehaviour
     }
     public const string KEY_PLAYER_NAME = "PlayerName";
     public const string KEY_PLAYER_READY = "IsReady";
+    public const string KEY_RELAY_JOIN_CODE = "RelayJoinCode";
 
     public class LobbyEventArgs : EventArgs
     {
@@ -149,6 +154,37 @@ public class LobbyManagerZK : NetworkBehaviour
 
     }
 
+    public async void CreateRelayAndStartHost()
+    {
+        try
+        {
+            Allocation allocation = await RelayService.Instance.CreateAllocationAsync(3); // 3 = max players - 1
+            string relayJoinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
+
+            await LobbyService.Instance.UpdateLobbyAsync(hostLobby.Id, new UpdateLobbyOptions
+            {
+                Data = new Dictionary<string, DataObject> {
+                    {
+                        KEY_RELAY_JOIN_CODE,
+                        new DataObject(DataObject.VisibilityOptions.Public, relayJoinCode)
+                    }
+                }
+            });
+
+            var utp = (UnityTransport)NetworkManager.Singleton.NetworkConfig.NetworkTransport;
+            utp.SetHostRelayData(allocation.RelayServer.IpV4, (ushort)allocation.RelayServer.Port,
+                allocation.AllocationIdBytes, allocation.Key, allocation.ConnectionData);
+
+            NetworkManager.Singleton.StartHost();
+            
+            NetworkManager.Singleton.SceneManager.LoadScene("LobbyScene", LoadSceneMode.Single);
+        }
+        catch (RelayServiceException e)
+        {
+            Debug.LogError(e);
+        }
+    }
+
     private async void ListLobbies()
     {
         try
@@ -247,6 +283,34 @@ public class LobbyManagerZK : NetworkBehaviour
         catch (LobbyServiceException e)
         {
             Debug.Log(e);
+        }
+    }
+
+    public async void JoinRelayAndStartClient()
+    {
+        try
+        {
+            if (joinedLobby.Data.TryGetValue(KEY_RELAY_JOIN_CODE, out var relayData))
+            {
+                string joinCode = relayData.Value;
+
+                JoinAllocation joinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode);
+
+                var utp = (UnityTransport)NetworkManager.Singleton.NetworkConfig.NetworkTransport;
+                utp.SetClientRelayData(joinAllocation.RelayServer.IpV4, (ushort)joinAllocation.RelayServer.Port,
+                    joinAllocation.AllocationIdBytes, joinAllocation.Key, joinAllocation.ConnectionData,
+                    joinAllocation.HostConnectionData);
+
+                NetworkManager.Singleton.StartClient();
+            }
+            else
+            {
+                Debug.LogError("Relay join code not found in lobby data!");
+            }
+        }
+        catch (RelayServiceException e)
+        {
+            Debug.LogError(e);
         }
     }
 

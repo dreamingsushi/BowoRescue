@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PressurePlate : MonoBehaviour
 {
-    public GameObject door;
+    public Gate targetGate;
     public Animator anim;
     private bool objectOnPlate = false;
 
@@ -17,7 +17,7 @@ public class PressurePlate : MonoBehaviour
         {
             objectOnPlate = true;
             anim.SetBool("IsPressed", true);
-            OpenDoor();
+            targetGate.OpenGate();
         }
     }
 
@@ -27,21 +27,7 @@ public class PressurePlate : MonoBehaviour
         {
             objectOnPlate = false;
             anim.SetBool("IsPressed", false);
-            CloseDoor();
+            targetGate.CloseGate();
         }
-    }
-
-    void OpenDoor()
-    {
-        if (door != null)
-            door.SetActive(false); // Or use animator if needed
-        Debug.Log("Door opened!");
-    }
-
-    void CloseDoor()
-    {
-        if (door != null)
-            door.SetActive(true); // Or use animator if needed
-        Debug.Log("Door closed!");
     }
 }

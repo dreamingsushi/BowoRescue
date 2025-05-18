@@ -1658,6 +1658,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 768356231}
+  - component: {fileID: 768356232}
   m_Layer: 0
   m_Name: Cameras
   m_TagString: Untagged
@@ -1683,6 +1684,19 @@ Transform:
   - {fileID: 338208125}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &768356232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 768356230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0d33712f6667f54d95c72e7bc377048, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetGroup: {fileID: 338208126}
 --- !u!1 &893000120
 GameObject:
   m_ObjectHideFlags: 0
@@ -3069,7 +3083,6 @@ GameObject:
   - component: {fileID: 1817491481}
   - component: {fileID: 1817491480}
   - component: {fileID: 1817491479}
-  - component: {fileID: 1817491478}
   m_Layer: 0
   m_Name: Cinemachine Camera
   m_TagString: Untagged
@@ -3092,19 +3105,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 768356231}
   m_LocalEulerAnglesHint: {x: 60, y: 0, z: 0}
---- !u!114 &1817491478
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1817491476}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0d33712f6667f54d95c72e7bc377048, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetGroup: {fileID: 338208126}
 --- !u!114 &1817491479
 MonoBehaviour:
   m_ObjectHideFlags: 0
