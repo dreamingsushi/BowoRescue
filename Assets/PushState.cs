@@ -1,23 +1,28 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class IdleState : BaseState
+public class PushState : BaseState
 {
-    public IdleState(PlayerStateMachine player) : base(player) { }
+    public PushState(PlayerStateMachine player) : base(player) { }
 
     public override void EnterState()
     {
-        
+        player.animator.SetBool("isPushing",true);
     }
 
     public override void ExitState()
     {
-
+        player.animator.SetBool("isPushing",false);
     }
 
     public override void UpdateState()
     {
-        if (player.controller.isWalking)
+        if (player.controller.isPushing) return;
+
+        if (!player.controller.isWalking)
+        {
+            player.TransitionToState(new IdleState(player));
+        }
+        else if (player.controller.isWalking)
         {
             player.TransitionToState(new WalkState(player));
         }
@@ -28,10 +33,6 @@ public class IdleState : BaseState
         else if (player.controller.isJumping)
         {
             player.TransitionToState(new JumpState(player));
-        }
-        else if (player.controller.isPushing)
-        {
-            player.TransitionToState(new PushState(player));
         }
     }
 

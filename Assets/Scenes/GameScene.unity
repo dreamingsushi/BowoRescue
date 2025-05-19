@@ -270,7 +270,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2411372
 Transform:
   m_ObjectHideFlags: 0
@@ -7845,7 +7845,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
@@ -9662,7 +9662,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: a064ff80fd7cae548835d3601a29b0ca, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 63bcd296ca9c66248abd4f6d1674f2cb, type: 2}
   m_BuildHeightMesh: 0
 --- !u!4 &289126326
 Transform:
@@ -53056,17 +53056,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1260534701979599127, guid: 36c6ce661f3630e4ea7d54a3144e8a31, type: 3}
+      propertyPath: UseRigidBodyForMotion
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2434816533718125649, guid: 36c6ce661f3630e4ea7d54a3144e8a31, type: 3}
       propertyPath: m_Drag
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2434816533718125649, guid: 36c6ce661f3630e4ea7d54a3144e8a31, type: 3}
       propertyPath: m_Mass
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7095828247833248933, guid: 36c6ce661f3630e4ea7d54a3144e8a31, type: 3}
       propertyPath: m_Name
       value: HeavyCrate
+      objectReference: {fileID: 0}
+    - target: {fileID: 7095828247833248933, guid: 36c6ce661f3630e4ea7d54a3144e8a31, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8691066978362611981, guid: 36c6ce661f3630e4ea7d54a3144e8a31, type: 3}
       propertyPath: m_LocalPosition.x

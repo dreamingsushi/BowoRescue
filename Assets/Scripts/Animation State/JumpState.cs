@@ -30,6 +30,10 @@ public class JumpState : BaseState
         {
             //layer.TransitionToState(new HurtState(player));
         }
+        else if (player.controller.isPushing)
+        {
+            player.TransitionToState(new PushState(player));
+        }
     }
 
     public override BaseState GetNextState()

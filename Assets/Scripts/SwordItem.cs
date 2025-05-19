@@ -33,9 +33,9 @@ public class SwordItem : NetworkBehaviour, IPickupable
         playerAttack.isHoldingWeapon = true;
 
         transform.SetParent(holder);
-        transform.gameObject.SetActive(false);
         transform.localPosition = new Vector3(0, -0.6f, 0.8f);
         transform.localRotation = Quaternion.identity;
+        transform.gameObject.SetActive(false);
         GetComponent<Rigidbody>().isKinematic = true;
         
         playerAttack.weapon.SetActive(true);
