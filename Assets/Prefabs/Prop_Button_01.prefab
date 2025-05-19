@@ -67,7 +67,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 799218940088600144, guid: c9d8d61d34cdb3d449415a3282f5b93f, type: 3}
+  - {fileID: 2100000, guid: 378cba02fe4951348a11f14764d737e6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -125,6 +125,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetGate: {fileID: 0}
   anim: {fileID: 0}
+  defaultColor: {r: 1, g: 0, b: 0, a: 1}
+  pressedColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!136 &8928628683996601345
 CapsuleCollider:
   m_ObjectHideFlags: 0
