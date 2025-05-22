@@ -7,34 +7,6 @@ public class MultiTargetCamera : MonoBehaviour
 
     public CinemachineTargetGroup targetGroup;
 
-    public Material normalMaterial;
-    public Material ghostMaterial;
-
-    private Camera cam;
-    private Renderer rend;
-
-    void Start()
-    {
-        cam = Camera.main; // Gets the camera that Cinemachine controls
-        rend = GetComponent<Renderer>();
-    }
-
-    void Update()
-    {
-        Vector3 dir = transform.position - cam.transform.position;
-        if (Physics.Raycast(cam.transform.position, dir, out RaycastHit hit))
-        {
-            if (hit.transform != transform)
-                rend.material = ghostMaterial;
-            else
-                rend.material = normalMaterial;
-        }
-        else
-        {
-            rend.material = normalMaterial;
-        }
-    }
-
     void Awake()
     {
         if (Instance != null && Instance != this)
