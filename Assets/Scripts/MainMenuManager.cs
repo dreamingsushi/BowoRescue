@@ -2,15 +2,29 @@ using UnityEngine;
 using System;
 using Unity.Netcode;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 public class MainMenuManager : NetworkBehaviour
 {
 
     private string lobbyName;
     private bool isPrivate;
     private int maxPlayers;
+    public Button targetButton;
     public void OnStartButtonClicked()
     {
 
+    }
+
+    void Update()
+    {
+        if (Input.anyKeyDown)
+        {
+            // Optional: Check if the button is interactable and visible
+            if (targetButton != null && targetButton.interactable && targetButton.gameObject.activeInHierarchy)
+            {
+                targetButton.onClick.Invoke();
+            }
+        }
     }
 
     public void OnHostButtonClicked()

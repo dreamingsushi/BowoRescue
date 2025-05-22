@@ -14,6 +14,7 @@ public class SwordItem : NetworkBehaviour, IPickupable
         }
 
         FinalizePickup(holder);
+        UpdateSwordClientRpc(holder.GetComponent<NetworkObject>());
     }
 
     [ServerRpc(RequireOwnership = false)]
