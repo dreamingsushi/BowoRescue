@@ -33,6 +33,10 @@ public class IdleState : BaseState
         {
             player.TransitionToState(new PushState(player));
         }
+        else if (player.health.isDead.Value)
+        {
+            player.TransitionToState(new DeadState(player));
+        }
     }
 
     public override BaseState GetNextState()

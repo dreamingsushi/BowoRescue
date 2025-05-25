@@ -1,13 +1,13 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public enum PartType { Body, Eyes, Head, Mouth }
+public enum PartType { Body, Head, Hair, Helmet, LeftArm, RightArm }
+
 
 [System.Serializable]
 public class CustomPart
 {
     public PartType partType;
-    public MeshFilter renderer;
-    public List<Mesh> options;
+    public List<GameObject> options;
     [HideInInspector] public int currentIndex = 0;
 }

@@ -2534,6 +2534,7 @@ GameObject:
   - component: {fileID: 8890873965373619219}
   - component: {fileID: 3877857274039289081}
   - component: {fileID: 8258732273839877915}
+  - component: {fileID: 6704937748624429756}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -2595,7 +2596,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1216817252
+  GlobalObjectIdHash: 1526736378
   InScenePlacedSourceGlobalObjectIdHash: 1526736378
   DeferredDespawnTick: 0
   Ownership: 1
@@ -2700,8 +2701,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  maxHealth: 100
-  currentHealth: 0
+  maxHealth: 30
+  currentHealth:
+    m_InternalValue: 0
   armor: 0
   damageReductionPercent: 0.1
   isInvincible: 0
@@ -2710,6 +2712,7 @@ MonoBehaviour:
   regenAmount: 1
   regenInterval: 2
   anim: {fileID: 1212794824034788769}
+  isDead: 0
 --- !u!114 &3877857274039289081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2841,6 +2844,20 @@ MonoBehaviour:
   dmgCollider: {fileID: 27534236780173378}
   attackDuration: 0.1
   attackCooldown: 0.5
+--- !u!114 &6704937748624429756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7197259382323631843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a56c0f95ba5e1254a8044a792676409b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  teleportDestination: {x: 0, y: 1, z: 0}
 --- !u!1 &7219760764878755384
 GameObject:
   m_ObjectHideFlags: 0

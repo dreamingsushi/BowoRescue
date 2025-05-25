@@ -52,7 +52,7 @@ public class TeleportPortal : MonoBehaviour
         yield return destinationPortal.StartCoroutine(destinationPortal.PopOutOfPortal(player, 0.25f, originalScale));
 
         // Step 5: Wait until player exits destination portal, then re-enable it
-        yield return new WaitForSeconds(0.01f);
+        yield return new WaitForSeconds(0.02f);
         //yield return new WaitUntil(() => !destinationPortalCollider.bounds.Contains(player.position));
         destinationPortal.isTeleporting = false;
 
