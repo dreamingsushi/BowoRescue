@@ -28,6 +28,8 @@ public class PlayerController : NetworkBehaviour
     [Header("References")]
     [SerializeField] public CharacterController controller;
     [SerializeField] private CinemachineCamera cinemachineCamera;
+    [SerializeField] private GameObject pauseMenu;
+    private bool isMenuOpen = false;
 
     // Movement State
     private Vector3 velocity;
@@ -200,6 +202,33 @@ public class PlayerController : NetworkBehaviour
             }
         }
     }
+    public void OnMenu(InputAction.CallbackContext context)
+    {
+        if (!IsOwner || !context.performed) return;
+
+        isMenuOpen = !isMenuOpen;
+
+        if (isMenuOpen)
+        {
+            OpenMenu();
+        }
+        else
+        {
+            CloseMenu();
+        }
+    }
+
+    // --- UI Logic ---
+    private void OpenMenu()
+    {
+        pauseMenu.SetActive(true);
+    }
+
+    private void CloseMenu()
+    {
+        pauseMenu.SetActive(false);
+    }
+
 
     // --- Input Networking ---
 

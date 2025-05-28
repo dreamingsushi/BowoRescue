@@ -1,13 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Assertions.Must;
+using UnityEngine.EventSystems;
 
 public class UIManager : MonoBehaviour
 {
     [SerializeField] private GameObject MainMenuPanel;
     [SerializeField] private GameObject StartMenuPanel;
     [SerializeField] private GameObject SettingsPanel;
+    [SerializeField] private GameObject audioPanel;
+    [SerializeField] private GameObject graphicsPanel;
+    [SerializeField] private GameObject quitPanel;
+
+    [SerializeField] private GameObject defaultMainButton;
+    [SerializeField] private GameObject defaultSettingsButton;
+    [SerializeField] private GameObject defaultQuitButton;
+    private GameObject currentDefaultButton;
 
     void Start()
     {
@@ -16,10 +22,12 @@ public class UIManager : MonoBehaviour
     public void GoToMainMenu()
     {
         ActivatePanel(MainMenuPanel.name);
+        AudioManager.Instance.PlaySFX("Menu");
     }
     public void GoToSettings()
     {
         ActivatePanel(SettingsPanel.name);
+        AudioManager.Instance.PlaySFX("Menu");
     }
 
     public void ActivatePanel(string panelToBeActivated)
@@ -27,11 +35,50 @@ public class UIManager : MonoBehaviour
         MainMenuPanel.SetActive(panelToBeActivated.Equals(MainMenuPanel.name));
         StartMenuPanel.SetActive(panelToBeActivated.Equals(StartMenuPanel.name));
         SettingsPanel.SetActive(panelToBeActivated.Equals(SettingsPanel.name));
+        quitPanel.SetActive(panelToBeActivated.Equals(quitPanel.name));
+
+        if (panelToBeActivated.Equals(MainMenuPanel.name)) currentDefaultButton = defaultMainButton;
+        else if (panelToBeActivated.Equals(SettingsPanel.name)) currentDefaultButton = defaultSettingsButton;
+        else if (panelToBeActivated.Equals(quitPanel.name)) currentDefaultButton = defaultQuitButton;
+
+
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(currentDefaultButton);
     }
 
-    public void ExitGame()
+    public void ActivateSettingsPanel(string panelToBeActivated)
     {
-        Application.Quit();
+        audioPanel.SetActive(panelToBeActivated.Equals(audioPanel.name));
+        graphicsPanel.SetActive(panelToBeActivated.Equals(graphicsPanel.name));
+    }
+
+    public void OpenAudioSettings()
+    {
+        ActivateSettingsPanel(audioPanel.name);
+        AudioManager.Instance.PlaySFX("Menu");
+    }
+
+    public void OpenGraphicsSettings()
+    {
+        ActivateSettingsPanel(graphicsPanel.name);
+        AudioManager.Instance.PlaySFX("Menu");
+    }
+
+    public void OpenQuitMenu()
+    {
+        ActivatePanel(quitPanel.name);
+        AudioManager.Instance.PlaySFX("Menu");
+    }
+    
+    void Update()
+    {
+        if (EventSystem.current.currentSelectedGameObject == null && currentDefaultButton != null)
+        {
+            if (Input.GetAxisRaw("Vertical") != 0 || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                EventSystem.current.SetSelectedGameObject(currentDefaultButton);
+            }
+        }
     }
 
 }

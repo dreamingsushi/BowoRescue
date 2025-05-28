@@ -15,6 +15,9 @@ public class LobbyUIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI lobbyNameText;
     [SerializeField] private TextMeshProUGUI playerCountText;
 
+    private CharacterCustomization characterCustomization;
+    public GameObject canvas;
+
 
     [Header("UI References")]
     public Button startGameButton;
@@ -29,6 +32,7 @@ public class LobbyUIManager : MonoBehaviour
         LobbyManagerZK.Instance.OnJoinedLobby += UpdateLobby_Event;
         LobbyManagerZK.Instance.OnJoinedLobbyUpdate += UpdateLobby_Event;
         LobbyManagerZK.Instance.OnLobbyGameModeChanged += UpdateLobby_Event;
+        LobbyManagerZK.Instance.OnPlayerUpdateName += UpdateLobby_Event;
         LobbyManagerZK.Instance.OnLeftLobby += LobbyManager_OnLeftLobby;
         LobbyManagerZK.Instance.OnKickedFromLobby += LobbyManager_OnLeftLobby;
 
@@ -37,6 +41,8 @@ public class LobbyUIManager : MonoBehaviour
         startGameButton.onClick.AddListener(OnStartGamePressed);
         leaveLobbyButton.onClick.AddListener(OnLeaveLobbyPressed);
         readyButton.onClick.AddListener(ToggleReadyStatus);
+
+        characterCustomization = FindAnyObjectByType<CharacterCustomization>();
     }
 
 
@@ -152,6 +158,10 @@ public class LobbyUIManager : MonoBehaviour
         }
     }
 
-    
+    public void OpenCharacterMenu()
+    {
+        canvas.SetActive(false);
+        characterCustomization.customizeCamera.SetActive(true);
+    }
     
 }

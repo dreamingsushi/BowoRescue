@@ -55,6 +55,11 @@ public class MainMenuManager : NetworkBehaviour
         //NetworkManager.Singleton.StartClient();
     }
 
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
+
 
 
 }

@@ -15,22 +15,22 @@ MonoBehaviour:
   active: 1
   rotation:
     m_OverrideState: 0
-    m_Value: 61
+    m_Value: 18
   skyIntensityMode:
     m_OverrideState: 1
     m_Value: 0
   exposure:
     m_OverrideState: 1
-    m_Value: 15.1
+    m_Value: 14.7
   multiplier:
     m_OverrideState: 0
     m_Value: 1
   upperHemisphereLuxValue:
     m_OverrideState: 1
-    m_Value: 1.7263916
+    m_Value: 0.09010033
   upperHemisphereLuxColor:
     m_OverrideState: 1
-    m_Value: {x: 0.5, y: 0.3881157, z: 0.33667165}
+    m_Value: {x: 0.017968755, y: 0.1818907, z: 0.5}
   desiredLuxValue:
     m_OverrideState: 0
     m_Value: 20000
@@ -45,7 +45,7 @@ MonoBehaviour:
     m_Value: 0
   hdriSky:
     m_OverrideState: 1
-    m_Value: {fileID: 8900000, guid: 1153dc89e66880c4eb7adc16ba588855, type: 3}
+    m_Value: {fileID: 8900000, guid: 6b1d9786203d21246bc448213b0f9aed, type: 3}
   distortionMode:
     m_OverrideState: 0
     m_Value: 0
@@ -279,11 +279,11 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 1
   rayTracing:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 1
   intensity:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 1.39
   directLightingStrength:
     m_OverrideState: 0
     m_Value: 0
@@ -520,14 +520,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   active: 1
   quality:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 1
   threshold:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 0.7
   intensity:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 0.609
   scatter:
     m_OverrideState: 0
     m_Value: 0.7
@@ -544,13 +544,13 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 1
   m_Resolution:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 2
   m_HighQualityPrefiltering:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 0
   m_HighQualityFiltering:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 1
 --- !u!114 &6348843796846852657
 MonoBehaviour:

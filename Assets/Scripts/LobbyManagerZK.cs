@@ -25,6 +25,7 @@ public class LobbyManagerZK : NetworkBehaviour
     public event EventHandler<LobbyEventArgs> OnKickedFromLobby;
     public event EventHandler<LobbyEventArgs> OnLobbyGameModeChanged;
     public event EventHandler<OnLobbyListChangedEventArgs> OnLobbyListChanged;
+    public event EventHandler<LobbyEventArgs> OnPlayerUpdateName;
     public class OnLobbyListChangedEventArgs : EventArgs
     {
         public List<Lobby> lobbyList;
@@ -337,7 +338,7 @@ public class LobbyManagerZK : NetworkBehaviour
     public async void UpdatePlayerName(string playerName)
     {
         this.playerName = playerName;
-
+        OnPlayerUpdateName?.Invoke(this, new LobbyEventArgs { lobby = joinedLobby });
         if (joinedLobby != null)
         {
             try
