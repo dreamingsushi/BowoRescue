@@ -5,13 +5,18 @@ public class EnemyStateManager : MonoBehaviour
 {
     public EnemyAI enemyAI;
     public Animator animator;
+    public EnemyHealth health;
     private EnemyBaseState currentState;
     private float stateTimer;
     public float TimeInState => stateTimer;
 
-     void Start()
+    void Start()
     {
         TransitionToState(new EnemyIdleState(this));
+
+        animator = GetComponentInChildren<Animator>();
+
+        health = GetComponent<EnemyHealth>();
     }
 
     void Update()

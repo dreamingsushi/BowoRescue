@@ -20,10 +20,13 @@ public class EnemyChaseState : EnemyBaseState
         {
             enemy.TransitionToState(new EnemyAttackState(enemy));
         }
-
-        if (enemy.enemyAI.isStunned)
+        else if (enemy.enemyAI.isStunned)
         {
             enemy.TransitionToState(new EnemyHurtState(enemy));
+        }
+        else if (enemy.health.isDead)
+        {
+            enemy.TransitionToState(new EnemyDeadState(enemy));
         }
     }
 

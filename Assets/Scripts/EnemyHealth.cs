@@ -1,5 +1,6 @@
 using UnityEngine;
 using Unity.Netcode;
+using System.Collections;
 
 [RequireComponent(typeof(EnemyAI))]
 public class EnemyHealth : NetworkBehaviour, IDamageable, IKnockbackable
@@ -8,22 +9,24 @@ public class EnemyHealth : NetworkBehaviour, IDamageable, IKnockbackable
     private float currentHealth;
     public SkinnedMeshRenderer mesh;
     private EnemyAI enemyAI;
+    public bool isDead = false;
 
     void Start()
     {
         currentHealth = maxHealth;
         enemyAI = GetComponent<EnemyAI>();
+        isDead = false;
     }
 
     public void TakeDamage(float damage)
     {
-        if (!IsServer) return;
+        if (!IsServer || isDead) return;
 
         currentHealth -= damage;
 
         if (currentHealth <= 0f)
         {
-            Die();
+            StartCoroutine(Die());
         }
 
         TriggerHurtMaterialClientRpc();
@@ -31,17 +34,23 @@ public class EnemyHealth : NetworkBehaviour, IDamageable, IKnockbackable
 
     public void GetKnockedBack(Vector3 force)
     {
-        if (!IsServer) return;
+        if (!IsServer || isDead) return;
 
         StartCoroutine(enemyAI.ApplyKnockback(force));
         TriggerHurtMaterialClientRpc();
     }
 
-    private void Die()
+    private IEnumerator Die()
     {
-        Debug.Log($"{gameObject.name} died.");
+        if (isDead) yield break;
+
+        isDead = true;
+        Debug.Log($"{gameObject.name} died... will be destroyed in 2 seconds.");
         DestroyEnemyClientRpc(); // sync death visuals to clients
-        Destroy(gameObject); // server destroys object
+
+        yield return new WaitForSeconds(2f); // delay
+
+        Destroy(gameObject); // actual destroy after delay
     }
 
     [ClientRpc]
@@ -53,6 +62,8 @@ public class EnemyHealth : NetworkBehaviour, IDamageable, IKnockbackable
     [ClientRpc]
     public void TriggerHurtMaterialClientRpc()
     {
+        if (mesh == null) return;
+
         mesh.material.color = Color.red;
 
         CancelInvoke(nameof(BackToOriginalMaterial));
@@ -61,6 +72,8 @@ public class EnemyHealth : NetworkBehaviour, IDamageable, IKnockbackable
 
     public void BackToOriginalMaterial()
     {
+        if (mesh == null) return;
+
         mesh.material.color = Color.white;
     }
 }

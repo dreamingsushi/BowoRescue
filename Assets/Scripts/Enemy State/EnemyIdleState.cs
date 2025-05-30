@@ -15,6 +15,10 @@ public class EnemyIdleState : EnemyBaseState
         {
             enemy.TransitionToState(new EnemyChaseState(enemy));
         }
+        else if (enemy.health.isDead)
+        {
+            enemy.TransitionToState(new EnemyDeadState(enemy));
+        }
     }
 
     public override void ExitState() { 

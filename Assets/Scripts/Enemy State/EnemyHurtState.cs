@@ -16,6 +16,10 @@ public class EnemyHurtState : EnemyBaseState
         {
             enemy.TransitionToState(new EnemyChaseState(enemy));
         }
+        else if (enemy.health.isDead)
+        {
+            enemy.TransitionToState(new EnemyDeadState(enemy));
+        }
     }
 
 
