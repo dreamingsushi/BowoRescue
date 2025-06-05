@@ -23,6 +23,7 @@ public class EnemyAI : MonoBehaviour
 
     void Update()
     {
+        if (enemyHealth.isDead) return;
         FindClosestPlayer();
         
         inattackrange = IsPlayerInAttackRange();

@@ -19,4 +19,12 @@ public class DamageCollider : MonoBehaviour
             knockbackable.GetKnockedBack(force);
         }
     }
+
+    void OnParticleCollision(GameObject other)
+    {
+        if (other.TryGetComponent(out IDamageable damageable))
+        {
+            damageable.TakeDamage(damageAmount);
+        }
+    }
 }

@@ -29,7 +29,9 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] public CharacterController controller;
     [SerializeField] private CinemachineCamera cinemachineCamera;
     [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private GameObject emoteWheel;
     private bool isMenuOpen = false;
+
 
     // Movement State
     private Vector3 velocity;
@@ -215,6 +217,20 @@ public class PlayerController : NetworkBehaviour
         else
         {
             CloseMenu();
+        }
+    }
+
+    public void OnEmote(InputAction.CallbackContext context)
+    {
+        if (!IsOwner) return;
+
+        if (context.started || context.performed)
+        {
+            emoteWheel.SetActive(true);
+        }
+        else if (context.canceled)
+        {
+            emoteWheel.SetActive(false);
         }
     }
 

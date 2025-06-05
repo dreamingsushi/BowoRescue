@@ -28,6 +28,7 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
     private Coroutine regenCoroutine;
     private PlayerTeleporter playerTeleporter;
     private PlayerController playerController;
+    [SerializeField] private HealthBarUI healthBarUI;
 
     private void Start()
     {
@@ -69,6 +70,8 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
 
         Debug.Log("Took damage: " + reducedDamage + " | Current Health: " + currentHealth.Value);
 
+        UpdateHealthBarClientRpc(currentHealth.Value);
+
         if (currentHealth.Value <= 0)
         {
             DieServerRpc(); // already server-side
@@ -78,6 +81,15 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
             StartCoroutine(TriggerInvincibility());
         }
     }
+    [ClientRpc]
+    private void UpdateHealthBarClientRpc(int health)
+    {
+        if (healthBarUI != null)
+        {
+            healthBarUI.SetHealth(health, maxHealth);
+        }
+    }
+
     [ClientRpc]
     private void PlayHurtAnimationClientRpc()
     {
@@ -100,6 +112,7 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
 
         currentHealth.Value += amount;
         currentHealth.Value = Mathf.Clamp(currentHealth.Value, 0, maxHealth);
+        UpdateHealthBarClientRpc(currentHealth.Value);
 
         Debug.Log("Healed: " + amount + " | Current Health: " + currentHealth.Value);
     }

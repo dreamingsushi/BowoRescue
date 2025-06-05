@@ -12,13 +12,16 @@ public class CharacterCustomization : MonoBehaviour
     public GameObject customizeCamera;
     private LobbyUIManager lobbyUIManager;
     private PlayerCharacter playerCharacter;
+    private PlayerManager playerManager;
 
     void Start()
     {
         LoadCustomization();
 
         lobbyUIManager = FindAnyObjectByType<LobbyUIManager>();
+
         playerCharacter = FindAnyObjectByType<PlayerCharacter>();
+        playerManager = FindAnyObjectByType<PlayerManager>();
     }
 
     public void NextPart(PartType type) => ChangePart(type, +1);
@@ -150,6 +153,7 @@ public class CharacterCustomization : MonoBehaviour
             Debug.Log($"Player name set to: {playerName}");
             SendCustomizationToNetworkedPlayer();
             playerCharacter.LoadAndApplySavedCustomization();
+            playerManager.NameUpdate();
         }
         else
         {
