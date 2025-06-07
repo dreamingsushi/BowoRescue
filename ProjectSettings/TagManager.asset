@@ -7,6 +7,8 @@ TagManager:
   - PickupItem
   - TrackingObject
   - Playercam
+  - Axe
+  - Sword
   layers:
   - Default
   - TransparentFX
@@ -41,6 +43,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: VFX
+    uniqueID: 2220710503
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

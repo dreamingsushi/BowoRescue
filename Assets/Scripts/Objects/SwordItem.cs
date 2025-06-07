@@ -39,7 +39,7 @@ public class SwordItem : NetworkBehaviour, IPickupable
         transform.gameObject.SetActive(false);
         GetComponent<Rigidbody>().isKinematic = true;
         
-        playerAttack.weapon.SetActive(true);
+        playerAttack.EquipWeapon(gameObject);
 
         Debug.Log("Sword picked up!");
     }
@@ -58,7 +58,7 @@ public class SwordItem : NetworkBehaviour, IPickupable
             PlayerAttack attack = holder.GetComponent<PlayerAttack>();
             if (attack != null)
             {
-                attack.weapon.SetActive(true);
+                playerAttack.EquipWeapon(gameObject);
                 attack.isHoldingWeapon = true;
             }
 
@@ -94,7 +94,7 @@ public class SwordItem : NetworkBehaviour, IPickupable
     {
         var attack = holder.GetComponent<PlayerAttack>();
         attack.isHoldingWeapon = false;
-        attack.weapon.SetActive(false);
+        attack.equippedWeapon.SetActive(false);
 
         transform.SetParent(null);
         transform.gameObject.SetActive(true);
@@ -115,7 +115,7 @@ public class SwordItem : NetworkBehaviour, IPickupable
             if (attack != null)
             {
                 attack.isHoldingWeapon = false;
-                attack.weapon.SetActive(false);
+                attack.equippedWeapon.SetActive(false);
             }
         }
 

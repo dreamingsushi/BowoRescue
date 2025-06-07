@@ -6,7 +6,8 @@ using Tiny;
 
 public class PlayerAttack : NetworkBehaviour
 {
-    public GameObject weapon;
+    public GameObject[] weapons; 
+    public GameObject equippedWeapon;
     public bool isHoldingWeapon = false;
     public bool isAttacking = false;
     public bool canAttack = true;
@@ -40,4 +41,28 @@ public class PlayerAttack : NetworkBehaviour
         yield return new WaitForSeconds(attackCooldown);
         canAttack = true;
     }
+
+    public void EquipWeapon(GameObject weaponObject)
+    {
+        foreach (var w in weapons)
+            {
+                if (w.CompareTag(weaponObject.tag))
+                {
+                    equippedWeapon = w;
+                    equippedWeapon.SetActive(true);
+
+                    vfx = equippedWeapon.GetComponentInChildren<Trail>();
+                    dmgCollider = equippedWeapon.GetComponentInChildren<Collider>();
+
+                    if (vfx != null) vfx.enabled = false;
+                    if (dmgCollider != null) dmgCollider.enabled = false;
+
+                    break;
+                }
+            }
+
+            isHoldingWeapon = true;
+            weaponObject.SetActive(false);
+    }
+
 }

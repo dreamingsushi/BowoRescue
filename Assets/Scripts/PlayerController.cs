@@ -30,6 +30,7 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private CinemachineCamera cinemachineCamera;
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject emoteWheel;
+    private DialogueManager dialogueManager;
     private bool isMenuOpen = false;
 
 
@@ -44,6 +45,7 @@ public class PlayerController : NetworkBehaviour
     public bool isPulling = false;
     private bool canDash = true;
     private bool isHeld = false;
+    private NPC nearbyNPC;
     private GameObject heldItem = null;
 
     // Input State
@@ -61,6 +63,7 @@ public class PlayerController : NetworkBehaviour
     {
         controller = GetComponent<CharacterController>();
         playerInput = GetComponent<PlayerInput>();
+        dialogueManager = GetComponent<DialogueManager>();
     }
 
     public override void OnNetworkSpawn()
@@ -188,6 +191,13 @@ public class PlayerController : NetworkBehaviour
 
         if (context.performed)
         {
+            if (nearbyNPC != null)
+            {
+                dialogueManager.StartDialogue(nearbyNPC.dialogueData);
+                nearbyNPC.StartTalking();
+                return; // skip item interaction if talking
+            }
+
             if (isHeld)
                 DropItem();
             else
@@ -380,6 +390,17 @@ public class PlayerController : NetworkBehaviour
     public void EnableInputs()
     {
         playerInput.ActivateInput();
+    }
+
+    // --- NPC Dialogue ---
+    public void SetNearbyNPC(NPC npc)
+    {
+        nearbyNPC = npc;
+    }
+
+    public void ClearNearbyNPC()
+    {
+        nearbyNPC = null;
     }
 
     // --- Debug Visuals ---
