@@ -4,7 +4,7 @@ public class Statue : MonoBehaviour
 {
     public enum GemColor { Red, Blue, Yellow }
     public GemColor requiredGem;
-    public GameObject gem;
+    public GameObject gemObject;
     private bool isActivated = false;
 
     public void InsertGem(GemColor gem)
@@ -14,6 +14,7 @@ public class Statue : MonoBehaviour
         if (gem == requiredGem)
         {
             isActivated = true;
+            gemObject.SetActive(true);
             Debug.Log($"{requiredGem} Statue Activated!");
         }
         else
