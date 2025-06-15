@@ -24,7 +24,7 @@ public class PlayerTeleporter : NetworkBehaviour
 
     public IEnumerator TPOnSceneLoad()
     {
-        yield return new WaitUntil(() => IsOwner && IsSpawned && SceneManager.GetActiveScene().name == "GameScene");
+        yield return new WaitUntil(() => IsOwner && IsSpawned && SceneManager.GetActiveScene().name == "Level 1");
         Teleport(teleportDestination);
     }
 

@@ -3,7 +3,7 @@ using Unity.Netcode;
 
 public class GemItem : NetworkBehaviour, IPickupable
 {
-    public Statue.GemColor gemColor;    
+    public Statue.GemColor gemColor;
     [SerializeField] private LayerMask statueLayer;
     [SerializeField] private float detectionRadius = 1.2f;
 
@@ -11,7 +11,15 @@ public class GemItem : NetworkBehaviour, IPickupable
     {
         if (!IsServer)
         {
-            ReparentServerRpc(holder.GetComponent<NetworkObject>());
+            var netObj = holder.GetComponent<NetworkObject>();
+            if (netObj != null && netObj.IsSpawned)
+            {
+                ReparentServerRpc(new NetworkObjectReference(netObj));
+            }
+            else
+            {
+                Debug.LogWarning("Invalid holder in OnPickup.");
+            }
             return;
         }
 
@@ -45,23 +53,36 @@ public class GemItem : NetworkBehaviour, IPickupable
             transform.localPosition = new Vector3(0, -0.6f, 0.8f);
             transform.localRotation = Quaternion.identity;
             GetComponent<Rigidbody>().isKinematic = true;
-            Debug.Log("Client updated basic item pickup.");
+            Debug.Log("Client updated item pickup.");
         }
     }
 
     public void OnDrop(Vector3 dropForce)
     {
-        if (!IsServer)
+        NetworkObject holderObj = GetComponentInParent<NetworkObject>();
+        if (holderObj == null || !holderObj.IsSpawned)
         {
-            var netObj = GetComponentInParent<NetworkObject>();
-            DropServerRpc(dropForce, netObj);
+            Debug.LogWarning("Holder is missing or not spawned. Cannot drop.");
             return;
         }
 
-        NetworkObject holderObj = GetComponentInParent<NetworkObject>();
+        if (!IsServer)
+        {
+            try
+            {
+                DropServerRpc(dropForce, new NetworkObjectReference(holderObj));
+            }
+            catch (System.ArgumentException e)
+            {
+                Debug.LogError("Drop failed: " + e.Message);
+            }
+            return;
+        }
+
         FinalizeDrop(dropForce, holderObj.transform);
-        UpdateDropClientRpc(dropForce, holderObj);
+        UpdateDropClientRpc(dropForce, new NetworkObjectReference(holderObj));
     }
+
 
     [ServerRpc(RequireOwnership = false)]
     private void DropServerRpc(Vector3 dropForce, NetworkObjectReference holderRef)
@@ -86,26 +107,39 @@ public class GemItem : NetworkBehaviour, IPickupable
         foreach (var hit in hits)
         {
             var statue = hit.GetComponent<Statue>();
-            if (statue != null && this is GemItem gem)
+            if (statue != null)
             {
-                statue.InsertGem(gem.gemColor);
-                NetworkObject.Despawn(); // optional: remove gem after insertion
-                return;
+                if (statue.requiredGem == gemColor && !statue.IsActivated())
+                {
+                    statue.InsertGemServerRpc(gemColor);
+                    DisableObjectClientRpc(); // 👈 disable gem for everyone
+                }
+                break;
             }
         }
     }
 
     [ClientRpc]
+    private void DisableObjectClientRpc() // ✅ Ends with 'ClientRpc'
+    {
+        gameObject.SetActive(false);
+    }
+
+    [ClientRpc]
     private void UpdateDropClientRpc(Vector3 dropForce, NetworkObjectReference holderRef)
     {
+        if (this == null) return;
+
         if (holderRef.TryGet(out NetworkObject holder))
         {
             transform.SetParent(null);
             transform.position = holder.transform.position;
 
-            Rigidbody rb = GetComponent<Rigidbody>();
-            rb.isKinematic = false;
-            rb.AddForce(holder.transform.forward * dropForce.magnitude, ForceMode.Impulse);
+            if (TryGetComponent<Rigidbody>(out var rb))
+            {
+                rb.isKinematic = false;
+                rb.AddForce(holder.transform.forward * dropForce.magnitude, ForceMode.Impulse);
+            }
         }
     }
 }

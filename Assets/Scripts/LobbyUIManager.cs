@@ -117,7 +117,7 @@ public class LobbyUIManager : MonoBehaviour
         if (!AreAllPlayersReady()) return;
 
         // Load game scene as host
-        NetworkManager.Singleton.SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
+        NetworkManager.Singleton.SceneManager.LoadScene("Level 1", LoadSceneMode.Single);
     }
 
     void OnLeaveLobbyPressed()

@@ -313,7 +313,7 @@ public class PlayerController : NetworkBehaviour
 
     void DropItem()
     {
-        if (heldItem.TryGetComponent<IPickupable>(out var pickupable))
+        if (heldItem != null && heldItem.TryGetComponent<IPickupable>(out var pickupable))
         {
             pickupable.OnDrop(transform.forward * 2f);
             heldItem = null;
