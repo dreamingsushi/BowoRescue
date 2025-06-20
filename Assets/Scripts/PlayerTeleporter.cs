@@ -15,9 +15,8 @@ public class PlayerTeleporter : NetworkBehaviour
     {
         if (!IsOwner) return;
 
-        if (Input.GetKeyDown(KeyCode.T))
+        if (Input.GetKeyDown(KeyCode.R))
         {
-            Debug.Log("T key pressed, sending teleport request...");
             Teleport(teleportDestination);
         }
     }
@@ -25,6 +24,9 @@ public class PlayerTeleporter : NetworkBehaviour
     public IEnumerator TPOnSceneLoad()
     {
         yield return new WaitUntil(() => IsOwner && IsSpawned && SceneManager.GetActiveScene().name == "Level 1");
+        Teleport(teleportDestination);
+
+        yield return new WaitUntil(() => IsOwner && IsSpawned && SceneManager.GetActiveScene().name == "Level 2");
         Teleport(teleportDestination);
     }
 

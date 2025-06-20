@@ -31,6 +31,7 @@ public class MainMenuManager : NetworkBehaviour
     {
         LobbyManagerZK.Instance.OnJoinedLobby += HandleLobbyJoinedHost;
         LobbyManagerZK.Instance.CreateLobby();
+        AudioManager.Instance.PlaySFX("Menu");
     }
 
     private void HandleLobbyJoinedHost(object sender, EventArgs e)
@@ -46,6 +47,7 @@ public class MainMenuManager : NetworkBehaviour
     {
         LobbyManagerZK.Instance.OnJoinedLobby += HandleLobbyJoinedClient;
         LobbyManagerZK.Instance.QuickJoinLobby();
+        AudioManager.Instance.PlaySFX("Menu");
     }
 
     private void HandleLobbyJoinedClient(object sender, EventArgs e)

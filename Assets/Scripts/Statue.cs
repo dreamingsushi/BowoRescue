@@ -9,12 +9,6 @@ public class Statue : NetworkBehaviour
 
     // Networked activation state
     private NetworkVariable<bool> isActivated = new NetworkVariable<bool>(false);
-    private void Start()
-    {
-        if (IsServer)
-            StatueManager.Instance.RegisterStatue(this);
-    }
-
 
     private void OnEnable()
     {

@@ -8,7 +8,7 @@ using Unity.Collections;
 public class PlayerManager : NetworkBehaviour
 {
     [SerializeField] private TextMeshProUGUI playerNameText;
-    [SerializeField] private GameObject playerHealthUI;
+    //[SerializeField] private GameObject playerHealthPanel;
 
     private NetworkVariable<FixedString32Bytes> playerName = new NetworkVariable<FixedString32Bytes>(
         default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
@@ -17,12 +17,12 @@ public class PlayerManager : NetworkBehaviour
     {
         StartCoroutine(SpawnPlayer());
         playerNameText.gameObject.SetActive(false);
-        playerHealthUI.SetActive(false);
+        //playerHealthPanel.SetActive(false);
     }
 
     public IEnumerator SpawnPlayer()
     {
-        yield return new WaitUntil(() => IsOwner && IsSpawned && SceneManager.GetActiveScene().name == "GameScene");
+        yield return new WaitUntil(() => IsOwner && IsSpawned && SceneManager.GetActiveScene().name == "Level 1");
 
         // Assign name only if we're the owner
         if (IsOwner && playerName.Value.Length == 0)
@@ -36,7 +36,7 @@ public class PlayerManager : NetworkBehaviour
 
         playerNameText.text = playerName.Value.ToString();
         playerNameText.gameObject.SetActive(true);
-        playerHealthUI.SetActive(true);
+        //playerHealthPanel.SetActive(true);
     }
 
     public void NameUpdate()

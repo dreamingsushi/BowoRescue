@@ -1,43 +1,61 @@
 using UnityEngine;
 using Unity.Netcode;
-using System.Collections.Generic;
+using System.Collections;
 
 public class StatueManager : NetworkBehaviour
 {
     public static StatueManager Instance;
 
-    private List<Statue> allStatues = new List<Statue>();
-
+    public GameObject bridge;
+    public Collider colliderWall;
+    public Statue[] statues;
+    public GameObject portal;
+    public float bridgeScaleDuration = 0.2f;
     private void Awake()
     {
         Instance = this;
     }
-
-    public void RegisterStatue(Statue statue)
-    {
-        if (!allStatues.Contains(statue))
-            allStatues.Add(statue);
-    }
-
     public void CheckAllStatuesActivated()
     {
-        foreach (var statue in allStatues)
+        foreach (var statue in statues)
         {
             if (!statue.IsActivated())
+            {
+                Debug.Log("❌ Not all statues activated.");
                 return;
+            }
         }
 
-        // ✅ All statues activated
-        Debug.Log("✅ All statues are activated!");
-
-        // Do your logic here (cutscene, open door, etc.)
+        Debug.Log("✅ All statues activated!");
         OnAllStatuesActivatedClientRpc();
     }
+
 
     [ClientRpc]
     private void OnAllStatuesActivatedClientRpc()
     {
-        // Do something on all clients, e.g., show VFX, unlock something
-        Debug.Log("Client: All statues activated. Triggering event!");
+        bridge.SetActive(true);
+        colliderWall.enabled = false;
+        StartCoroutine(ScaleBridge());
+        portal.SetActive(true);
+    }
+
+    private IEnumerator ScaleBridge()
+    {
+        Vector3 startScale = Vector3.zero;
+        Vector3 endScale = Vector3.one;
+
+        bridge.transform.localScale = startScale;
+        float t = 0f;
+
+        while (t < bridgeScaleDuration)
+        {
+            t += Time.deltaTime;
+            float progress = Mathf.Clamp01(t / bridgeScaleDuration);
+            bridge.transform.localScale = Vector3.Lerp(startScale, endScale, progress);
+            yield return null;
+        }
+
+        bridge.transform.localScale = endScale;
     }
 }

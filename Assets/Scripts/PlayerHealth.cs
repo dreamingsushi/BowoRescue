@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using Unity.Netcode;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : NetworkBehaviour, IDamageable
 {
@@ -28,12 +29,21 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
     private Coroutine regenCoroutine;
     private PlayerTeleporter playerTeleporter;
     private PlayerController playerController;
-    [SerializeField] private HealthBarUI healthBarUI;
+    [SerializeField] public HealthBarUI healthBarUI;
 
-    private void Start()
+    public NetworkVariable<int> playerIndex = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
+
+    [SerializeField] private Transform respawnArea;
+    
+    public override void OnNetworkSpawn()
     {
         if (IsServer)
         {
+
+            // Set playerIndex using the server-side manager
+            int index = PlayerIndexManager.Instance.GetPlayerIndex(OwnerClientId);
+            playerIndex.Value = (int)OwnerClientId;
+
             currentHealth.Value = maxHealth;
         }
 
@@ -44,7 +54,21 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
 
         playerTeleporter = GetComponent<PlayerTeleporter>();
         playerController = GetComponent<PlayerController>();
+
+        StartCoroutine(DelayedRegisterToUI());
     }
+
+    private IEnumerator DelayedRegisterToUI()
+    {
+        yield return new WaitUntil(() => IsSpawned && SceneManager.GetActiveScene().name == "Level 1");
+        HealthBarManager manager = FindObjectOfType<HealthBarManager>();
+        if (manager != null)
+        {
+            manager.RegisterPlayer(playerIndex.Value, this);
+            Debug.Log("Index player: "+playerIndex.Value);
+        }
+    }
+
 
     public void TakeDamage(float damageAmount)
     {
@@ -136,8 +160,9 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
         currentHealth.Value = maxHealth;
         isDead.Value = false;
 
-        playerTeleporter.Teleport(playerTeleporter.teleportDestination);
-
+        Vector3 spawnPos = RespawnManager.Instance.GetSafeRespawnPosition();
+        playerTeleporter.Teleport(spawnPos);
+        UpdateHealthBarClientRpc(currentHealth.Value);
         Debug.Log("Player respawned.");
     }
 

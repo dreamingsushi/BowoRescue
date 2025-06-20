@@ -1,35 +1,34 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class SpikeTrapDemo : MonoBehaviour {
+public class SpikeTrapDemo : MonoBehaviour
+{
+    public Animator spikeTrapAnim; // Animator for the SpikeTrap
+    public float startDelay = 2f;
+    public float openTime = 2f;
+    public float closeTime = 2f;
 
-    //This script goes on the SpikeTrap prefab;
-
-    public Animator spikeTrapAnim; //Animator for the SpikeTrap;
-
-    // Use this for initialization
     void Awake()
     {
-        //get the Animator component from the trap;
         spikeTrapAnim = GetComponent<Animator>();
-        //start opening and closing the trap for demo purposes;
-        StartCoroutine(OpenCloseTrap());
+        StartCoroutine(StartTrap());
     }
 
-
-    IEnumerator OpenCloseTrap()
+    IEnumerator StartTrap()
     {
-        //play open animation;
-        spikeTrapAnim.SetTrigger("open");
-        //wait 2 seconds;
-        yield return new WaitForSeconds(2);
-        //play close animation;
-        spikeTrapAnim.SetTrigger("close");
-        //wait 2 seconds;
-        yield return new WaitForSeconds(2);
-        //Do it again;
-        StartCoroutine(OpenCloseTrap());
+        yield return new WaitForSeconds(startDelay);
+        StartCoroutine(TrapLoop());
+    }
 
+    IEnumerator TrapLoop()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(openTime);
+            spikeTrapAnim.SetTrigger("open");
+            yield return new WaitForSeconds(closeTime);
+            spikeTrapAnim.SetTrigger("close");
+
+        }
     }
 }

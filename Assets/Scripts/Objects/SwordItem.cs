@@ -58,7 +58,7 @@ public class SwordItem : NetworkBehaviour, IPickupable
             PlayerAttack attack = holder.GetComponent<PlayerAttack>();
             if (attack != null)
             {
-                playerAttack.EquipWeapon(gameObject);
+                attack.EquipWeapon(gameObject);
                 attack.isHoldingWeapon = true;
             }
 

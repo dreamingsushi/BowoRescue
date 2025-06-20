@@ -8,4 +8,9 @@ public class InGameMenu : MonoBehaviour
         LobbyManagerZK.Instance.LeaveLobby();
         SceneManager.LoadScene("MainMenu");
     }
+
+    public void BackToGame()
+    {
+        gameObject.SetActive(false);
+    }
 }

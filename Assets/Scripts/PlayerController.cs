@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
 using Unity.Cinemachine;
+using UnityEngine.EventSystems;
 
 public class PlayerController : NetworkBehaviour
 {
@@ -240,6 +241,18 @@ public class PlayerController : NetworkBehaviour
         }
         else if (context.canceled)
         {
+            // Auto-select the highlighted emote before hiding the wheel
+            RMF_RadialMenu rm = emoteWheel.GetComponent<RMF_RadialMenu>();
+            if (rm != null && rm.elements.Count > 0)
+            {
+                int selectedIndex = rm.index;
+                if (selectedIndex >= 0 && selectedIndex < rm.elements.Count)
+                {
+                    // Simulate "submit" for the currently highlighted element
+                    var pointer = new PointerEventData(EventSystem.current);
+                    ExecuteEvents.Execute(rm.elements[selectedIndex].button.gameObject, pointer, ExecuteEvents.submitHandler);
+                }
+            }
             emoteWheel.SetActive(false);
         }
     }
