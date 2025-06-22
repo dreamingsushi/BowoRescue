@@ -3,7 +3,7 @@ using UnityEngine;
 public class PressurePlate : MonoBehaviour
 {
     public Gate targetGate;
-    public Animator anim;
+    private Animator anim;
     private Renderer buttonRenderer; // Assign the button’s mesh renderer here
     private bool objectOnPlate = false;
     private Material buttonMaterial;

@@ -136,7 +136,7 @@ public class PlayerController : NetworkBehaviour
         }
 
         if (isPulling)
-            cachedPushable.AddForce(-pushDirection * (pushForce - 2));
+            cachedPushable.AddForce(-pushDirection * pushForce);
     }
 
     // --- Input Events ---

@@ -45,6 +45,20 @@ public class LobbyUIManager : MonoBehaviour
         characterCustomization = FindAnyObjectByType<CharacterCustomization>();
     }
 
+    void Update()
+    {
+        // Triangle button (Ready toggle)
+        if (Input.GetKeyDown(KeyCode.JoystickButton3))
+        {
+            ToggleReadyStatus();
+        }
+
+        // Square button (Start game, only host)
+        if (Input.GetKeyDown(KeyCode.JoystickButton0))
+        {
+            OnStartGamePressed();
+        }
+    }
 
 
     private void LobbyManager_OnLeftLobby(object sender, System.EventArgs e)

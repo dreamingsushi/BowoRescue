@@ -64729,25 +64729,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 298185726470552647, guid: 36c6ce661f3630e4ea7d54a3144e8a31, type: 3}
-      propertyPath: SyncScaleX
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 298185726470552647, guid: 36c6ce661f3630e4ea7d54a3144e8a31, type: 3}
-      propertyPath: SyncScaleY
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 298185726470552647, guid: 36c6ce661f3630e4ea7d54a3144e8a31, type: 3}
-      propertyPath: SyncScaleZ
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7095828247833248933, guid: 36c6ce661f3630e4ea7d54a3144e8a31, type: 3}
       propertyPath: m_Name
       value: HeavyCrate
-      objectReference: {fileID: 0}
-    - target: {fileID: 7095828247833248933, guid: 36c6ce661f3630e4ea7d54a3144e8a31, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8691066978362611981, guid: 36c6ce661f3630e4ea7d54a3144e8a31, type: 3}
       propertyPath: m_LocalPosition.x

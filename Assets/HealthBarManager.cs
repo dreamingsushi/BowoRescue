@@ -5,6 +5,20 @@ public class HealthBarManager : MonoBehaviour
 {
     [SerializeField] private List<HealthBarUI> healthBarSlots; // Assign in Inspector: 4 slots
 
+    public static HealthBarManager Instance;
+
+    void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
     public void RegisterPlayer(int playerIndex, PlayerHealth playerHealth)
     {
         if (playerIndex < 0 || playerIndex >= healthBarSlots.Count)

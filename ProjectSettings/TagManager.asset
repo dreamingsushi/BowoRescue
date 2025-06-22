@@ -9,6 +9,7 @@ TagManager:
   - Playercam
   - Axe
   - Sword
+  - Enemy
   layers:
   - Default
   - TransparentFX

@@ -8,7 +8,7 @@ public class CharacterCustomization : MonoBehaviour
     public List<CustomPart> parts;
     public TextMeshProUGUI helmetText;
     public TextMeshProUGUI headText;
-    public TMP_InputField nameInputField;
+    //public TMP_InputField nameInputField;
     public GameObject customizeCamera;
     private LobbyUIManager lobbyUIManager;
     private PlayerCharacter playerCharacter;
@@ -141,24 +141,32 @@ public class CharacterCustomization : MonoBehaviour
 
     public void DoneCustomize()
     {
-        string playerName = nameInputField.text.Trim();
-        if (!string.IsNullOrEmpty(playerName))
-        {
-            PlayerPrefs.SetString("PlayerName", playerName);
-            PlayerPrefs.Save();
+        PlayerPrefs.Save();
+        customizeCamera.SetActive(false);
+        lobbyUIManager.canvas.SetActive(true);
+        SendCustomizationToNetworkedPlayer();
+        playerCharacter.LoadAndApplySavedCustomization();
+        playerManager.NameUpdate();
 
-            LobbyManagerZK.Instance.UpdatePlayerName(playerName);
-            customizeCamera.SetActive(false);
-            lobbyUIManager.canvas.SetActive(true);
-            Debug.Log($"Player name set to: {playerName}");
-            SendCustomizationToNetworkedPlayer();
-            playerCharacter.LoadAndApplySavedCustomization();
-            playerManager.NameUpdate();
-        }
-        else
-        {
-            Debug.LogWarning("Player name is empty.");
-        }
+
+        // string playerName = nameInputField.text.Trim();
+        // if (!string.IsNullOrEmpty(playerName))
+        // {
+        //     PlayerPrefs.SetString("PlayerName", playerName);
+        //     PlayerPrefs.Save();
+
+        //     LobbyManagerZK.Instance.UpdatePlayerName(playerName);
+        //     customizeCamera.SetActive(false);
+        //     lobbyUIManager.canvas.SetActive(true);
+        //     Debug.Log($"Player name set to: {playerName}");
+        //     SendCustomizationToNetworkedPlayer();
+        //     playerCharacter.LoadAndApplySavedCustomization();
+        //     playerManager.NameUpdate();
+        // }
+        // else
+        // {
+        //     Debug.LogWarning("Player name is empty.");
+        // }
     }
 
     public CustomizationData GetCurrentData()

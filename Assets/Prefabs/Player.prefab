@@ -7724,7 +7724,7 @@ MonoBehaviour:
   pickupRadius: 0.5
   offset: {x: 0, y: -0.6, z: 0.5}
   pushForce: 5
-  pullSpeedMultiplier: 0.125
+  pullSpeedMultiplier: 0.12
   controller: {fileID: 0}
   cinemachineCamera: {fileID: 0}
   pauseMenu: {fileID: 6654901589869942395}
@@ -7761,6 +7761,9 @@ MonoBehaviour:
   isDead:
     m_InternalValue: 0
   healthBarUI: {fileID: 4993561304721402876}
+  playerIndex:
+    m_InternalValue: 0
+  respawnArea: {fileID: 0}
 --- !u!114 &3877857274039289081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7955,7 +7958,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   playerNameText: {fileID: 1173340602835539316}
-  playerHealthPanel: {fileID: 0}
 --- !u!114 &9063696355293817110
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9345,7 +9347,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1684290851269201950
 RectTransform:
   m_ObjectHideFlags: 0
