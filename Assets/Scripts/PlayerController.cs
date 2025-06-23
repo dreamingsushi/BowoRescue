@@ -33,7 +33,7 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private GameObject emoteWheel;
     private DialogueManager dialogueManager;
     private bool isMenuOpen = false;
-
+    private Lever nearbyLever;
 
     // Movement State
     private Vector3 velocity;
@@ -197,6 +197,12 @@ public class PlayerController : NetworkBehaviour
                 dialogueManager.StartDialogue(nearbyNPC.dialogueData);
                 nearbyNPC.StartTalking();
                 return; // skip item interaction if talking
+            }
+
+            if (nearbyLever != null)
+            {
+                nearbyLever.TriggerLever();
+                return; // skip other interaction
             }
 
             if (isHeld)
@@ -415,6 +421,12 @@ public class PlayerController : NetworkBehaviour
     {
         nearbyNPC = null;
     }
+    // --- Interactables ---
+    public void SetNearbyLever(Lever lever)
+    {
+        nearbyLever = lever;
+    }
+
 
     // --- Debug Visuals ---
 
