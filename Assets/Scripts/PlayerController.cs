@@ -9,6 +9,7 @@ public class PlayerController : NetworkBehaviour
 {
     [Header("Movement Settings")]
     [SerializeField] private float m_Speed;
+    private float originalSpeed;
     [SerializeField] private float m_RotationSpeed;
     [SerializeField] private float gravity = -9.81f;
     [SerializeField] private float jumpHeight = 2f;
@@ -65,6 +66,7 @@ public class PlayerController : NetworkBehaviour
         controller = GetComponent<CharacterController>();
         playerInput = GetComponent<PlayerInput>();
         dialogueManager = GetComponent<DialogueManager>();
+        originalSpeed = m_Speed;
     }
 
     public override void OnNetworkSpawn()
@@ -425,6 +427,21 @@ public class PlayerController : NetworkBehaviour
     public void SetNearbyLever(Lever lever)
     {
         nearbyLever = lever;
+    }
+
+    // --- Player Status ---
+
+       public void SetSlow(float slowMultiplier, float duration)
+    {
+        StopAllCoroutines();
+        StartCoroutine(SlowCoroutine(slowMultiplier, duration));
+    }
+
+    private IEnumerator SlowCoroutine(float multiplier, float duration)
+    {
+        m_Speed *= multiplier;
+        yield return new WaitForSeconds(duration);
+        m_Speed = originalSpeed;
     }
 
 
