@@ -45,6 +45,9 @@ public class EnemyHealth : NetworkBehaviour, IDamageable, IKnockbackable
         if (isDead) yield break;
 
         isDead = true;
+
+        GetComponent<EnemyDrop>()?.TrySpawnDrop();
+        
         Debug.Log($"{gameObject.name} died... will be destroyed in 2 seconds.");
         DestroyEnemyClientRpc(); // sync death visuals to clients
 

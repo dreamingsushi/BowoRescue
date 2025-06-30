@@ -111,7 +111,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.12, y: 0.7317306, z: 0.089127444}
+  m_Size: {x: 0.12, y: 1.21, z: 0.089127444}
   m_Center: {x: 0.000000052154064, y: 0.59791815, z: 0.00000017136335}
 --- !u!54 &3083135147680577129
 Rigidbody:
@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2139707553
+  GlobalObjectIdHash: 4043840620
   InScenePlacedSourceGlobalObjectIdHash: 1820040589
   DeferredDespawnTick: 0
   Ownership: 1

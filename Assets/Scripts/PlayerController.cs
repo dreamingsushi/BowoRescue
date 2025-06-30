@@ -41,6 +41,8 @@ public class PlayerController : NetworkBehaviour
     public bool isWalking = false;
     public bool isJumping = false;
     public bool isDashing = false;
+    private Coroutine slowRoutine;
+    private bool isSlowed = false;
 
     // Interaction State
     public bool isPushing = false;
@@ -431,17 +433,26 @@ public class PlayerController : NetworkBehaviour
 
     // --- Player Status ---
 
-       public void SetSlow(float slowMultiplier, float duration)
+    public void SetSlow(float slowMultiplier, float duration)
     {
-        StopAllCoroutines();
-        StartCoroutine(SlowCoroutine(slowMultiplier, duration));
+        if (slowRoutine != null)
+        {
+            StopCoroutine(slowRoutine);
+        }
+
+        slowRoutine = StartCoroutine(SlowCoroutine(slowMultiplier, duration));
     }
 
     private IEnumerator SlowCoroutine(float multiplier, float duration)
     {
-        m_Speed *= multiplier;
+        isSlowed = true;
+        m_Speed = originalSpeed * multiplier;
+
         yield return new WaitForSeconds(duration);
+
         m_Speed = originalSpeed;
+        isSlowed = false;
+        slowRoutine = null;
     }
 
 

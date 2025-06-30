@@ -6,7 +6,7 @@ public class PlayerCharacter : NetworkBehaviour
 {
     public List<CustomPart> parts;
 
-    void Start()
+    public override void OnNetworkSpawn()
     {
         LoadAndApplySavedCustomization();
     }
@@ -48,7 +48,7 @@ public class PlayerCharacter : NetworkBehaviour
         SubmitCustomizationServerRpc(data); // Send to server
     }
 
-    [ServerRpc]
+    [ServerRpc(RequireOwnership = false)]
     private void SubmitCustomizationServerRpc(CustomizationData data, ServerRpcParams rpcParams = default)
     {
         ApplyCustomization(data); // On server

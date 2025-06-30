@@ -4,11 +4,21 @@ using UnityEngine.SceneManagement;
 
 public class Portal : NetworkBehaviour
 {
+    public bool level1;
+    public bool level2;
+
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            NetworkManager.Singleton.SceneManager.LoadScene("Level 2", LoadSceneMode.Single);
+            if (level1)
+            {
+                NetworkManager.Singleton.SceneManager.LoadScene("Level 2", LoadSceneMode.Single);
+            }
+            else if (level2)
+            {
+                NetworkManager.Singleton.SceneManager.LoadScene("Level 3 (boss)", LoadSceneMode.Single);
+            }
         }
     }
 }

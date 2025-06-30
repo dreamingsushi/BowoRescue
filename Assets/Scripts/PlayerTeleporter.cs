@@ -7,26 +7,30 @@ public class PlayerTeleporter : NetworkBehaviour
 {
     public Vector3 teleportDestination = new Vector3(0, 0, 0); // Set in inspector
 
-    void Start()
+    public override void OnNetworkSpawn()
     {
-        StartCoroutine(TPOnSceneLoad());
-    }
-    void Update()
-    {
-        if (!IsOwner) return;
-
-        if (Input.GetKeyDown(KeyCode.R))
+        if (IsOwner)
         {
-            Teleport(teleportDestination);
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
     }
 
-    public IEnumerator TPOnSceneLoad()
+    public override void OnNetworkDespawn()
     {
-        yield return new WaitUntil(() => IsOwner && IsSpawned && SceneManager.GetActiveScene().name == "Level 1");
-        Teleport(teleportDestination);
+        if (IsOwner)
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+    }
 
-        yield return new WaitUntil(() => IsOwner && IsSpawned && SceneManager.GetActiveScene().name == "Level 2");
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        StartCoroutine(TeleportAfterSceneLoad());
+    }
+
+    private IEnumerator TeleportAfterSceneLoad()
+    {
+        yield return new WaitUntil(() => IsSpawned && SceneManager.GetActiveScene().isLoaded);
         Teleport(teleportDestination);
     }
 
@@ -40,5 +44,15 @@ public class PlayerTeleporter : NetworkBehaviour
         if (controller) controller.enabled = true;
 
         Debug.Log($"Teleported player locally to {destination}");
+    }
+
+    void Update()
+    {
+        if (!IsOwner) return;
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Teleport(teleportDestination);
+        }
     }
 }

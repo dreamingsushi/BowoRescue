@@ -6,6 +6,10 @@ public class FlameDamage : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
+
+        if (other.CompareTag("Boss"))
+            return;
+        
         if (other.TryGetComponent(out IDamageable damageable))
         {
             damageable.TakeDamage(damagePerSecond * Time.deltaTime);

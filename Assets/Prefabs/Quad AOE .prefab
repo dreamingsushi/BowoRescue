@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1318166260002742407}
   - component: {fileID: 5321114517634050992}
   - component: {fileID: 5965135714497819605}
+  - component: {fileID: 6185975662760944748}
   m_Layer: 0
   m_Name: Quad
   m_TagString: Untagged
@@ -86,6 +87,21 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &6185975662760944748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5262527266557843123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08e27ca7445885a48ab089a5e2c18221, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  growDuration: 1
+  maxScale: 1
+  delayBeforeDestroy: 0.5
 --- !u!1 &5483092572137264026
 GameObject:
   m_ObjectHideFlags: 0
@@ -97,7 +113,6 @@ GameObject:
   - component: {fileID: 5715889209487881778}
   - component: {fileID: 4736468551830127971}
   - component: {fileID: 5330468476595465533}
-  - component: {fileID: 8848424509220566738}
   m_Layer: 0
   m_Name: 'Quad AOE '
   m_TagString: Untagged
@@ -113,9 +128,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5483092572137264026}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071065, y: -0, z: -0, w: 0.7071071}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -0.63, y: -0.31, z: -1.75}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 8.269703, y: 8.269703, z: 8.269703}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1318166260002742407}
@@ -174,18 +189,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &8848424509220566738
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5483092572137264026}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08e27ca7445885a48ab089a5e2c18221, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  growDuration: 3
-  maxScale: 3
-  delayBeforeDestroy: 0.5

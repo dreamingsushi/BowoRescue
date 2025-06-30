@@ -9312,8 +9312,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
-  m_Size: {x: 0.12, y: 0.98977673, z: 0.089127444}
-  m_Center: {x: 0.000000051196796, y: 0.7165155, z: 0.00000017088635}
+  m_Size: {x: 0.11999999, y: 0.7063096, z: 0.089127444}
+  m_Center: {x: -0.0000013887309, y: 0.57478327, z: 0.00000039620417}
 --- !u!114 &2742388928646644374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9326,7 +9326,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06e842f3386ac7a49b631f60f69a27d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageAmount: 10
+  damageAmount: 20
   knockbackStrength: 300
 --- !u!1 &8623764353872092184
 GameObject:
