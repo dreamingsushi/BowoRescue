@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 6767310751660706607}
   - component: {fileID: 5880553215266077242}
   - component: {fileID: 3015230093458897836}
-  m_Layer: 7
+  m_Layer: 10
   m_Name: SM_Wep_Axe_01
   m_TagString: Axe
   m_Icon: {fileID: 0}
@@ -176,7 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3411697631
+  GlobalObjectIdHash: 235157979
   InScenePlacedSourceGlobalObjectIdHash: 235157979
   DeferredDespawnTick: 0
   Ownership: 1
@@ -203,6 +203,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   playerAttack: {fileID: 0}
+  highlightEffect: {fileID: 0}
 --- !u!114 &5880553215266077242
 MonoBehaviour:
   m_ObjectHideFlags: 0

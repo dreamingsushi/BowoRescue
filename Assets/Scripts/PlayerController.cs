@@ -123,6 +123,8 @@ public class PlayerController : NetworkBehaviour
         {
             isJumping = false;
         }
+
+        DetectPickupTarget();
     }
 
     void Update()
@@ -316,8 +318,21 @@ public class PlayerController : NetworkBehaviour
     }
 
     // --- Item Interactions ---
-
+    private IPickupable currentTarget;
     void PickupItem()
+    {
+        if (currentTarget != null && !isHeld)
+        {
+            heldItem = ((MonoBehaviour)currentTarget).gameObject;
+            currentTarget.OnPickup(transform);
+            heldItem.transform.localPosition = offset;
+            isHeld = true;
+
+            currentTarget = null;
+        }
+    }
+
+    void DetectPickupTarget()
     {
         Vector3 origin = new Vector3(transform.position.x, transform.position.y - 0.8f, transform.position.z);
 
@@ -326,13 +341,28 @@ public class PlayerController : NetworkBehaviour
             IPickupable pickupable = hit.collider.GetComponent<IPickupable>();
             if (pickupable != null && !isHeld)
             {
-                heldItem = hit.collider.gameObject;
-                pickupable.OnPickup(transform);
-                heldItem.transform.localPosition = offset;
-                isHeld = true;
+                if (pickupable != currentTarget)
+                {
+                    ClearCurrentTarget();
+                    currentTarget = pickupable;
+                    currentTarget.OnTargeted();
+                }
+                return;
             }
         }
+
+        ClearCurrentTarget();
     }
+
+    void ClearCurrentTarget()
+    {
+        if (currentTarget != null)
+        {
+            currentTarget.OnUntargeted();
+            currentTarget = null;
+        }
+    }
+
 
     void DropItem()
     {

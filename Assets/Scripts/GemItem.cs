@@ -6,6 +6,7 @@ public class GemItem : NetworkBehaviour, IPickupable
     public Statue.GemColor gemColor;
     [SerializeField] private LayerMask statueLayer;
     [SerializeField] private float detectionRadius = 1.2f;
+    [SerializeField] private GameObject highlightEffect;
 
     public void OnPickup(Transform holder)
     {
@@ -141,5 +142,15 @@ public class GemItem : NetworkBehaviour, IPickupable
                 rb.AddForce(holder.transform.forward * dropForce.magnitude, ForceMode.Impulse);
             }
         }
+    }
+
+    public void OnTargeted()
+    {
+        highlightEffect?.SetActive(true);
+    }
+
+    public void OnUntargeted()
+    {
+        highlightEffect?.SetActive(false);
     }
 }

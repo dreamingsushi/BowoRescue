@@ -10,6 +10,7 @@ public class EnemyHealth : NetworkBehaviour, IDamageable, IKnockbackable
     public SkinnedMeshRenderer mesh;
     private EnemyAI enemyAI;
     public bool isDead = false;
+    [SerializeField] private GameObject hitVFXPrefab;
 
     void Start()
     {
@@ -44,6 +45,8 @@ public class EnemyHealth : NetworkBehaviour, IDamageable, IKnockbackable
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
+        SpawnHitVFXClientRpc();
+
         TriggerHurtMaterialClientRpc();
 
         if (currentHealth <= 0f)
@@ -51,6 +54,16 @@ public class EnemyHealth : NetworkBehaviour, IDamageable, IKnockbackable
             StartCoroutine(Die());
         }
     }
+
+    [ClientRpc]
+    private void SpawnHitVFXClientRpc()
+    {
+        if (hitVFXPrefab == null) return;
+
+        GameObject vfx = Instantiate(hitVFXPrefab, transform.position + Vector3.up * 1f, Quaternion.identity);
+        Destroy(vfx, 2f); // Clean up after 2 seconds
+    }
+
 
 
     public void GetKnockedBack(Vector3 force)
@@ -83,7 +96,19 @@ public class EnemyHealth : NetworkBehaviour, IDamageable, IKnockbackable
     {
         isDead = true;
 
-        GetComponent<EnemyDrop>()?.TrySpawnDrop();
+        var drop = GetComponent<EnemyDrop>();
+        bool willDrop = drop != null;
+
+        if (willDrop)
+        {
+            drop.TrySpawnDrop();
+
+            Debug.Log($"{gameObject.name} dropped something — destroying immediately.");
+
+            DestroyEnemyClientRpc();
+            Destroy(gameObject); // no delay
+            yield break; // end coroutine early
+        }
 
         Debug.Log($"{gameObject.name} died... will be destroyed in 2 seconds.");
 

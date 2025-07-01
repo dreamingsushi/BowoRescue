@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 349282986033186285}
   - component: {fileID: 2845955590664258821}
   - component: {fileID: 4555300135389687984}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4665,7 +4665,7 @@ GameObject:
   - component: {fileID: 4865129741036054709}
   - component: {fileID: 6894904926549952345}
   - component: {fileID: 1959259498667479601}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bomb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4800,6 +4800,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
+  highlightEffect: {fileID: 0}
 --- !u!54 &1552415791475507458
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4924,7 +4925,7 @@ GameObject:
   - component: {fileID: 7954235116515192985}
   - component: {fileID: 5610327987603924232}
   - component: {fileID: 67672732687373506}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: pf_vfx-inf_psys_demo_loop_smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9627,7 +9628,7 @@ GameObject:
   - component: {fileID: 935520527605714479}
   - component: {fileID: 3629411252511565816}
   - component: {fileID: 5835566861623837218}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -188,6 +188,7 @@ MonoBehaviour:
   maxHealth: 80
   mesh: {fileID: 4598545019187628617}
   isDead: 0
+  hitVFXPrefab: {fileID: 4693827097229612602, guid: 36232887f851da54f96c3faecb2d0672, type: 3}
 --- !u!114 &-5934902076225792792
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4634973929073956816}
   - component: {fileID: 2920454039085653749}
   - component: {fileID: 8928628683996601345}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Prop_Button_01_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,7 +124,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetGate: {fileID: 0}
-  anim: {fileID: 0}
   defaultColor: {r: 1, g: 0, b: 0, a: 1}
   pressedColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!136 &8928628683996601345
@@ -161,7 +160,7 @@ GameObject:
   - component: {fileID: 5770490541494342347}
   - component: {fileID: 4672236945279440146}
   - component: {fileID: 3639202398817735709}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Prop_Button_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}

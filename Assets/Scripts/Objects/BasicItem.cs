@@ -3,6 +3,8 @@ using Unity.Netcode;
 
 public class BasicItem : NetworkBehaviour, IPickupable
 {
+    [SerializeField] private GameObject highlightEffect;
+
     public void OnPickup(Transform holder)
     {
         if (!IsServer)
@@ -91,5 +93,15 @@ public class BasicItem : NetworkBehaviour, IPickupable
             rb.isKinematic = false;
             rb.AddForce(holder.transform.forward * dropForce.magnitude, ForceMode.Impulse);
         }
+    }
+
+    public void OnTargeted()
+    {
+        highlightEffect?.SetActive(true);
+    }
+
+    public void OnUntargeted()
+    {
+        highlightEffect?.SetActive(false);
     }
 }

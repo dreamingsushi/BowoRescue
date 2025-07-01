@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9099749092333194340}
   - component: {fileID: 3484863735653338334}
   - component: {fileID: 2800754074065615214}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PortalSurface_low_PortalSurface_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4531378787239237776}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RootNode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -129,7 +129,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8780185390288477534}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: 3e5d370798dd4d69b43ee2bcb29da87d.fbx
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -161,7 +161,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8141113594573351737}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BrickSmall_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -195,7 +195,7 @@ GameObject:
   - component: {fileID: 8371957494455794531}
   - component: {fileID: 6226842286605302389}
   - component: {fileID: 578951061261469037}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BrickSmall_low_MagicStoneMoss_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -279,7 +279,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2528603038233957462}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Sketchfab_model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -311,7 +311,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1981327056006398042}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BrickLarge_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -343,7 +343,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2748507145567645094}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PortalSurface_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -377,7 +377,7 @@ GameObject:
   - component: {fileID: 6568470452076719509}
   - component: {fileID: 1592153828945351792}
   - component: {fileID: 3010407567712879876}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Magic_Portal Blue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -448,7 +448,7 @@ GameObject:
   - component: {fileID: 3746384517144633835}
   - component: {fileID: 5055280331839510690}
   - component: {fileID: 6833780544188950458}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BrickLarge_low_MagicStone_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}

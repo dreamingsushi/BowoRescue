@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 469167436246125756}
   - component: {fileID: 1184286184002940626}
   - component: {fileID: 7889559513972141548}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BrickSmall_low_MagicStoneMoss_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1165759375496901812}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: 3e5d370798dd4d69b43ee2bcb29da87d.fbx
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,7 +127,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8509282271693077383}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BrickLarge_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -161,7 +161,7 @@ GameObject:
   - component: {fileID: 7751630620172505160}
   - component: {fileID: 1174482531965613657}
   - component: {fileID: 1280056072851570775}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PortalSurface_low_PortalSurface_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -247,7 +247,7 @@ GameObject:
   - component: {fileID: 5375464930827579720}
   - component: {fileID: 3987432040353591400}
   - component: {fileID: 8806653121978235941}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BrickLarge_low_MagicStone_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -331,7 +331,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7517770795028077748}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Sketchfab_model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -365,7 +365,7 @@ GameObject:
   - component: {fileID: 1299774526334054755}
   - component: {fileID: 3183197840680647010}
   - component: {fileID: 2006092180080294146}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Magic_Portal Purple
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -434,7 +434,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6447155035683146209}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BrickSmall_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -466,7 +466,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2540905380543640162}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PortalSurface_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -498,7 +498,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4822950374131397746}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RootNode
   m_TagString: Untagged
   m_Icon: {fileID: 0}

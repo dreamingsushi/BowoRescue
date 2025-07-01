@@ -4,6 +4,7 @@ using Unity.Netcode;
 public class SwordItem : NetworkBehaviour, IPickupable
 {
     [SerializeField] private PlayerAttack playerAttack;
+    [SerializeField] private GameObject highlightEffect;
 
     public void OnPickup(Transform holder)
     {
@@ -132,7 +133,15 @@ public class SwordItem : NetworkBehaviour, IPickupable
         Debug.Log("Client updated sword drop.");
     }
 
+    public void OnTargeted()
+    {
+        highlightEffect?.SetActive(true);
+    }
 
+    public void OnUntargeted()
+    {
+        highlightEffect?.SetActive(false);
+    }
     // public void OnDrop(Vector3 dropForce)
     // {
     //     playerAttack.isHoldingWeapon = false;
