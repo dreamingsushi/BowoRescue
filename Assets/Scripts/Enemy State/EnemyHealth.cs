@@ -86,10 +86,10 @@ public class EnemyHealth : NetworkBehaviour, IDamageable, IKnockbackable
         GetComponent<EnemyDrop>()?.TrySpawnDrop();
 
         Debug.Log($"{gameObject.name} died... will be destroyed in 2 seconds.");
-        DestroyEnemyClientRpc(); // sync death visuals to clients
 
         yield return new WaitForSeconds(4f); // delay
-
+        // sync death visuals to clients
+        DestroyEnemyClientRpc();
         Destroy(gameObject); // actual destroy after delay
     }
 
