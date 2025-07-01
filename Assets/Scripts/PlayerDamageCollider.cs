@@ -1,16 +1,14 @@
 using Unity.Netcode;
 using UnityEngine;
 
-public class DamageCollider : MonoBehaviour
+public class PlayerDamageCollider : MonoBehaviour
 {
-    public GameObject hitVFXPrefab;
     public float damageAmount;
     public float knockbackStrength = 20f;
     void OnTriggerEnter(Collider other)
     {
-        if (gameObject.CompareTag("Enemy") && other.CompareTag("Enemy"))
+        if (other.CompareTag("Player"))
             return;
-
 
         if (other.TryGetComponent(out IDamageable damageable))
         {

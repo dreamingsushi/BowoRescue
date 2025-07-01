@@ -310,7 +310,7 @@ GameObject:
   - component: {fileID: 2380817488192189922}
   m_Layer: 0
   m_Name: cactus_head
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -899,7 +899,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 598765542
+  GlobalObjectIdHash: 3873213672
   InScenePlacedSourceGlobalObjectIdHash: 3873213672
   DeferredDespawnTick: 0
   Ownership: 1

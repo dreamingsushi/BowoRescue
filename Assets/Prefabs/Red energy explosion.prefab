@@ -34340,6 +34340,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06e842f3386ac7a49b631f60f69a27d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitVFXPrefab: {fileID: 0}
   damageAmount: 40
   knockbackStrength: 0
 --- !u!1 &7217262437721803644
@@ -34354,6 +34355,7 @@ GameObject:
   - component: {fileID: 4519923114861720800}
   - component: {fileID: 6022540253578880338}
   - component: {fileID: 6716773655615366847}
+  - component: {fileID: 557279850513481527}
   m_Layer: 0
   m_Name: Red energy explosion
   m_TagString: Untagged
@@ -39276,6 +39278,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &557279850513481527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7217262437721803644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36d214da88ea9d94d98fa59f642467a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  vfx: {fileID: 0}
 --- !u!1 &7772141485565911137
 GameObject:
   m_ObjectHideFlags: 0

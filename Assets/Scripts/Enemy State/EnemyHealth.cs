@@ -20,7 +20,7 @@ public class EnemyHealth : NetworkBehaviour, IDamageable, IKnockbackable
 
     public void TakeDamage(float damage)
     {
-        if (!IsServer || isDead) return;
+        if (isDead) return;
 
         currentHealth -= damage;
 
@@ -42,8 +42,6 @@ public class EnemyHealth : NetworkBehaviour, IDamageable, IKnockbackable
 
     private IEnumerator Die()
     {
-        if (isDead) yield break;
-
         isDead = true;
 
         GetComponent<EnemyDrop>()?.TrySpawnDrop();
@@ -51,7 +49,7 @@ public class EnemyHealth : NetworkBehaviour, IDamageable, IKnockbackable
         Debug.Log($"{gameObject.name} died... will be destroyed in 2 seconds.");
         DestroyEnemyClientRpc(); // sync death visuals to clients
 
-        yield return new WaitForSeconds(2f); // delay
+        yield return new WaitForSeconds(4f); // delay
 
         Destroy(gameObject); // actual destroy after delay
     }

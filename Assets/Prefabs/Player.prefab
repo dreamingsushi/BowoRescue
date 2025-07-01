@@ -5395,7 +5395,7 @@ GameObject:
   - component: {fileID: 2670478076567223162}
   - component: {fileID: 872560900138868624}
   - component: {fileID: 6877177179584274058}
-  - component: {fileID: 7921685554811283896}
+  - component: {fileID: 4367110603271856275}
   m_Layer: 0
   m_Name: SM_Wep_Axe_01
   m_TagString: Axe
@@ -5513,7 +5513,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.31, y: 0.31, z: 0.089127444}
   m_Center: {x: 0.000000051196796, y: 0.61, z: 0.00000017088635}
---- !u!114 &7921685554811283896
+--- !u!114 &4367110603271856275
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5522,11 +5522,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5082304032324402235}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06e842f3386ac7a49b631f60f69a27d0, type: 3}
+  m_Script: {fileID: 11500000, guid: 2885dfdc800fe7d458269865ace4cea3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageAmount: 10
-  knockbackStrength: 300
+  damageAmount: 20
+  knockbackStrength: 20
 --- !u!1 &5139671137992181147
 GameObject:
   m_ObjectHideFlags: 0
@@ -7640,7 +7640,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1526736378
+  GlobalObjectIdHash: 2990225669
   InScenePlacedSourceGlobalObjectIdHash: 1526736378
   DeferredDespawnTick: 0
   Ownership: 1
@@ -9196,7 +9196,7 @@ GameObject:
   - component: {fileID: 4141983112366360632}
   - component: {fileID: 695715445130682147}
   - component: {fileID: 27534236780173378}
-  - component: {fileID: 2742388928646644374}
+  - component: {fileID: 2208046850375223657}
   m_Layer: 7
   m_Name: Sword
   m_TagString: Sword
@@ -9314,7 +9314,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.11999999, y: 0.7063096, z: 0.089127444}
   m_Center: {x: -0.0000013887309, y: 0.57478327, z: 0.00000039620417}
---- !u!114 &2742388928646644374
+--- !u!114 &2208046850375223657
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9323,11 +9323,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 8234380177401200084}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06e842f3386ac7a49b631f60f69a27d0, type: 3}
+  m_Script: {fileID: 11500000, guid: 2885dfdc800fe7d458269865ace4cea3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   damageAmount: 20
-  knockbackStrength: 300
+  knockbackStrength: 20
 --- !u!1 &8623764353872092184
 GameObject:
   m_ObjectHideFlags: 0

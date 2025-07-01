@@ -82,9 +82,6 @@ public class Boss : NetworkBehaviour, IDamageable
         anim = GetComponent<Animator>();
         if (anim != null)
             anim.SetBool("IsWalking", false);
-
-        if (shieldEffect != null)
-            shieldEffect.SetActive(false);
     }
 
     private void GatherPlayers()
@@ -191,8 +188,7 @@ public class Boss : NetworkBehaviour, IDamageable
         currentPhase = BossPhase.Phase2;
         isInvulnerable = true;
 
-        if (shieldEffect != null)
-            shieldEffect.SetActive(true);
+        ToggleShieldEffectClientRpc(true);
 
         if (anim != null)
             anim.SetBool("IsShielded", true);
@@ -216,8 +212,7 @@ public class Boss : NetworkBehaviour, IDamageable
         currentPhase = BossPhase.Phase3;
         isInvulnerable = false;
 
-        if (shieldEffect != null)
-            shieldEffect.SetActive(false);
+        ToggleShieldEffectClientRpc(false);
 
         agent.speed = chaseSpeed;
 
@@ -230,6 +225,13 @@ public class Boss : NetworkBehaviour, IDamageable
         SummonDragon();
 
         Debug.Log("Boss entered Phase 3 (Chasing)");
+    }
+
+    [ClientRpc]
+    private void ToggleShieldEffectClientRpc(bool isActive)
+    {
+        if (shieldEffect != null)
+            shieldEffect.SetActive(isActive);
     }
 
 
@@ -378,12 +380,12 @@ public class Boss : NetworkBehaviour, IDamageable
     {
         while (!isDead)
         {
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 2; i++)
             {
                 SpawnMonstersWithinMap();
             }
 
-            yield return new WaitForSeconds(5f); // wait 5 seconds before spawning next batch
+            yield return new WaitForSeconds(10f); // wait 5 seconds before spawning next batch
         }
     }
 

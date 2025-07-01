@@ -148,14 +148,34 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
         Debug.Log("Player has died.");
 
         // Disable player controls here if necessary
-        playerController.DisableInputs();
+        DisableInputsClientRpc(OwnerClientId);
+
         StartCoroutine(RespawnCoroutine());
     }
+
+    [ClientRpc]
+    private void DisableInputsClientRpc(ulong clientId)
+    {
+        if (NetworkManager.Singleton.LocalClientId == clientId)
+        {
+            playerController.DisableInputs();
+        }
+    }
+
+    [ClientRpc]
+    private void EnableInputsClientRpc(ulong clientId)
+    {
+        if (NetworkManager.Singleton.LocalClientId == clientId)
+        {
+            playerController.EnableInputs();
+        }
+    }
+
 
     private IEnumerator RespawnCoroutine()
     {
         yield return new WaitForSeconds(5f);
-        playerController.EnableInputs();
+        EnableInputsClientRpc(OwnerClientId);
         // Reset health
         currentHealth.Value = maxHealth;
         isDead.Value = false;
