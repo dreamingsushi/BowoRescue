@@ -20,24 +20,63 @@ public class EnemyHealth : NetworkBehaviour, IDamageable, IKnockbackable
 
     public void TakeDamage(float damage)
     {
+        if (!IsServer)
+        {
+            TakeDamageServerRpc(damage);
+        }
+        else
+        {
+            ApplyDamage(damage);
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void TakeDamageServerRpc(float damage)
+    {
+        ApplyDamage(damage);
+    }
+
+    // Only runs on server
+    private void ApplyDamage(float damage)
+    {
         if (isDead) return;
 
         currentHealth -= damage;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+
+        TriggerHurtMaterialClientRpc();
 
         if (currentHealth <= 0f)
         {
             StartCoroutine(Die());
         }
-
-        TriggerHurtMaterialClientRpc();
     }
+
 
     public void GetKnockedBack(Vector3 force)
     {
-        if (!IsServer || isDead) return;
+        if (!IsServer)
+        {
+            GetKnockedBackServerRpc(force);
+        }
+        else
+        {
+            ApplyKnockback(force);
+        }
+    }
+    
+    [ServerRpc(RequireOwnership = false)]
+    public void GetKnockedBackServerRpc(Vector3 force)
+    {
+        ApplyKnockback(force);
+    }
+
+    private void ApplyKnockback(Vector3 force)
+    {
+        if (isDead) return;
 
         StartCoroutine(enemyAI.ApplyKnockback(force));
-        TriggerHurtMaterialClientRpc();
+        TriggerHurtMaterialClientRpc(); // optional red flash / feedback
     }
 
     private IEnumerator Die()
@@ -45,7 +84,7 @@ public class EnemyHealth : NetworkBehaviour, IDamageable, IKnockbackable
         isDead = true;
 
         GetComponent<EnemyDrop>()?.TrySpawnDrop();
-        
+
         Debug.Log($"{gameObject.name} died... will be destroyed in 2 seconds.");
         DestroyEnemyClientRpc(); // sync death visuals to clients
 
