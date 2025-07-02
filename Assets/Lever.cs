@@ -3,6 +3,13 @@ using UnityEngine;
 public class Lever : MonoBehaviour
 {
     public Door door;
+    private Animator anim;
+    private bool opened;
+    [SerializeField] private GameObject highlightEffect;
+    void Start()
+    {
+        anim = GetComponent<Animator>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -13,6 +20,7 @@ public class Lever : MonoBehaviour
             {
                 player.SetNearbyLever(this);
             }
+            highlightEffect.SetActive(true);
         }
     }
 
@@ -25,11 +33,21 @@ public class Lever : MonoBehaviour
             {
                 player.SetNearbyLever(null);
             }
+            highlightEffect.SetActive(false);
         }
     }
 
     public void TriggerLever()
     {
         door.TriggerDoor();
+
+        if (opened)
+        {
+            anim.SetTrigger("Close");
+        }
+        else
+        {
+            anim.SetTrigger("Open");
+        }
     }
 }
