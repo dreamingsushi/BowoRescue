@@ -9,8 +9,6 @@ public class DamageCollider : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!IsServer) return; // Only server handles damage
-
         if (gameObject.CompareTag("Enemy") && other.CompareTag("Enemy"))
             return;
 
