@@ -110,34 +110,35 @@ public class EnemyAI : MonoBehaviour
 
     public IEnumerator ApplyKnockback(Vector3 force)
     {
-        yield return null;
         agent.enabled = false;
-        rb.useGravity = true;
         rb.isKinematic = false;
+        rb.useGravity = true;
         isStunned = true;
-        rb.AddForce(force);
-        enemyHealth.TriggerHurtMaterialClientRpc();
+
+        Debug.Log($"[Knockback] Applying force: {force}");
+
+        rb.AddForce(force, ForceMode.Impulse);
 
         yield return new WaitForFixedUpdate();
-        float timeout = 1.5f;
-        float knockbackTime= Time.time;
-        yield return new WaitUntil(() => rb.linearVelocity.magnitude < 0.05f || Time.time - knockbackTime > timeout);
+
+        float timeout = 2f;
+        float startTime = Time.time;
+
+        yield return new WaitUntil(() => 
+            rb.linearVelocity.magnitude < 0.05f || Time.time - startTime > timeout
+        );
+
         yield return new WaitForSeconds(0.25f);
 
         isStunned = false;
-        rb.isKinematic = true;
         rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
         rb.useGravity = false;
+        rb.isKinematic = true;
         agent.Warp(transform.position);
         agent.enabled = true;
-        enemyHealth.BackToOriginalMaterial();
 
-        yield return null;
-
-        if (player != null)
-        {
-
-        }
+        Debug.Log("[Knockback] Finished");
     }
+
 }
