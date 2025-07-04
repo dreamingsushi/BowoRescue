@@ -16,6 +16,12 @@ public class Log : NetworkBehaviour, IDamageable
 
     public void TakeDamage(float damage)
     {
+        RequestDamageServerRpc(damage);
+    }
+
+    [ServerRpc]
+    public void RequestDamageServerRpc(float damage)
+    {
         if (!IsServer) return; // Only the server processes damage
 
         health -= damage;
@@ -30,17 +36,28 @@ public class Log : NetworkBehaviour, IDamageable
 
     private void Die()
     {
-        StartCoroutine(DelayedDestroy());
+        StartCoroutine(SinkAndDestroy(4, 1.5f));
     }
 
-    private IEnumerator DelayedDestroy()
+    private IEnumerator SinkAndDestroy(float duration, float sinkDistance)
     {
-        yield return new WaitForSeconds(deathDelay);
+        float elapsed = 0f;
+        Vector3 startPos = transform.position;
+        Vector3 endPos = startPos + Vector3.down * sinkDistance;
 
-        DestroyLogClientRpc(); // Tell clients to destroy the object
+        while (elapsed < duration)
+        {
+            transform.position = Vector3.Lerp(startPos, endPos, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
 
-        if (IsServer)
-            NetworkObject.Despawn(); // Server removes the object from network
+        transform.position = endPos;
+
+        if (IsServer && NetworkObject.IsSpawned)
+        {
+            NetworkObject.Despawn(); // Proper networked despawn
+        }
     }
 
     [ClientRpc]
@@ -56,4 +73,6 @@ public class Log : NetworkBehaviour, IDamageable
         // Destroy local GameObject on clients (in case it wasn't despawned properly)
         if (!IsServer) Destroy(gameObject);
     }
+
+
 }

@@ -97,11 +97,13 @@ public class BasicItem : NetworkBehaviour, IPickupable
 
     public void OnTargeted()
     {
+        if (highlightEffect == null) return;
         highlightEffect?.SetActive(true);
     }
 
     public void OnUntargeted()
     {
+        if (highlightEffect == null) return;
         highlightEffect?.SetActive(false);
     }
 }

@@ -54,5 +54,10 @@ public class PlayerTeleporter : NetworkBehaviour
         {
             Teleport(teleportDestination);
         }
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            NetworkManager.Singleton.SceneManager.LoadScene("Level 3 (boss)", LoadSceneMode.Single);
+        }
     }
 }

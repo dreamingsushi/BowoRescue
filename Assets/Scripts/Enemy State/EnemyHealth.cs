@@ -109,14 +109,34 @@ public class EnemyHealth : NetworkBehaviour, IDamageable, IKnockbackable
             Destroy(gameObject); // no delay
             yield break; // end coroutine early
         }
-
-        Debug.Log($"{gameObject.name} died... will be destroyed in 2 seconds.");
-
-        yield return new WaitForSeconds(4f); // delay
-        // sync death visuals to clients
-        DestroyEnemyClientRpc();
-        Destroy(gameObject); // actual destroy after delay
+        StartCoroutine(SinkAndDestroy(4f, 1.5f));
     }
+
+    private IEnumerator SinkAndDestroy(float duration, float sinkDistance)
+    {
+        float elapsed = 0f;
+        Vector3 startPos = transform.position;
+        Vector3 endPos = startPos + Vector3.down * sinkDistance;
+
+        while (elapsed < duration)
+        {
+            transform.position = Vector3.Lerp(startPos, endPos, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.position = endPos;
+
+        if (IsServer && NetworkObject.IsSpawned)
+        {
+            NetworkObject.Despawn(); // Proper networked despawn
+        }
+        else
+        {
+            DestroyEnemyClientRpc();
+        }
+    }
+
 
     [ClientRpc]
     private void DestroyEnemyClientRpc()

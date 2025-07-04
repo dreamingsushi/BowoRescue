@@ -11,6 +11,7 @@ public class Boss : NetworkBehaviour, IDamageable
     private float currentHealth;
     public bool isDead = false;
     public SkinnedMeshRenderer mesh;
+    [SerializeField] private GameObject hitVFXPrefab;
 
     [Header("Phase Thresholds")]
     public float phase2Threshold = 70f;
@@ -58,8 +59,9 @@ public class Boss : NetworkBehaviour, IDamageable
     public GameObject shieldEffect;
 
     [Header("Summon Settings")]
-    public GameObject summonPrefab;
-    public GameObject summonVFX;
+    public GameObject dragonSummonPrefab;
+    public GameObject dragonSummonVFX;
+    [SerializeField] private Transform dragonSummonPoint;
     public GameObject slimePrefab;
 
     [Header("Camera")]
@@ -127,6 +129,7 @@ public class Boss : NetworkBehaviour, IDamageable
         currentHealth -= damage;
 
         TriggerHurtMaterialClientRpc();
+        SpawnHitVFXClientRpc();
 
         if (currentPhase == BossPhase.Phase1 && currentHealth <= phase2Threshold)
         {
@@ -141,6 +144,15 @@ public class Boss : NetworkBehaviour, IDamageable
         {
             StartCoroutine(Die());
         }
+    }
+
+    [ClientRpc]
+    private void SpawnHitVFXClientRpc()
+    {
+        if (hitVFXPrefab == null) return;
+
+        GameObject vfx = Instantiate(hitVFXPrefab, transform.position + Vector3.up * 1f, Quaternion.identity);
+        Destroy(vfx, 2f); // Clean up after 2 seconds
     }
 
     [ClientRpc]
@@ -172,14 +184,25 @@ public class Boss : NetworkBehaviour, IDamageable
 
     public void SummonDragon()
     {
-        if (summonVFX != null)
+        if (!IsServer) return; // Only server should spawn
+
+        if (dragonSummonVFX != null)
         {
-            summonVFX.SetActive(true);
+            GameObject vfx = Instantiate(dragonSummonVFX, transform.position + Vector3.up * 2f, Quaternion.identity);
+            if (vfx.TryGetComponent(out NetworkObject vfxNet))
+                vfxNet.Spawn();
+
+            Destroy(vfx, 3f);
         }
 
-        if (summonPrefab != null)
+        if (dragonSummonPrefab != null)
         {
-            summonPrefab.SetActive(true);
+            GameObject dragon = Instantiate(dragonSummonPrefab, dragonSummonPoint.position, Quaternion.identity);
+
+            if (dragon.TryGetComponent(out NetworkObject netObj))
+                netObj.Spawn();
+            else
+                Debug.LogError("Summon prefab is missing a NetworkObject!");
         }
     }
 
@@ -315,19 +338,7 @@ public class Boss : NetworkBehaviour, IDamageable
     {
         if (!IsServer) return;
 
-        // Stop NavMeshAgent
-        if (agent != null && agent.enabled)
-            agent.enabled = false;
-
-        // Move the boss directly
-        transform.position = destination.position;
-
-        // Warp the NavMeshAgent to sync pathfinding
-        if (agent != null)
-        {
-            agent.Warp(destination.position); // this repositions the agent properly
-            agent.enabled = true;
-        }
+        agent.Warp(destination.position);
 
         // Optional: reset target to avoid weird chasing
         currentTarget = null;
@@ -378,14 +389,21 @@ public class Boss : NetworkBehaviour, IDamageable
 
     private IEnumerator SpawnMonstersLoop()
     {
-        while (!isDead)
+        while (!isDead && currentPhase == BossPhase.Phase2)
         {
             for (int i = 0; i < 2; i++)
             {
                 SpawnMonstersWithinMap();
             }
+            if (currentPhase == BossPhase.Phase2)
+            {
+                yield return new WaitForSeconds(15f);
+            }
+            else
+            {
+                yield return new WaitForSeconds(30f);
+            }
 
-            yield return new WaitForSeconds(10f); // wait 5 seconds before spawning next batch
         }
     }
 

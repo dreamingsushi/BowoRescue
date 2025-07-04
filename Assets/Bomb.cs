@@ -35,8 +35,11 @@ public class Bomb : MonoBehaviour
     {
         if (spawnedIndicator != null)
         {
-            spawnedIndicator.transform.position = transform.position;
-            spawnedIndicator.transform.rotation = Quaternion.Euler(-90f, 0f, 0f); // stay flat
+            Vector3 bombPos = transform.position;
+            bombPos.y = -1.38f; // 👈 Lock Y position to -1.38
+
+            spawnedIndicator.transform.position = bombPos;
+            spawnedIndicator.transform.rotation = Quaternion.Euler(-90f, 0f, 0f); // keep flat
         }
     }
 
