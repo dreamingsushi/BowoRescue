@@ -4,15 +4,24 @@ public class GateManager : MonoBehaviour
 {
     public Gate gate;
     private bool gateOpened = false;
+    public GameObject[] enemies;
 
     void Update()
     {
         if (gateOpened) return;
 
-        // Check if any enemies are still active
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        bool allEnemiesDead = true;
 
-        if (enemies.Length == 0)
+        foreach (GameObject enemy in enemies)
+        {
+            if (enemy != null)
+            {
+                allEnemiesDead = false;
+                break;
+            }
+        }
+
+        if (allEnemiesDead)
         {
             OpenGate();
         }

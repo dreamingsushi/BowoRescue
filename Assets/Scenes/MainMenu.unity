@@ -3347,6 +3347,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06e842f3386ac7a49b631f60f69a27d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitVFXPrefab: {fileID: 0}
   damageAmount: 10
   knockbackStrength: 300
 --- !u!65 &449225985
@@ -7702,7 +7703,6 @@ MonoBehaviour:
     currentIndex: 0
   helmetText: {fileID: 0}
   headText: {fileID: 0}
-  nameInputField: {fileID: 0}
   customizeCamera: {fileID: 0}
 --- !u!1001 &941851908
 PrefabInstance:
@@ -8266,6 +8266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06e842f3386ac7a49b631f60f69a27d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitVFXPrefab: {fileID: 0}
   damageAmount: 10
   knockbackStrength: 300
 --- !u!65 &1019943510
@@ -18477,7 +18478,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2047708688
 MonoBehaviour:
   m_ObjectHideFlags: 0
