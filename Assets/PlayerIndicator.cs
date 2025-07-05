@@ -18,10 +18,7 @@ public class PlayerIndicator : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        if (IsOwner)
-        {
-            StartCoroutine(WaitAndSetColor());
-        }
+        StartCoroutine(WaitAndSetColor());
     }
 
     private IEnumerator WaitAndSetColor()
