@@ -5,7 +5,12 @@ using System.Collections;
 public class PlayerIndicator : NetworkBehaviour
 {
     [SerializeField] private SpriteRenderer indicatorRenderer; // Assign the circle Renderer in Inspector
-    
+
+    public NetworkVariable<int> playerIndex = new NetworkVariable<int>(
+        -1,
+        NetworkVariableReadPermission.Everyone,
+        NetworkVariableWritePermission.Server
+    );
 
     // Define your player colors (you can expand this)
     public Color[] playerColors = new Color[]
@@ -18,9 +23,20 @@ public class PlayerIndicator : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        if (IsOwner)
+        if (IsServer)
         {
-            StartCoroutine(WaitAndSetColor());
+            // Assign index from PlayerIndexManager on server
+            int index = PlayerIndexManager.Instance.GetPlayerIndex(OwnerClientId);
+            playerIndex.Value = index;
+        }
+
+        // Listen for index being set or changed
+        playerIndex.OnValueChanged += OnPlayerIndexChanged;
+
+        // In case index is already valid
+        if (playerIndex.Value >= 0)
+        {
+            OnPlayerIndexChanged(-1, playerIndex.Value);
         }
     }
 
@@ -45,6 +61,18 @@ public class PlayerIndicator : NetworkBehaviour
         }
     }
 
+    private void OnPlayerIndexChanged(int oldValue, int newValue)
+    {
+        if (newValue >= 0 && newValue < playerColors.Length)
+        {
+            SetIndicatorColor(playerColors[newValue]);
+        }
+        else
+        {
+            Debug.LogWarning($"No color defined for player index {newValue}");
+        }
+    }
+
     private void SetIndicatorColor(Color color)
     {
         if (indicatorRenderer != null)
@@ -57,4 +85,5 @@ public class PlayerIndicator : NetworkBehaviour
             Debug.LogWarning("Indicator Renderer not assigned.");
         }
     }
+
 }
