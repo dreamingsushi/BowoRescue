@@ -4,9 +4,11 @@ using System.Collections;
 
 public class PlayerIndicator : NetworkBehaviour
 {
-    [SerializeField] private SpriteRenderer indicatorRenderer; // Assign the circle Renderer in Inspector
+    [SerializeField] private SpriteRenderer indicatorRenderer;
 
-    // Define your player colors (you can expand this)
+    public NetworkVariable<int> playerIndex = new NetworkVariable<int>(
+    -1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
+
     public Color[] playerColors = new Color[]
     {
         Color.red,
@@ -17,30 +19,27 @@ public class PlayerIndicator : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        if (IsOwner)
+        if (IsServer)
         {
-            StartCoroutine(WaitAndSetColor());
+            int index = PlayerIndexManager.Instance.GetPlayerIndex(OwnerClientId);
+            playerIndex.Value = index;
+            Debug.Log($"[SERVER] Assigned index {index} to client {OwnerClientId}");
         }
+
+        StartCoroutine(DelayedSetColor());
     }
 
-    private IEnumerator WaitAndSetColor()
+    private IEnumerator DelayedSetColor()
     {
-        // Wait until PlayerIndexManager is ready and returns a valid index
-        int playerIndex = -1;
+        yield return new WaitUntil(() => playerIndex.Value >= 0);
 
-        yield return new WaitUntil(() =>
+        if (playerIndex.Value < playerColors.Length)
         {
-            playerIndex = PlayerIndexManager.Instance.GetPlayerIndex(NetworkManager.Singleton.LocalClientId);
-            return playerIndex >= 0;
-        });
-
-        if (playerIndex < playerColors.Length)
-        {
-            SetIndicatorColor(playerColors[playerIndex]);
+            SetIndicatorColor(playerColors[playerIndex.Value]);
         }
         else
         {
-            Debug.LogWarning($"No color defined for player index {playerIndex}");
+            Debug.LogWarning($"No color defined for player index {playerIndex.Value}");
         }
     }
 
@@ -49,7 +48,6 @@ public class PlayerIndicator : NetworkBehaviour
         if (indicatorRenderer != null)
         {
             indicatorRenderer.color = color;
-            Debug.Log("Set Player Color");
         }
         else
         {
