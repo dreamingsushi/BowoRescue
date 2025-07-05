@@ -8,9 +8,17 @@ public class PlayerIndexManager : NetworkBehaviour
 
     private List<ulong> connectedClientIds = new List<ulong>();
 
-    private void Awake()
+     private void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     public override void OnNetworkSpawn()

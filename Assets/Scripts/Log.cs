@@ -19,7 +19,7 @@ public class Log : NetworkBehaviour, IDamageable
         RequestDamageServerRpc(damage);
     }
 
-    [ServerRpc]
+    [ServerRpc(RequireOwnership = false)]
     public void RequestDamageServerRpc(float damage)
     {
         if (!IsServer) return; // Only the server processes damage

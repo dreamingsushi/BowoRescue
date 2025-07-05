@@ -39,9 +39,6 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
     {
         if (IsServer)
         {
-
-            // Set playerIndex using the server-side manager
-            int index = PlayerIndexManager.Instance.GetPlayerIndex(OwnerClientId);
             playerIndex.Value = (int)OwnerClientId;
 
             currentHealth.Value = maxHealth;
@@ -60,6 +57,10 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
 
     private IEnumerator DelayedRegisterToUI()
     {
+        yield return new WaitForSeconds(10f);
+        int index = PlayerIndexManager.Instance.GetPlayerIndex(OwnerClientId);
+        Debug.Log("index is " + index);
+
         yield return new WaitUntil(() => IsSpawned && SceneManager.GetActiveScene().name == "Level 1");
         HealthBarManager manager = FindObjectOfType<HealthBarManager>();
         if (manager != null)
