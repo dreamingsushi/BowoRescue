@@ -4,11 +4,10 @@ using System.Collections;
 
 public class PlayerIndicator : NetworkBehaviour
 {
-    [SerializeField] private SpriteRenderer indicatorRenderer;
+    [SerializeField] private SpriteRenderer indicatorRenderer; // Assign the circle Renderer in Inspector
+    
 
-    public NetworkVariable<int> playerIndex = new NetworkVariable<int>(
-    -1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
-
+    // Define your player colors (you can expand this)
     public Color[] playerColors = new Color[]
     {
         Color.red,
@@ -19,27 +18,30 @@ public class PlayerIndicator : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        if (IsServer)
+        if (IsOwner)
         {
-            int index = PlayerIndexManager.Instance.GetPlayerIndex(OwnerClientId);
-            playerIndex.Value = index;
-            Debug.Log($"[SERVER] Assigned index {index} to client {OwnerClientId}");
+            StartCoroutine(WaitAndSetColor());
         }
-
-        StartCoroutine(DelayedSetColor());
     }
 
-    private IEnumerator DelayedSetColor()
+    private IEnumerator WaitAndSetColor()
     {
-        yield return new WaitUntil(() => playerIndex.Value >= 0);
+        // Wait until PlayerIndexManager is ready and returns a valid index
+        int playerIndex = -1;
 
-        if (playerIndex.Value < playerColors.Length)
+        yield return new WaitUntil(() =>
         {
-            SetIndicatorColor(playerColors[playerIndex.Value]);
+            playerIndex = PlayerIndexManager.Instance.GetPlayerIndex(NetworkManager.Singleton.LocalClientId);
+            return playerIndex >= 0;
+        });
+
+        if ((int)OwnerClientId < playerColors.Length)
+        {
+            SetIndicatorColor(playerColors[(int)OwnerClientId]);
         }
         else
         {
-            Debug.LogWarning($"No color defined for player index {playerIndex.Value}");
+            Debug.LogWarning($"No color defined for player index {playerIndex}");
         }
     }
 
@@ -48,6 +50,7 @@ public class PlayerIndicator : NetworkBehaviour
         if (indicatorRenderer != null)
         {
             indicatorRenderer.color = color;
+            Debug.Log("Set Player Color");
         }
         else
         {
