@@ -6,6 +6,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject MainMenuPanel;
     [SerializeField] private GameObject StartMenuPanel;
     [SerializeField] private GameObject SettingsPanel;
+    [SerializeField] private GameObject CreditsPanel;
     [SerializeField] private GameObject audioPanel;
     [SerializeField] private GameObject graphicsPanel;
     [SerializeField] private GameObject quitPanel;
@@ -29,6 +30,11 @@ public class UIManager : MonoBehaviour
         ActivatePanel(SettingsPanel.name);
         AudioManager.Instance.PlaySFX("Menu");
     }
+    public void GoToCredits()
+    {
+        ActivatePanel(CreditsPanel.name);
+        AudioManager.Instance.PlaySFX("Menu");        
+    }
 
     public void ActivatePanel(string panelToBeActivated)
     {
@@ -36,6 +42,7 @@ public class UIManager : MonoBehaviour
         StartMenuPanel.SetActive(panelToBeActivated.Equals(StartMenuPanel.name));
         SettingsPanel.SetActive(panelToBeActivated.Equals(SettingsPanel.name));
         quitPanel.SetActive(panelToBeActivated.Equals(quitPanel.name));
+        CreditsPanel.SetActive(panelToBeActivated.Equals(CreditsPanel.name));
 
         if (panelToBeActivated.Equals(MainMenuPanel.name)) currentDefaultButton = defaultMainButton;
         else if (panelToBeActivated.Equals(SettingsPanel.name)) currentDefaultButton = defaultSettingsButton;
