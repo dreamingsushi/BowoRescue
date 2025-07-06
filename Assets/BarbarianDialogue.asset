@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75b9e84c9bd159d48adb6a1bff6bfcdf, type: 3}
+  m_Name: BarbarianDialogue
+  m_EditorClassIdentifier: 
+  npcName: Brugg
+  lines:
+  - text: "Grrhh\u2014fallen trees!"
+    choices:
+    - choiceText: What happened?
+      nextLineIndex: 1
+    - choiceText: Leaves.
+      nextLineIndex: 3
+  - text: " Hey, you! I\u2019m stuck back here. Lend me your strength!"
+    choices:
+    - choiceText: "Alright, I\u2019ll help."
+      nextLineIndex: 2
+  - text: "Ha! Knew you had a warrior\u2019s heart. There is an Axe on one of the
+      Tower, go find it."
+    choices:
+    - choiceText: Continue
+      nextLineIndex: 5
+  - text: Tch... Fine. Go then.
+    choices: []

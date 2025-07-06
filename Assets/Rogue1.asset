@@ -10,17 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 75b9e84c9bd159d48adb6a1bff6bfcdf, type: 3}
-  m_Name: KnightDialogue
+  m_Name: Rogue1
   m_EditorClassIdentifier: 
-  npcName: Josh
+  npcName: Mako
   lines:
-  - text: "Whatever that house is, I don\u2019t trust it"
-    choices:
-    - choiceText: "It\u2019s just a house."
-      nextLineIndex: 1
-    - choiceText: Creepy, huh?
-      nextLineIndex: 2
-  - text: ...
-    choices: []
-  - text: "Right? It feels\u2026 alive"
+  - text: "Been working since sunrise\u2026 Everything aches."
     choices: []

@@ -14,13 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   npcName: Recluse
   lines:
-  - text: Hey, What's the matter?
+  - text: "That house across the river\u2026 It wasn\u2019t there yesterday. I\u2019ve
+      studied this land for years."
     choices:
-    - choiceText: Are you a Mage!?
+    - choiceText: "Why\u2019s that odd?"
       nextLineIndex: 1
     - choiceText: Leave.
       nextLineIndex: 2
-  - text: Yes. I love magic!
+  - text: "It\u2019s not just a house. The structure shifts when you're not looking.
+      I saw it. I don't recommend go near the house."
     choices: []
   - text: Bye
     choices: []

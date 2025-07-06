@@ -35,6 +35,12 @@ public class PlayerController : NetworkBehaviour
     private DialogueManager dialogueManager;
     private bool isMenuOpen = false;
     private Lever nearbyLever;
+    [Header("VFX")]
+    [SerializeField] private GameObject walkVFXPrefab;
+    [SerializeField] private Transform footVFXSpawnPoint; // empty GameObject at foot
+    [SerializeField] private GameObject dashSmokeVFXPrefab;
+    [SerializeField] private float vfxSpawnInterval = 0.2f;
+    private float vfxTimer = 0f;
 
     // Movement State
     private Vector3 velocity;
@@ -101,6 +107,22 @@ public class PlayerController : NetworkBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(movement), m_RotationSpeed);
         }
 
+        if (isWalking && controller.isGrounded)
+        {
+            vfxTimer -= Time.fixedDeltaTime;
+
+            if (vfxTimer <= 0f)
+            {
+                SpawnWalkVFX();
+                vfxTimer = vfxSpawnInterval;
+            }
+        }
+        else
+        {
+            vfxTimer = 0f;
+        }
+
+
         if (!isDashing)
         {
             if (controller.isGrounded && velocity.y < 0)
@@ -125,6 +147,13 @@ public class PlayerController : NetworkBehaviour
         }
 
         DetectPickupTarget();
+    }
+    void SpawnWalkVFX()
+    {
+        if (walkVFXPrefab != null && footVFXSpawnPoint != null)
+        {
+            Instantiate(walkVFXPrefab, footVFXSpawnPoint.position, Quaternion.identity);
+        }
     }
 
     void Update()
@@ -295,6 +324,11 @@ public class PlayerController : NetworkBehaviour
     {
         isDashing = true;
         canDash = false;
+
+        if (dashSmokeVFXPrefab != null && footVFXSpawnPoint != null)
+        {
+            Instantiate(dashSmokeVFXPrefab, footVFXSpawnPoint.position, Quaternion.identity);
+        }
 
         Vector3 dashDirection = new Vector3(m_Direction.x, 0, m_Direction.y).normalized;
         float startTime = Time.time;
