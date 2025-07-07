@@ -50,6 +50,9 @@ public class Boss : NetworkBehaviour, IDamageable
     public float attackRange = 2f;
     public float attackCooldown = 1.5f;
     private float attackTimer = 0f;
+    [Header("Phase 3 Spell")]
+    public float spellCastInterval = 10f;
+    private float spellCastTimer = 0f;
 
     [Header("Spell Settings")]
     public GameObject[] spellPrefabs;
@@ -467,6 +470,14 @@ public class Boss : NetworkBehaviour, IDamageable
         {
             AttackTarget();
             attackTimer = 0f;
+        }
+
+        // --- Spell Cast ---
+        spellCastTimer += Time.deltaTime;
+        if (spellCastTimer >= spellCastInterval)
+        {
+            CastSpell();
+            spellCastTimer = 0f;
         }
     }
 

@@ -13,11 +13,13 @@ public class Portal : NetworkBehaviour
         {
             if (level1)
             {
-                NetworkManager.Singleton.SceneManager.LoadScene("Level 2", LoadSceneMode.Single);
+                //NetworkManager.Singleton.SceneManager.LoadScene("Level 2", LoadSceneMode.Single);
+                SceneTransitionManager.Instance.StartTransitionAndLoadScene("Level 2");
             }
             else if (level2)
             {
-                NetworkManager.Singleton.SceneManager.LoadScene("Level 3 (boss)", LoadSceneMode.Single);
+                //NetworkManager.Singleton.SceneManager.LoadScene("Level 3 (boss)", LoadSceneMode.Single);
+                SceneTransitionManager.Instance.StartTransitionAndLoadScene("Level 3 (boss)");
             }
         }
     }

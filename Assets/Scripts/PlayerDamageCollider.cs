@@ -16,6 +16,7 @@ public class PlayerDamageCollider : MonoBehaviour
             Debug.Log("Attacked" + damageable + "For" + damageAmount);
             HitStopManager.Instance?.DoHitStop(0.02f);
             CameraShakeManager.Instance?.Shake();
+            AudioManager.Instance.PlaySFX("Hit");
         }
 
         if (other.TryGetComponent(out IKnockbackable knockbackable))

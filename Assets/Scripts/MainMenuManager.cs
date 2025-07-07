@@ -29,6 +29,7 @@ public class MainMenuManager : NetworkBehaviour
 
     public void OnHostButtonClicked()
     {
+        SceneTransitionManager.Instance.StartTransitionAndLoadScene("LobbyScene");
         LobbyManagerZK.Instance.OnJoinedLobby += HandleLobbyJoinedHost;
         LobbyManagerZK.Instance.CreateLobby();
         AudioManager.Instance.PlaySFX("Menu");
@@ -45,6 +46,7 @@ public class MainMenuManager : NetworkBehaviour
 
     public void OnJoinButtonClicked()
     {
+        SceneTransitionManager.Instance.StartTransitionAndLoadScene("LobbyScene");
         LobbyManagerZK.Instance.OnJoinedLobby += HandleLobbyJoinedClient;
         LobbyManagerZK.Instance.QuickJoinLobby();
         AudioManager.Instance.PlaySFX("Menu");

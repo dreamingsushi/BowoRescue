@@ -1,6 +1,8 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 public class AudioManager : MonoBehaviour
 {
@@ -14,6 +16,38 @@ public class AudioManager : MonoBehaviour
     private float sfxVolume = 0.5f;
 
     public Slider masterSlider, musicSlider, sfxSlider;
+
+    private Dictionary<string, string> sceneMusicMap = new Dictionary<string, string>()
+    {
+        { "MainMenu", "MainMenuTheme" },
+        { "Level 1", "Level1Theme" },
+        { "Level 2", "Level2Theme" },
+        // Add more as needed
+    };
+
+    private string currentMusic = "";
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (sceneMusicMap.TryGetValue(scene.name, out string musicName))
+        {
+            if (currentMusic != musicName) // Prevent restarting same track
+            {
+                currentMusic = musicName;
+                PlayMusic(musicName);
+            }
+        }
+    }
 
     private void Awake()
     {
