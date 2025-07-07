@@ -502,7 +502,6 @@ MonoBehaviour:
   - {fileID: -7744020124577564026}
   - {fileID: -2529448723493285833}
   - {fileID: -8233496447859809768}
-  - {fileID: 6348843796846852657}
   - {fileID: -8243043900557489894}
   - {fileID: -4310012629386582147}
   - {fileID: 40338738960782049}
@@ -552,25 +551,3 @@ MonoBehaviour:
   m_HighQualityFiltering:
     m_OverrideState: 1
     m_Value: 1
---- !u!114 &6348843796846852657
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a76fd08475e21554b8f284f723dd7cf8, type: 3}
-  m_Name: WaterRendering
-  m_EditorClassIdentifier: 
-  active: 1
-  enable:
-    m_OverrideState: 1
-    m_Value: 1
-  triangleSize:
-    m_OverrideState: 0
-    m_Value: 30
-  ambientProbeDimmer:
-    m_OverrideState: 0
-    m_Value: 0.5
