@@ -114,18 +114,20 @@ public class Boss : NetworkBehaviour, IDamageable
             case BossPhase.Idle:
                 break;
             case BossPhase.Phase1:
-                Patrol();
+                ChaseAndAttack();
                 break;
             case BossPhase.Phase2:
                 Idle();
+                HandleSpellCasting();
                 break;
             case BossPhase.Phase3:
-                ChaseAndAttack();
+                Patrol();
                 break;
         }
     }
 
-    public void TakeDamage(float damage)
+    [ServerRpc]
+    public void TakeDamageServerRpc(float damage)
     {
         if (!IsServer || isDead || isInvulnerable) return;
 
@@ -147,6 +149,11 @@ public class Boss : NetworkBehaviour, IDamageable
         {
             StartCoroutine(Die());
         }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        TakeDamageServerRpc(damage);
     }
 
     [ClientRpc]
@@ -183,6 +190,8 @@ public class Boss : NetworkBehaviour, IDamageable
         bossCamera.SetActive(true);
         currentPhase = BossPhase.Phase1;
         GatherPlayers();
+        agent.speed = chaseSpeed; // chasing
+        SelectNextTarget();       // immediately pick someone
     }
 
     public void SummonDragon()
@@ -221,6 +230,7 @@ public class Boss : NetworkBehaviour, IDamageable
 
         StartCoroutine(SpawnMonstersLoop());
         TeleportBoss(bossTP);
+        spellCastTimer = 0f;
         Debug.Log("Boss entered Phase 2 (Shielded)");
     }
 
@@ -240,7 +250,7 @@ public class Boss : NetworkBehaviour, IDamageable
 
         ToggleShieldEffectClientRpc(false);
 
-        agent.speed = chaseSpeed;
+        agent.speed = patrolSpeed;
 
         if (anim != null)
             anim.SetBool("IsShielded", false);
@@ -478,6 +488,25 @@ public class Boss : NetworkBehaviour, IDamageable
         {
             CastSpell();
             spellCastTimer = 0f;
+        }
+    }
+
+    private void HandleSpellCasting()
+    {
+        spellCastTimer += Time.deltaTime;
+
+        if (spellCastTimer >= spellCastInterval)
+        {
+            if (currentTarget == null || !currentTarget.gameObject.activeInHierarchy)
+            {
+                SelectNextTarget(); // ?? ensure you have a valid target
+            }
+
+            if (currentTarget != null)
+            {
+                CastSpell();
+                spellCastTimer = 0f;
+            }
         }
     }
 

@@ -6,6 +6,7 @@ public class PlayerStateMachine : NetworkBehaviour
     public PlayerController controller;
     public PlayerHealth health;
     public PlayerAttack playerAttack;
+    public ClientNetworkAnimator clientNetworkAnimator;
     public Animator animator;
     private BaseState currentState;
     private float stateTimer;

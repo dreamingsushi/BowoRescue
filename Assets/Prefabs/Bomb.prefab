@@ -4754,7 +4754,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosionDelay: 5
-  damageAmount: 90
+  damageAmount: 50
   explosionRadius: 4.5
   explosionEffect: {fileID: 7341209863866370603, guid: 3e43a059ec57ee545a9e19fec0f76b8f, type: 3}
   meshRenderer: {fileID: 4893384432056834962}

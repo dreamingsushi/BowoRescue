@@ -6,7 +6,8 @@ public class AttackState : BaseState
 
     public override void EnterState()
     {
-        player.animator.SetTrigger("Attack");
+        //player.animator.SetTrigger("Attack");
+        player.clientNetworkAnimator.SetTrigger("Attack");
     }
 
     public override void ExitState()
@@ -25,10 +26,6 @@ public class AttackState : BaseState
             else if (!player.controller.isWalking)
             {
                 player.TransitionToState(new IdleState(player));
-            }
-            else if (player.health.isInvincible)
-            {
-                //player.TransitionToState(new HurtState(player));
             }
         }
         

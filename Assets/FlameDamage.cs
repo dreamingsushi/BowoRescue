@@ -13,6 +13,7 @@ public class FlameDamage : MonoBehaviour
         if (other.TryGetComponent(out IDamageable damageable))
         {
             damageable.TakeDamage(damagePerSecond * Time.deltaTime);
+            CameraShakeManager.Instance?.Shake();
         }
     }
 }

@@ -325,7 +325,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_NormalColor: {r: 0, g: 0.0627451, b: 0.37254903, a: 0.48235294}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -774,7 +774,7 @@ RectTransform:
   m_GameObject: {fileID: 735308132589412773}
   m_LocalRotation: {x: -0, y: -0, z: 4.5474735e-13, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0}
-  m_LocalScale: {x: 3.1741002, y: 3.1741, z: 3.1741002}
+  m_LocalScale: {x: 6.1142693, y: 6.114269, z: 6.1142693}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1807101242511446413}
@@ -814,8 +814,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Game Menu
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: ddede3ac4a48de94ea977b02f9543ad0, type: 2}
+  m_sharedMaterial: {fileID: 2575026461688799333, guid: ddede3ac4a48de94ea977b02f9543ad0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1267,7 +1267,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_NormalColor: {r: 0, g: 0.06455931, b: 0.3735848, a: 0.48235294}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -1516,6 +1516,7 @@ MonoBehaviour:
   controller: {fileID: 2073133031819878385}
   health: {fileID: 8890873965373619219}
   playerAttack: {fileID: 8258732273839877915}
+  clientNetworkAnimator: {fileID: 5446880448443447693}
   animator: {fileID: 1212794824034788769}
 --- !u!114 &5446880448443447693
 MonoBehaviour:
@@ -5643,7 +5644,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2885dfdc800fe7d458269865ace4cea3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageAmount: 15
+  damageAmount: 10
   knockbackStrength: 20
 --- !u!1 &5139671137992181147
 GameObject:
@@ -6150,7 +6151,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &182122129188782832
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6455,16 +6456,16 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6116295472857814363}
   m_LocalRotation: {x: 0.0016322215, y: 0.0018760059, z: -0.00016275054, w: 0.9999969}
-  m_LocalPosition: {x: 0, y: 0, z: 0.06929459}
+  m_LocalPosition: {x: 0, y: 0, z: 0.1}
   m_LocalScale: {x: 0.6666667, y: 0.6666667, z: 0.6666666}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 318936535564627075}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.002456665, y: -1.1523399}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 1.4}
+  m_SizeDelta: {x: 260.7, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8910359318941501813
 CanvasRenderer:
@@ -6496,15 +6497,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: Back to Main Menu
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2028c92b83d12f9449e1a283fca407c7, type: 2}
+  m_sharedMaterial: {fileID: 3846055716103184401, guid: 2028c92b83d12f9449e1a283fca407c7, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -6888,7 +6889,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6533567787905300763}
   m_LocalRotation: {x: 0.0016322215, y: 0.0018760059, z: -0.00016275054, w: 0.9999969}
-  m_LocalPosition: {x: 0, y: 0, z: 0.06929459}
+  m_LocalPosition: {x: 0, y: 0, z: 0.1}
   m_LocalScale: {x: 0.6666667, y: 0.6666667, z: 0.6666666}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6896,7 +6897,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.002456665, y: -1.1523399}
+  m_AnchoredPosition: {x: 0, y: 1.4}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8078194479204606829
@@ -6929,15 +6930,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: Back to Game
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2028c92b83d12f9449e1a283fca407c7, type: 2}
+  m_sharedMaterial: {fileID: 3846055716103184401, guid: 2028c92b83d12f9449e1a283fca407c7, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -7761,7 +7762,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2990225669
+  GlobalObjectIdHash: 1526736378
   InScenePlacedSourceGlobalObjectIdHash: 1526736378
   DeferredDespawnTick: 0
   Ownership: 1
@@ -7852,6 +7853,7 @@ MonoBehaviour:
   emoteWheel: {fileID: 7178482737795248514}
   walkVFXPrefab: {fileID: 1591559484177431036, guid: ce0a861c5d837e743b576d8bd6ce96d1, type: 3}
   footVFXSpawnPoint: {fileID: 91080010170191220}
+  dashSmokeVFXPrefab: {fileID: 8615169901721859013, guid: 3e24802c2c3b7104094f51cf919db367, type: 3}
   vfxSpawnInterval: 0.3
   isWalking: 0
   isJumping: 0
@@ -9469,7 +9471,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2885dfdc800fe7d458269865ace4cea3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageAmount: 20
+  damageAmount: 10
   knockbackStrength: 20
 --- !u!1 &8623764353872092184
 GameObject:
@@ -9490,7 +9492,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1684290851269201950
 RectTransform:
   m_ObjectHideFlags: 0

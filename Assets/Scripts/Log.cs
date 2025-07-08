@@ -22,8 +22,6 @@ public class Log : NetworkBehaviour, IDamageable
     [ServerRpc(RequireOwnership = false)]
     public void RequestDamageServerRpc(float damage)
     {
-        if (!IsServer) return; // Only the server processes damage
-
         health -= damage;
 
         PlayHitParticlesClientRpc(); // Tell all clients to play hit VFX
@@ -34,9 +32,15 @@ public class Log : NetworkBehaviour, IDamageable
         }
     }
 
-    private void Die()
+    [ServerRpc(RequireOwnership = false)]
+    private void DieServerRPC()
     {
         StartCoroutine(SinkAndDestroy(4, 1.5f));
+    }
+
+    private void Die()
+    {
+        DieServerRPC();
     }
 
     private IEnumerator SinkAndDestroy(float duration, float sinkDistance)
@@ -54,10 +58,7 @@ public class Log : NetworkBehaviour, IDamageable
 
         transform.position = endPos;
 
-        if (IsServer && NetworkObject.IsSpawned)
-        {
-            NetworkObject.Despawn(); // Proper networked despawn
-        }
+        DestroyLogClientRpc();
     }
 
     [ClientRpc]

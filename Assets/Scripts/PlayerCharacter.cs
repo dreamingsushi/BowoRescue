@@ -8,7 +8,10 @@ public class PlayerCharacter : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        LoadAndApplySavedCustomization();
+        if (IsOwner)
+        {
+            LoadAndApplySavedCustomization();
+        }
     }
 
     public void ApplyCustomization(CustomizationData data)
