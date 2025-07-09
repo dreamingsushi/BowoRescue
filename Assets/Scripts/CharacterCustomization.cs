@@ -32,7 +32,7 @@ public class CharacterCustomization : NetworkBehaviour
         while (NetworkManager.Singleton.LocalClient?.PlayerObject == null)
             yield return null;
 
-        playerCharacter = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerCharacter>();
+        playerCharacter = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponentInChildren<PlayerCharacter>();
         playerManager = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerManager>();
     }
 
