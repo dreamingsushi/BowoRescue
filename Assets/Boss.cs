@@ -126,7 +126,7 @@ public class Boss : NetworkBehaviour, IDamageable
         }
     }
 
-    [ServerRpc]
+    [ServerRpc (RequireOwnership = false)]
     public void TakeDamageServerRpc(float damage)
     {
         if (!IsServer || isDead || isInvulnerable) return;
