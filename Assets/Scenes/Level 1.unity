@@ -1178,9 +1178,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6628476274996172517, guid: 4206db8459567c64db0e496eb43acfde, type: 3}
+      propertyPath: SyncRotAngleX
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6628476274996172517, guid: 4206db8459567c64db0e496eb43acfde, type: 3}
+      propertyPath: SyncRotAngleZ
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8512765512532011923, guid: 4206db8459567c64db0e496eb43acfde, type: 3}
       propertyPath: m_Name
       value: Enemy Cactus
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512765512532011923, guid: 4206db8459567c64db0e496eb43acfde, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8512765512532011923, guid: 4206db8459567c64db0e496eb43acfde, type: 3}
       propertyPath: m_TagString
@@ -22984,6 +22996,10 @@ PrefabInstance:
     - target: {fileID: 5153910363391823244, guid: 174434808dcf91a4ba4b384f4236a78f, type: 3}
       propertyPath: m_Name
       value: Network Sword
+      objectReference: {fileID: 0}
+    - target: {fileID: 5153910363391823244, guid: 174434808dcf91a4ba4b384f4236a78f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6525715650504254418, guid: 174434808dcf91a4ba4b384f4236a78f, type: 3}
       propertyPath: GlobalObjectIdHash
@@ -55652,9 +55668,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6628476274996172517, guid: 4206db8459567c64db0e496eb43acfde, type: 3}
+      propertyPath: SyncRotAngleX
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6628476274996172517, guid: 4206db8459567c64db0e496eb43acfde, type: 3}
+      propertyPath: SyncRotAngleZ
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8512765512532011923, guid: 4206db8459567c64db0e496eb43acfde, type: 3}
       propertyPath: m_Name
       value: Enemy Cactus (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512765512532011923, guid: 4206db8459567c64db0e496eb43acfde, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8512765512532011923, guid: 4206db8459567c64db0e496eb43acfde, type: 3}
       propertyPath: m_TagString

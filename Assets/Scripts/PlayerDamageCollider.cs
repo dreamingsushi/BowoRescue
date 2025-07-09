@@ -19,12 +19,12 @@ public class PlayerDamageCollider : MonoBehaviour
             AudioManager.Instance.PlaySFX("Hit");
         }
 
-        if (other.TryGetComponent(out IKnockbackable knockbackable))
-        {
-            Vector3 direction = (other.transform.position - transform.position).normalized;
-            Vector3 force = direction * knockbackStrength;
-            knockbackable.GetKnockedBack(force);
-        }
+        // if (other.TryGetComponent(out IKnockbackable knockbackable))
+        // {
+        //     Vector3 direction = (other.transform.position - transform.position).normalized;
+        //     Vector3 force = direction * knockbackStrength;
+        //     knockbackable.GetKnockedBack(force);
+        // }
 
         if (other.TryGetComponent<NetworkObject>(out var targetNetworkObj))
         {
