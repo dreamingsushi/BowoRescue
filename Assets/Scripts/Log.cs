@@ -35,7 +35,7 @@ public class Log : NetworkBehaviour, IDamageable
     [ServerRpc(RequireOwnership = false)]
     private void DieServerRPC()
     {
-        StartCoroutine(SinkAndDestroy(4, 1.5f));
+        StartCoroutine(SinkAndDestroy(1, 1.5f));
     }
 
     private void Die()
