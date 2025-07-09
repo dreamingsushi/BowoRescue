@@ -8071,6 +8071,7 @@ GameObject:
   - component: {fileID: 1030094782}
   - component: {fileID: 1030094781}
   - component: {fileID: 1030094780}
+  - component: {fileID: 1030094783}
   - component: {fileID: 1030094779}
   - component: {fileID: 1030094778}
   m_Layer: 5
@@ -8133,6 +8134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b00b42a85d435a46b8509c94a2ad418, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   anim: {fileID: 1030094778}
   transitionTime: 5
 --- !u!114 &1030094780
@@ -8186,6 +8188,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1030094776}
   m_CullTransparentMesh: 1
+--- !u!114 &1030094783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1030094776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 2099700495
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 0
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
 --- !u!1 &1038036404
 GameObject:
   m_ObjectHideFlags: 0

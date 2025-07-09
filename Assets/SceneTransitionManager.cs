@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 using Unity.Netcode;
 using System.Collections;
 
-public class SceneTransitionManager : MonoBehaviour
+public class SceneTransitionManager : NetworkBehaviour
 {
     public static SceneTransitionManager Instance;
     [SerializeField] private Animator anim;
