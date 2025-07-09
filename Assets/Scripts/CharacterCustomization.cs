@@ -2,8 +2,9 @@ using UnityEngine;
 using System.Collections.Generic;
 using Unity.Netcode;
 using TMPro;
+using Unity.Services.Matchmaker.Models;
 
-public class CharacterCustomization : MonoBehaviour
+public class CharacterCustomization : NetworkBehaviour
 {
     public List<CustomPart> parts;
     public TextMeshProUGUI helmetText;
@@ -19,6 +20,10 @@ public class CharacterCustomization : MonoBehaviour
         LoadCustomization();
 
         lobbyUIManager = FindAnyObjectByType<LobbyUIManager>();
+
+    }
+    public override void OnNetworkSpawn()
+    {
         playerCharacter = NetworkManager.Singleton.LocalClient?.PlayerObject?.GetComponent<PlayerCharacter>();
 
         playerManager = NetworkManager.Singleton.LocalClient?.PlayerObject?.GetComponent<PlayerManager>();
