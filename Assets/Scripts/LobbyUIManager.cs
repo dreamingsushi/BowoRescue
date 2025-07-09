@@ -131,13 +131,7 @@ public class LobbyUIManager : MonoBehaviour
         if (!AreAllPlayersReady()) return;
 
         // Load game scene as host
-        RequestSceneChangeServerRpc("Level 1");
-    }
-
-    [ServerRpc(RequireOwnership = false)]
-    public void RequestSceneChangeServerRpc(string sceneName)
-    {
-        SceneTransitionManager.Instance.StartTransitionAndLoadScene(sceneName);
+        SceneTransitionManager.Instance.StartTransitionAndLoadScene("Level 1");
     }
 
     void OnLeaveLobbyPressed()

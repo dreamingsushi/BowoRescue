@@ -32,7 +32,8 @@ public class SceneTransitionManager : MonoBehaviour
 
     private IEnumerator LoadSceneWithTransition(string sceneName)
     {
-        anim.SetTrigger("Start");
+        //anim.SetTrigger("Start");
+        PlayTransitionClientRpc();
 
         yield return new WaitForSeconds(transitionTime);
 
@@ -51,6 +52,13 @@ public class SceneTransitionManager : MonoBehaviour
     public void EndTransition()
     {
         anim.SetTrigger("End");
+    }
+
+    [ClientRpc]
+    void PlayTransitionClientRpc()
+    {
+        if (anim != null)
+            anim.SetTrigger("Start");
     }
 
 }

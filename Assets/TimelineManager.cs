@@ -10,43 +10,26 @@ public class TimelineManager : NetworkBehaviour
 
     private void Start()
     {
-        if (IsServer)
-        {
-            if (timeline.state == PlayState.Playing)
-            {
-                DisableAllPlayerInputs();
-                StartCoroutine(WaitForTimelineEnd());
-            }
-        }
-    }
-
-    private void DisableAllPlayerInputs()
-    {
         foreach (var client in NetworkManager.Singleton.ConnectedClientsList)
         {
-            var controller = client.PlayerObject.GetComponent<PlayerController>();
-            if (controller != null)
+            if (client.PlayerObject.TryGetComponent(out PlayerController controller))
             {
                 controller.DisableInputs();
             }
         }
+        timeline.stopped += OnTimelineFinished;
     }
 
-    private IEnumerator WaitForTimelineEnd()
-    {
-        yield return new WaitUntil(() => timeline.state != PlayState.Playing);
-        EnableAllPlayerInputs();
-    }
-
-    private void EnableAllPlayerInputs()
+    private void OnTimelineFinished(PlayableDirector director)
     {
         foreach (var client in NetworkManager.Singleton.ConnectedClientsList)
         {
-            var controller = client.PlayerObject.GetComponent<PlayerController>();
-            if (controller != null)
+            if (client.PlayerObject.TryGetComponent(out PlayerController controller))
             {
                 controller.EnableInputs();
             }
         }
+
+        timeline.stopped -= OnTimelineFinished; // Cleanup
     }
 }
