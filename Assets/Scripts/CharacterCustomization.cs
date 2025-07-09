@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine.UI;
+using Unity.Netcode;
 using TMPro;
 
 public class CharacterCustomization : MonoBehaviour
@@ -19,8 +19,9 @@ public class CharacterCustomization : MonoBehaviour
         LoadCustomization();
 
         lobbyUIManager = FindAnyObjectByType<LobbyUIManager>();
-        playerCharacter = FindAnyObjectByType<PlayerCharacter>();
-        playerManager = FindAnyObjectByType<PlayerManager>();
+        playerCharacter = NetworkManager.Singleton.LocalClient?.PlayerObject?.GetComponent<PlayerCharacter>();
+
+        playerManager = NetworkManager.Singleton.LocalClient?.PlayerObject?.GetComponent<PlayerManager>();
     }
 
     public void NextPart(PartType type) => ChangePart(type, +1);
