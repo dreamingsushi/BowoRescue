@@ -519,7 +519,7 @@ public class Boss : NetworkBehaviour, IDamageable
         
         if (agent != null && agent.enabled)
         {
-            agent.isStopped = false;
+            agent.isStopped = true;
         }
 
         StartCoroutine(DealMeleeDamageWithDelay(0.5f));

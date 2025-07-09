@@ -113,7 +113,7 @@ public class PlayerController : NetworkBehaviour
 
             if (vfxTimer <= 0f)
             {
-                SpawnWalkVFX();
+                SpawnWalkVFXServerRpc();
                 vfxTimer = vfxSpawnInterval;
             }
         }
@@ -148,13 +148,21 @@ public class PlayerController : NetworkBehaviour
 
         DetectPickupTarget();
     }
-    void SpawnWalkVFX()
+    [ClientRpc]
+    void SpawnWalkVFXClientRpc()
     {
         if (walkVFXPrefab != null && footVFXSpawnPoint != null)
         {
             Instantiate(walkVFXPrefab, footVFXSpawnPoint.position, Quaternion.identity);
         }
     }
+
+    [ServerRpc (RequireOwnership = false)]
+    void SpawnWalkVFXServerRpc()
+    {
+        SpawnWalkVFXClientRpc();
+    }
+
 
     void Update()
     {
@@ -325,10 +333,7 @@ public class PlayerController : NetworkBehaviour
         isDashing = true;
         canDash = false;
 
-        if (dashSmokeVFXPrefab != null && footVFXSpawnPoint != null)
-        {
-            Instantiate(dashSmokeVFXPrefab, footVFXSpawnPoint.position, Quaternion.identity);
-        }
+        SpawnDashVFXServerRpc();
 
         Vector3 dashDirection = new Vector3(m_Direction.x, 0, m_Direction.y).normalized;
         float startTime = Time.time;
@@ -342,6 +347,21 @@ public class PlayerController : NetworkBehaviour
         isDashing = false;
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;
+    }
+
+    [ServerRpc (RequireOwnership = false)]
+    void SpawnDashVFXServerRpc()
+    {
+        SpawnDashVFXClientRpc();
+    }
+
+    [ClientRpc]
+    void SpawnDashVFXClientRpc()
+    {
+        if (dashSmokeVFXPrefab != null && footVFXSpawnPoint != null)
+        {
+            Instantiate(dashSmokeVFXPrefab, footVFXSpawnPoint.position, Quaternion.identity);
+        }
     }
 
     // --- Jump (Manual) ---

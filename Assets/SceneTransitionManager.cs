@@ -43,7 +43,7 @@ public class SceneTransitionManager : MonoBehaviour
         }
 
         yield return new WaitUntil(() => SceneManager.GetActiveScene().isLoaded);
-        
+
         anim.SetTrigger("End");
     }
 
@@ -52,4 +52,5 @@ public class SceneTransitionManager : MonoBehaviour
     {
         anim.SetTrigger("End");
     }
+
 }
