@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using TMPro;
 using Unity.Services.Matchmaker.Models;
+using System.Collections;
 
 public class CharacterCustomization : NetworkBehaviour
 {
@@ -24,9 +25,15 @@ public class CharacterCustomization : NetworkBehaviour
     }
     public override void OnNetworkSpawn()
     {
-        playerCharacter = NetworkManager.Singleton.LocalClient?.PlayerObject?.GetComponent<PlayerCharacter>();
+        StartCoroutine(WaitForPlayerCharacter());
+    }
+    private IEnumerator WaitForPlayerCharacter()
+    {
+        while (NetworkManager.Singleton.LocalClient?.PlayerObject == null)
+            yield return null;
 
-        playerManager = NetworkManager.Singleton.LocalClient?.PlayerObject?.GetComponent<PlayerManager>();
+        playerCharacter = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerCharacter>();
+        playerManager = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerManager>();
     }
 
     public void NextPart(PartType type) => ChangePart(type, +1);
