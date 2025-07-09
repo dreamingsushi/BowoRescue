@@ -516,13 +516,13 @@ public class Boss : NetworkBehaviour, IDamageable
 
         if (anim != null)
             anim.SetTrigger("MeleeAttack");
+        
+        if (agent != null && agent.enabled)
+        {
+            agent.isStopped = false;
+        }
 
         StartCoroutine(DealMeleeDamageWithDelay(0.5f));
-
-        // Optional: deal damage to player via interface
-        var damageable = currentTarget.GetComponent<IDamageable>();
-        if (damageable != null)
-            damageable.TakeDamage(10f);
 
         SelectNextTarget();
     }
@@ -544,6 +544,10 @@ public class Boss : NetworkBehaviour, IDamageable
                     Debug.Log($"Boss hits {currentTarget.name} with melee.");
                 }
             }
+        }
+        if (agent != null && agent.enabled)
+        {
+            agent.isStopped = false;
         }
 
         SelectNextTarget();

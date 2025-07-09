@@ -36,6 +36,18 @@ public class PlayerTeleporter : NetworkBehaviour
 
     public void Teleport(Vector3 destination)
     {
+        if (IsServer)
+        {
+            PerformTeleport(destination);
+            TeleportClientRpc(destination); // Update all clients
+        }
+        else if (IsOwner)
+        {
+            TeleportServerRpc(destination); // Ask server to handle it
+        }
+    }
+    private void PerformTeleport(Vector3 destination)
+    {
         var controller = GetComponent<CharacterController>();
         if (controller) controller.enabled = false;
 
@@ -43,9 +55,21 @@ public class PlayerTeleporter : NetworkBehaviour
 
         if (controller) controller.enabled = true;
 
-        Debug.Log($"Teleported player locally to {destination}");
+        Debug.Log($"Teleported {OwnerClientId} to {destination}");
     }
 
+    [ServerRpc]
+    private void TeleportServerRpc(Vector3 destination)
+    {
+        PerformTeleport(destination);
+        TeleportClientRpc(destination);
+    }
+
+    [ClientRpc]
+    private void TeleportClientRpc(Vector3 destination)
+    {
+        PerformTeleport(destination);
+    }
     void Update()
     {
         if (!IsOwner) return;

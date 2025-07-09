@@ -19,7 +19,6 @@ public class CharacterCustomization : MonoBehaviour
         LoadCustomization();
 
         lobbyUIManager = FindAnyObjectByType<LobbyUIManager>();
-
         playerCharacter = FindAnyObjectByType<PlayerCharacter>();
         playerManager = FindAnyObjectByType<PlayerManager>();
     }

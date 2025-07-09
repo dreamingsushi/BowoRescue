@@ -16,7 +16,7 @@ public class PlayerManager : NetworkBehaviour
     private void Start()
     {
         StartCoroutine(SpawnPlayer());
-        playerNameText.gameObject.SetActive(false);
+        //playerNameText.gameObject.SetActive(false);
         //playerHealthPanel.SetActive(false);
     }
 
