@@ -32,7 +32,7 @@ public class SceneTransitionManager : NetworkBehaviour
 
     private IEnumerator LoadSceneWithTransition(string sceneName)
     {
-        //anim.SetTrigger("Start");
+        anim.SetTrigger("Start");
         PlayTransitionClientRpc();
 
         yield return new WaitForSeconds(transitionTime);
