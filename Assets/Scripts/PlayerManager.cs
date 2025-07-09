@@ -35,7 +35,7 @@ public class PlayerManager : NetworkBehaviour
         yield return new WaitUntil(() => playerName.Value.Length > 0);
 
         playerNameText.text = playerName.Value.ToString();
-        playerNameText.gameObject.SetActive(true);
+        //playerNameText.gameObject.SetActive(true);
         //playerHealthPanel.SetActive(true);
     }
 
