@@ -11,6 +11,7 @@ public class EnemyHealth : NetworkBehaviour, IDamageable, IKnockbackable
     private EnemyAI enemyAI;
     public bool isDead = false;
     [SerializeField] private GameObject hitVFXPrefab;
+    private Coroutine knockbackRoutine;
 
     void Start()
     {
@@ -88,7 +89,10 @@ public class EnemyHealth : NetworkBehaviour, IDamageable, IKnockbackable
     {
         if (isDead) return;
 
-        StartCoroutine(enemyAI.ApplyKnockback(force));
+        if (knockbackRoutine != null)
+            StopCoroutine(knockbackRoutine);
+
+        knockbackRoutine = StartCoroutine(enemyAI.ApplyKnockback(force));
         TriggerHurtMaterialClientRpc(); // optional red flash / feedback
     }
 
