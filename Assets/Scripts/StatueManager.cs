@@ -21,12 +21,9 @@ public class StatueManager : NetworkBehaviour
         {
             if (!statue.IsActivated())
             {
-                Debug.Log("❌ Not all statues activated.");
                 return;
             }
         }
-
-        Debug.Log("✅ All statues activated!");
         OnAllStatuesActivatedClientRpc();
     }
 
@@ -34,6 +31,7 @@ public class StatueManager : NetworkBehaviour
     [ClientRpc]
     private void OnAllStatuesActivatedClientRpc()
     {
+        AudioManager.Instance.PlaySFX("BridgeAppear");
         bridge.SetActive(true);
         colliderWall.enabled = false;
         StartCoroutine(ScaleBridge());

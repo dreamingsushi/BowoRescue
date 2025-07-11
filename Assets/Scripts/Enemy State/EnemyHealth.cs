@@ -99,7 +99,7 @@ public class EnemyHealth : NetworkBehaviour, IDamageable, IKnockbackable
     private IEnumerator Die()
     {
         isDead = true;
-
+        AudioManager.Instance.PlaySFX("EnemyDie");
         var drop = GetComponent<EnemyDrop>();
         bool willDrop = drop != null;
 

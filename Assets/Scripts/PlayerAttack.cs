@@ -30,6 +30,7 @@ public class PlayerAttack : NetworkBehaviour
 
     private IEnumerator AttackRoutine()
     {
+        AudioManager.Instance.PlaySFX("Swing");
         isAttacking = true;
         vfx.enabled = true;
         dmgCollider.enabled = true;

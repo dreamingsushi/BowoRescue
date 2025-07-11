@@ -9,6 +9,7 @@ public class BossTriggerZone : MonoBehaviour
     public GameObject bossTimeline;
     public List<Transform> bossArenaSpawnPoints;
     public PlayableDirector bossDirector;
+    public GameObject bossHealthBar;
     private bool hasTriggered = false;
 
     private void OnTriggerEnter(Collider other)
@@ -39,7 +40,7 @@ public class BossTriggerZone : MonoBehaviour
             if (playerObj.TryGetComponent(out PlayerTeleporter player))
             {
                 var spawnPoint = bossArenaSpawnPoints[Mathf.Min(i, bossArenaSpawnPoints.Count - 1)];
-                player.Teleport(spawnPoint.position);
+                player.Teleport(spawnPoint.position);;
             }
         }
     }
@@ -52,6 +53,8 @@ public class BossTriggerZone : MonoBehaviour
             {
                 controller.EnableInputs();
                 bossScript.StartPhase1();
+                AudioManager.Instance.PlayMusic("BossTheme");
+                bossHealthBar.SetActive(true);
             }
         }
 

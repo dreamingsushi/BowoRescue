@@ -334,7 +334,7 @@ public class PlayerController : NetworkBehaviour
         canDash = false;
 
         SpawnDashVFXServerRpc();
-
+        AudioManager.Instance.PlaySFX("Dash");
         Vector3 dashDirection = new Vector3(m_Direction.x, 0, m_Direction.y).normalized;
         float startTime = Time.time;
 

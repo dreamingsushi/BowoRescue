@@ -21,6 +21,8 @@ MonoBehaviour:
     - choiceText: Creepy, huh?
       nextLineIndex: 2
   - text: ...
-    choices: []
+    choices:
+    - choiceText: Continue
+      nextLineIndex: 3
   - text: "Right? It feels\u2026 alive"
     choices: []
