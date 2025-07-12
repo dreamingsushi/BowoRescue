@@ -80036,7 +80036,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   anim: {fileID: 1325041858}
-  transitionTime: 5
+  transitionTime: 3
 --- !u!114 &1325041860
 MonoBehaviour:
   m_ObjectHideFlags: 0
