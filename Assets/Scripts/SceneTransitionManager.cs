@@ -42,9 +42,8 @@ public class SceneTransitionManager : NetworkBehaviour
         {
             NetworkManager.Singleton.SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
         }
-        yield return new WaitForSeconds(1);
         yield return new WaitUntil(() => SceneManager.GetActiveScene().isLoaded);
-
+        yield return new WaitForSeconds(1);
         anim.SetTrigger("End");
     }
 

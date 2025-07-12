@@ -68,6 +68,7 @@ public class Boss : NetworkBehaviour, IDamageable
     [Header("Summon Settings")]
     public GameObject dragonSummonPrefab;
     public GameObject dragonSummonVFX;
+    public Transform dragonSummonVFXSpawnpoints;
     [SerializeField] private Transform dragonSummonPoint;
     public GameObject slimePrefab;
 
@@ -204,7 +205,7 @@ public class Boss : NetworkBehaviour, IDamageable
 
         if (dragonSummonVFX != null)
         {
-            GameObject vfx = Instantiate(dragonSummonVFX, transform.position + Vector3.up * 2f, Quaternion.identity);
+            GameObject vfx = Instantiate(dragonSummonVFX, dragonSummonVFXSpawnpoints.position, Quaternion.identity);
             if (vfx.TryGetComponent(out NetworkObject vfxNet))
                 vfxNet.Spawn();
 
@@ -239,8 +240,7 @@ public class Boss : NetworkBehaviour, IDamageable
 
         ToggleShieldEffectClientRpc(true);
 
-        if (anim != null)
-            anim.SetBool("IsShielded", true);
+        anim.SetBool("IsShielded", true);
 
         StartCoroutine(SpawnMonstersLoop());
         TeleportBoss(bossTP);
@@ -251,23 +251,22 @@ public class Boss : NetworkBehaviour, IDamageable
     public void BreakShieldFromBomb()
     {
         if (!IsServer || !isInvulnerable) return;
+        anim.SetBool("IsShielded", false);
 
+        anim.SetBool("IsDizzy", true);
         Debug.Log("Boss shield broken by bomb!");
-        EnterPhase3();
     }
 
 
     private void EnterPhase3()
     {
+        anim.SetBool("IsDizzy", false);
         currentPhase = BossPhase.Phase3;
         isInvulnerable = false;
 
         ToggleShieldEffectClientRpc(false);
 
         agent.speed = patrolSpeed;
-
-        if (anim != null)
-            anim.SetBool("IsShielded", false);
 
         currentTargetIndex = -1; // reset so SelectNextTarget starts from 0
         SelectNextTarget();
@@ -308,13 +307,11 @@ public class Boss : NetworkBehaviour, IDamageable
                 hasPatrolTarget = true;
                 patrolTimer = 0f;
 
-                if (anim != null)
-                    anim.SetBool("IsWalking", true);
+                anim.SetBool("IsWalking", true);
             }
             else
             {
-                if (anim != null)
-                    anim.SetBool("IsWalking", false);
+                anim.SetBool("IsWalking", false);
             }
         }
 
@@ -354,11 +351,7 @@ public class Boss : NetworkBehaviour, IDamageable
 
     void Idle()
     {
-        // do nothing, or play idle/shield animation
-        if (anim != null)
-        {
-            anim.SetBool("IsWalking", false);
-        }
+        anim.SetBool("IsWalking", false);
     }
 
     public void TeleportBoss(Transform destination)
@@ -399,8 +392,7 @@ public class Boss : NetworkBehaviour, IDamageable
             Destroy(indicator, 1f);
         }
 
-        if (anim != null)
-            anim.SetTrigger("CastSpell"); // play cast animation immediately
+        anim.SetTrigger("CastSpell"); // play cast animation immediately
 
         yield return new WaitForSeconds(1f); // delay before spell spawns
 
@@ -477,8 +469,7 @@ public class Boss : NetworkBehaviour, IDamageable
         float distance = Vector3.Distance(transform.position, currentTarget.position);
         agent.SetDestination(currentTarget.position);
 
-        if (anim != null)
-            anim.SetBool("IsWalking", true);
+        anim.SetBool("IsWalking", true);
 
 
         // Smooth rotation
@@ -528,8 +519,7 @@ public class Boss : NetworkBehaviour, IDamageable
     {
         Debug.Log($"Boss attacks {currentTarget.name}");
 
-        if (anim != null)
-            anim.SetTrigger("MeleeAttack");
+        anim.SetTrigger("MeleeAttack");
         
         if (agent != null && agent.enabled)
         {
@@ -596,11 +586,11 @@ public class Boss : NetworkBehaviour, IDamageable
 
         isDead = true;
 
-        if (agent != null)
-            agent.enabled = false;
+        anim.SetTrigger("DieTrigger");
 
-        if (anim != null)
-            anim.SetBool("IsWalking", false);
+        agent.enabled = false;
+
+         anim.SetBool("IsWalking", false);
 
         Debug.Log($"{gameObject.name} died... will be destroyed in 2 seconds.");
         DestroyBossClientRpc(); // sync death visuals to clients
@@ -608,9 +598,6 @@ public class Boss : NetworkBehaviour, IDamageable
         yield return new WaitForSeconds(2f); // delay
 
         Destroy(gameObject); // actual destroy after delay
-
-        if (anim != null)
-            anim.SetTrigger("DieTrigger");
     }
 
     [ClientRpc]
