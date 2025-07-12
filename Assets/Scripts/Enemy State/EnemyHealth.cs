@@ -6,7 +6,10 @@ using System.Collections;
 public class EnemyHealth : NetworkBehaviour, IDamageable, IKnockbackable
 {
     public float maxHealth = 100f;
-    private float currentHealth;
+    public NetworkVariable<float> currentHealth = new NetworkVariable<float>(
+    100f,
+    NetworkVariableReadPermission.Everyone,
+    NetworkVariableWritePermission.Server);
     public SkinnedMeshRenderer mesh;
     private EnemyAI enemyAI;
     public bool isDead = false;
@@ -15,7 +18,7 @@ public class EnemyHealth : NetworkBehaviour, IDamageable, IKnockbackable
 
     void Start()
     {
-        currentHealth = maxHealth;
+        currentHealth.Value = maxHealth;
         enemyAI = GetComponent<EnemyAI>();
         isDead = false;
     }
@@ -43,14 +46,14 @@ public class EnemyHealth : NetworkBehaviour, IDamageable, IKnockbackable
     {
         if (isDead) return;
 
-        currentHealth -= damage;
-        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+        currentHealth.Value -= damage;
+        currentHealth.Value = Mathf.Clamp(currentHealth.Value, 0, maxHealth);
 
         SpawnHitVFXClientRpc();
 
         TriggerHurtMaterialClientRpc();
 
-        if (currentHealth <= 0f)
+        if (currentHealth.Value <= 0f)
         {
             StartCoroutine(Die());
         }

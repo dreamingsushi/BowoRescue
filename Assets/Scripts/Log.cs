@@ -1,11 +1,13 @@
 using UnityEngine;
 using Unity.Netcode;
-using System.Collections;
 
 public class Log : NetworkBehaviour, IDamageable
 {
-    public float health = 40f;
-    public float deathDelay = 2f;
+    public NetworkVariable<float> Health = new NetworkVariable<float>(
+        40f, // default value
+        NetworkVariableReadPermission.Everyone,
+        NetworkVariableWritePermission.Server
+    );
 
     private ParticleSystem hitParticles;
 
@@ -22,43 +24,15 @@ public class Log : NetworkBehaviour, IDamageable
     [ServerRpc(RequireOwnership = false)]
     public void RequestDamageServerRpc(float damage)
     {
-        health -= damage;
+        Health.Value -= damage;
 
-        PlayHitParticlesClientRpc(); // Tell all clients to play hit VFX
+        PlayHitParticlesClientRpc(); // Visual feedback
 
-        if (health <= 0f)
+        if (Health.Value <= 0f)
         {
-            Die();
+            DestroyLogClientRpc(); // Tell clients to destroy
+            Destroy(gameObject);   // Destroy on server
         }
-    }
-
-    [ServerRpc(RequireOwnership = false)]
-    private void DieServerRPC()
-    {
-        StartCoroutine(SinkAndDestroy(1, 1.5f));
-    }
-
-    private void Die()
-    {
-        DieServerRPC();
-    }
-
-    private IEnumerator SinkAndDestroy(float duration, float sinkDistance)
-    {
-        float elapsed = 0f;
-        Vector3 startPos = transform.position;
-        Vector3 endPos = startPos + Vector3.down * sinkDistance;
-
-        while (elapsed < duration)
-        {
-            transform.position = Vector3.Lerp(startPos, endPos, elapsed / duration);
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
-
-        transform.position = endPos;
-
-        DestroyLogClientRpc();
     }
 
     [ClientRpc]
@@ -71,9 +45,7 @@ public class Log : NetworkBehaviour, IDamageable
     [ClientRpc]
     private void DestroyLogClientRpc()
     {
-        // Destroy local GameObject on clients (in case it wasn't despawned properly)
-        if (!IsServer) Destroy(gameObject);
+        if (!IsServer)
+            Destroy(gameObject);
     }
-
-
 }

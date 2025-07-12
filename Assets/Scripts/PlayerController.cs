@@ -381,8 +381,8 @@ public class PlayerController : NetworkBehaviour
             currentTarget.OnPickup(transform);
             heldItem.transform.localPosition = offset;
             isHeld = true;
-
             currentTarget = null;
+            AudioManager.Instance.PlaySFX("ItemPickUp");
         }
     }
 
@@ -425,6 +425,7 @@ public class PlayerController : NetworkBehaviour
             pickupable.OnDrop(transform.forward * 2f);
             heldItem = null;
             isHeld = false;
+            AudioManager.Instance.PlaySFX("ItemDrop");
         }
     }
 

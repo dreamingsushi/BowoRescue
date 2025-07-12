@@ -43,6 +43,7 @@ public class TeleportPortal : MonoBehaviour
         yield return StartCoroutine(SinkIntoPortal(player, 0.25f, playerOriginalScale));
 
         // Step 2: Move player to destination
+        AudioManager.Instance.PlaySFX("Teleport");
         player.position = destinationPortal.transform.position + new Vector3(0, 1.2f, 0);
 
         // Step 3: Temporarily disable destination portal collider

@@ -11,6 +11,7 @@ public class BossTriggerZone : MonoBehaviour
     public PlayableDirector bossDirector;
     public GameObject bossHealthBar;
     private bool hasTriggered = false;
+    public GameObject bossCollider;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -28,6 +29,7 @@ public class BossTriggerZone : MonoBehaviour
 
         bossDirector.stopped += OnTimelineFinished;
         bossTimeline.SetActive(true);
+        bossCollider.SetActive(true);
         bossDirector.Play();
     }
 

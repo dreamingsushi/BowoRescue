@@ -54,6 +54,7 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(DialogueData data)
     {
+        AudioManager.Instance.PlaySFX("Mumbling");
         playerController.DisableInputs();
         dialogueUI.SetActive(true);
         currentData = data;
