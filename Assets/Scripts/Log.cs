@@ -30,6 +30,7 @@ public class Log : NetworkBehaviour, IDamageable
 
         if (Health.Value <= 0f)
         {
+            AudioManager.Instance.PlaySFX("Break");
             DestroyLogClientRpc(); // Tell clients to destroy
             Destroy(gameObject);   // Destroy on server
         }

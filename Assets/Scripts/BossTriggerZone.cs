@@ -31,6 +31,7 @@ public class BossTriggerZone : MonoBehaviour
         bossTimeline.SetActive(true);
         bossCollider.SetActive(true);
         bossDirector.Play();
+        AudioManager.Instance.PlaySFX("Cinematic");
     }
 
     private void TeleportAllPlayers()

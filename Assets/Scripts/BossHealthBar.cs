@@ -27,6 +27,11 @@ public class BossHealthBar : MonoBehaviour
     private void OnHealthChanged(float oldValue, float newValue)
     {
         UpdateHealthUI(newValue);
+
+        if (newValue <= 0f)
+        {
+            gameObject.SetActive(false); // Hides the entire health bar UI
+        }
     }
 
     private void UpdateHealthUI(float health)

@@ -36,7 +36,7 @@ public class DialogueManager : MonoBehaviour
             currentNPC.StartTalking();
         }
 
-        if (isTalking && isTyping && Input.GetKeyDown(KeyCode.Space))
+        if (isTalking && isTyping && Input.GetKeyDown(KeyCode.Space) && Input.GetMouseButtonDown(0))
         {
             SkipTyping();
         }

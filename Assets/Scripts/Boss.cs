@@ -32,9 +32,9 @@ public class Boss : NetworkBehaviour, IDamageable
 
     public float patrolRadius = 5f;
     public float patrolWaitTime = 2f;
-
+    [Header ("Teleport Settings")]
     public Transform bossTP;
-
+    public GameObject teleportVFX;
     private Vector3 patrolStartPos;
     private Vector3 patrolTarget;
     private float patrolTimer = 0f;
@@ -61,6 +61,8 @@ public class Boss : NetworkBehaviour, IDamageable
     [Header("Spell Settings")]
     public GameObject[] spellPrefabs;
     public GameObject spellIndicatorPrefab;
+    [Header("Spell Sounds")]
+    public string[] spellSFXNames; 
 
     [Header("Shield Settings")]
     public GameObject shieldEffect;
@@ -75,6 +77,7 @@ public class Boss : NetworkBehaviour, IDamageable
     [Header("Camera")]
     public GameObject bossCamera;
     private Animator anim;
+
 
     void Start()
     {
@@ -359,14 +362,26 @@ public class Boss : NetworkBehaviour, IDamageable
     {
         if (!IsServer) return;
 
-        agent.Warp(destination.position);
+        // Spawn VFX at current position before teleport
+        SpawnTeleportVFXClientRpc(transform.position);
 
-        // Optional: reset target to avoid weird chasing
+        agent.Warp(destination.position);
         currentTarget = null;
+
+        SpawnTeleportVFXClientRpc(destination.position);
 
         Debug.Log($"Boss teleported to {destination}");
     }
 
+    [ClientRpc]
+    private void SpawnTeleportVFXClientRpc(Vector3 position)
+    {
+        if (teleportVFX != null)
+        {
+            GameObject vfx = Instantiate(teleportVFX, position, Quaternion.identity);
+            Destroy(vfx, 2f); // Auto-destroy after 2 seconds
+        }
+    }
 
     // --- ATTACK BEHAVIOUR ---
 
@@ -380,6 +395,16 @@ public class Boss : NetworkBehaviour, IDamageable
         // Choose one at random
         int index = Random.Range(0, spellPrefabs.Length);
         GameObject spellToCast = spellPrefabs[index];
+
+        // Play spell SFX
+        if (spellSFXNames != null && index < spellSFXNames.Length)
+        {
+            AudioManager.Instance.PlaySFX(spellSFXNames[index]);
+        }
+        else
+        {
+            Debug.LogWarning("No spell SFX defined for this spell index.");
+        }
 
         StartCoroutine(CastSpellWithDelay(spellToCast, currentTarget.position));
     }
@@ -521,6 +546,8 @@ public class Boss : NetworkBehaviour, IDamageable
         Debug.Log($"Boss attacks {currentTarget.name}");
 
         anim.SetTrigger("MeleeAttack");
+
+        AudioManager.Instance.PlaySFX("Spell");
         
         if (agent != null && agent.enabled)
         {
@@ -588,17 +615,15 @@ public class Boss : NetworkBehaviour, IDamageable
         isDead = true;
 
         anim.SetTrigger("DieTrigger");
-
+        AudioManager.Instance.PlaySFX("Cinematic");
+        AudioManager.Instance.PlaySFX("BossDie");
+        AudioManager.Instance.PlayMusic("EndTheme");
         agent.enabled = false;
 
-         anim.SetBool("IsWalking", false);
+        anim.SetBool("IsWalking", false);
 
         Debug.Log($"{gameObject.name} died... will be destroyed in 2 seconds.");
         DestroyBossClientRpc(); // sync death visuals to clients
-
-        yield return new WaitForSeconds(2f); // delay
-
-        Destroy(gameObject); // actual destroy after delay
     }
 
     [ClientRpc]

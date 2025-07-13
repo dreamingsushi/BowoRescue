@@ -11,6 +11,7 @@ public class BossFinishTrigger : NetworkBehaviour
     public GameObject sadBowo;
     public GameObject endUI;
     public GameObject cage;
+    public GameObject bossHealthBar;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -30,7 +31,6 @@ public class BossFinishTrigger : NetworkBehaviour
     private void TriggerEventClientRpc()
     {
         endSceneTimeline.SetActive(true);
-        endUI.SetActive(true);
         StartCoroutine(DestroyCage());
     }
 
@@ -38,7 +38,6 @@ public class BossFinishTrigger : NetworkBehaviour
     private IEnumerator TriggerEvent()
     {
         yield return new WaitForSeconds(endSceneTimeDelay + 1f); // Optional wait before scene load
-        SendEveryoneToEndScene();
     }
 
     private IEnumerator DestroyCage()
@@ -47,6 +46,7 @@ public class BossFinishTrigger : NetworkBehaviour
         vfx.Play();
         sadBowo.SetActive(false);
         cage.SetActive(false);
+        endUI.SetActive(true);
     }
 
     private void SendEveryoneToEndScene()
@@ -54,6 +54,11 @@ public class BossFinishTrigger : NetworkBehaviour
         // Tell all clients (and host) to disconnect and load scene locally
         GoToEndSceneClientRpc();
         StartCoroutine(DisconnectAndLoadEndScene()); // Host does it too
+    }
+
+    public void OwObutton()
+    {
+        SendEveryoneToEndScene();
     }
 
     [ClientRpc]
