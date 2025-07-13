@@ -32,6 +32,7 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private CinemachineCamera cinemachineCamera;
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject emoteWheel;
+    [SerializeField] private GameObject emoteWheelUI;
     private DialogueManager dialogueManager;
     private bool isMenuOpen = false;
     private Lever nearbyLever;
@@ -286,7 +287,7 @@ public class PlayerController : NetworkBehaviour
 
         if (context.started || context.performed)
         {
-            emoteWheel.SetActive(true);
+            emoteWheelUI.SetActive(true);
         }
         else if (context.canceled)
         {
@@ -302,7 +303,7 @@ public class PlayerController : NetworkBehaviour
                     ExecuteEvents.Execute(rm.elements[selectedIndex].button.gameObject, pointer, ExecuteEvents.submitHandler);
                 }
             }
-            emoteWheel.SetActive(false);
+            emoteWheelUI.SetActive(false);
         }
     }
 
