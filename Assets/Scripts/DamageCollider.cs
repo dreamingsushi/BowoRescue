@@ -27,7 +27,6 @@ public class DamageCollider : MonoBehaviour
 
             // Optional: Camera shake (must call via ClientRpc)
             CameraShakeClientRpc();
-            HitStopManager.Instance?.DoHitStop(0.1f);
         }
 
         if (targetObj.TryGetComponent(out IKnockbackable knockbackable))

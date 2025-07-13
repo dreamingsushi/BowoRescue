@@ -7,7 +7,7 @@ public class FlameDamage : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
 
-        if (other.CompareTag("Boss"))
+        if (other.CompareTag("Boss") || other.CompareTag("Enemy"))
             return;
         
         if (other.TryGetComponent(out IDamageable damageable))

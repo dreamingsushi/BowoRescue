@@ -1725,7 +1725,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1287196329}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &259995655
 MonoBehaviour:
@@ -2309,6 +2309,10 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 41cf321095888dc468efbec1c231b1ad, type: 3}
   - name: Mumbling
     clip: {fileID: 8300000, guid: 2b96da99cf589bb4faeb222a54a7d460, type: 3}
+  - name: Explosion
+    clip: {fileID: 8300000, guid: 642a8a4e93cf80347b97282ed68f9e6f, type: 3}
+  - name: Hurt
+    clip: {fileID: 8300000, guid: 3736f266cd43a4b4ea901b87919f33eb, type: 3}
   musicSource: {fileID: 1054053951}
   sfxSource: {fileID: 1832653559}
   masterSlider: {fileID: 5192144418294336153}
@@ -3824,7 +3828,7 @@ Light:
   serializedVersion: 11
   m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 130000
+  m_Intensity: 125412.86
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -3867,7 +3871,7 @@ Light:
   m_LightShadowCasterMode: 2
   m_AreaSize: {x: 0.5, y: 0.5}
   m_BounceIntensity: 1
-  m_ColorTemperature: 6638
+  m_ColorTemperature: 10001
   m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
@@ -3886,13 +3890,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 464765015}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.39243942, y: -0.08773109, z: 0.42318332, w: 0.8119178}
+  m_LocalRotation: {x: 0.24761708, y: -0.0697279, z: 0.552599, w: 0.7927536}
   m_LocalPosition: {x: 3.455795, y: 10.254999, z: 5.777972}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 45.358, y: 15.661, z: 61.637}
+  m_LocalEulerAnglesHint: {x: 28.012, y: 10.647, z: 72.421}
 --- !u!1001 &465888719
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10802,7 +10806,6 @@ Transform:
   m_Children:
   - {fileID: 698458477}
   - {fileID: 675693507}
-  - {fileID: 259995654}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1287339851
@@ -26030,6 +26033,7 @@ SceneRoots:
   - {fileID: 298141134}
   - {fileID: 351826831}
   - {fileID: 1836871213}
+  - {fileID: 259995654}
   - {fileID: 1287196329}
   - {fileID: 227764171}
   - {fileID: 1520320813}

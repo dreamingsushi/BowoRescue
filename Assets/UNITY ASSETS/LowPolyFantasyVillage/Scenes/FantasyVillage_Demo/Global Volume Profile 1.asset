@@ -179,22 +179,22 @@ MonoBehaviour:
     m_Value: 1000
   baseHeight:
     m_OverrideState: 1
-    m_Value: 3
+    m_Value: 3782
   maximumHeight:
     m_OverrideState: 1
-    m_Value: 50
+    m_Value: 8396
   meanFreePath:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 400
   enableVolumetricFog:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 1
   albedo:
     m_OverrideState: 1
-    m_Value: {r: 1, g: 1, b: 1, a: 1}
+    m_Value: {r: 0.084905684, g: 0.084905684, b: 0.084905684, a: 1}
   globalLightProbeDimmer:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0
   depthExtent:
     m_OverrideState: 1
     m_Value: 64
@@ -522,7 +522,7 @@ MonoBehaviour:
     m_Value: {x: 0.5, y: 0.5}
   intensity:
     m_OverrideState: 1
-    m_Value: 0.254
+    m_Value: 0.401
   smoothness:
     m_OverrideState: 1
     m_Value: 0.561

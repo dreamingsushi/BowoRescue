@@ -83069,10 +83069,10 @@ MonoBehaviour:
   mesh: {fileID: 137784739448772191}
   hitVFXPrefab: {fileID: 4693827097229612602, guid: 36232887f851da54f96c3faecb2d0672, type: 3}
   phase2Threshold: 700
-  phase3Threshold: 300
+  phase3Threshold: 500
   currentPhase: 0
   patrolSpeed: 7
-  chaseSpeed: 3.5
+  chaseSpeed: 5
   patrolRadius: 5
   patrolWaitTime: 2
   bossTP: {fileID: 1457868683}
@@ -83081,7 +83081,7 @@ MonoBehaviour:
   patrolCenter: {fileID: 665898402}
   attackRange: 3
   attackCooldown: 2
-  spellCastInterval: 10
+  spellCastInterval: 8
   spellPrefabs:
   - {fileID: 4457847844320776928, guid: b6d9135eefd8f8c408bd30ae31eea7e7, type: 3}
   - {fileID: 7707939220530463536, guid: c5b99411af6521f4e92982cf76b76070, type: 3}
@@ -96795,9 +96795,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.3072609
-  m_Height: 3.4676435
+  m_Height: 2.5285177
   m_Direction: 1
-  m_Center: {x: 0, y: 1.7723974, z: 0}
+  m_Center: {x: 0, y: 0.96425575, z: 0}
 --- !u!195 &136306804387309060
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -96816,7 +96816,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 3.38
+  m_Height: 2.17
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4

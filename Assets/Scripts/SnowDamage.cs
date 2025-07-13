@@ -8,7 +8,7 @@ public class SnowDamage : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Boss"))
+        if (other.CompareTag("Boss") || other.CompareTag("Enemy"))
             return;
         
         // Damage

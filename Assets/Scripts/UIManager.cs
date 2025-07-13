@@ -76,7 +76,7 @@ public class UIManager : MonoBehaviour
         ActivatePanel(quitPanel.name);
         AudioManager.Instance.PlaySFX("Menu");
     }
-    
+
     void Update()
     {
         if (EventSystem.current.currentSelectedGameObject == null && currentDefaultButton != null)
@@ -84,6 +84,15 @@ public class UIManager : MonoBehaviour
             if (Input.GetAxisRaw("Vertical") != 0 || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
             {
                 EventSystem.current.SetSelectedGameObject(currentDefaultButton);
+            }
+        }
+        
+        if (Input.GetKeyDown(KeyCode.Escape)|| Input.GetKeyDown(KeyCode.JoystickButton1))
+        {
+            // If you're NOT in the main menu, go back to it
+            if (!MainMenuPanel.activeSelf)
+            {
+                GoToMainMenu();
             }
         }
     }

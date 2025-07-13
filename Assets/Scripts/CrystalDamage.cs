@@ -8,7 +8,7 @@ public class CrystalDamage : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Boss"))
+        if (other.CompareTag("Boss") || other.CompareTag("Enemy"))
             return;
 
         // Apply burst damage

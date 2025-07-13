@@ -25806,8 +25806,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  health: 40
-  deathDelay: 2
+  Health:
+    m_InternalValue: 40
 --- !u!65 &869169149
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -20,7 +20,7 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
     [Header("Health Regeneration")]
     public bool canRegenerate = true;
     public int regenAmount = 1;
-    public float regenInterval = 2f;
+    public float regenInterval = 1f;
 
     [SerializeField] private Animator anim;
     public NetworkVariable<bool> isDead = new NetworkVariable<bool>(false);
@@ -77,6 +77,9 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
         if (isInvincible || currentHealth.Value <= 0) return;
 
         RequestDamageServerRpc(damageAmount);
+        HitStopManager.Instance?.DoHitStop(0.1f);
+        CameraShakeManager.Instance?.Shake();
+        AudioManager.Instance.PlaySFX("Hurt");
     }
 
     [ServerRpc(RequireOwnership = false)]

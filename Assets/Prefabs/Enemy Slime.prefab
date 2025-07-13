@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 8304913197788900723}
   m_Layer: 0
   m_Name: Enemy Slime
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -187,6 +187,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   maxHealth: 30
+  currentHealth:
+    m_InternalValue: 100
   mesh: {fileID: 4939204302175870086}
   isDead: 0
   hitVFXPrefab: {fileID: 4693827097229612602, guid: 36232887f851da54f96c3faecb2d0672, type: 3}

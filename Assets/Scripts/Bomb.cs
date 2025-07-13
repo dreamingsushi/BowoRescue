@@ -85,6 +85,7 @@ public class Bomb : MonoBehaviour
                 }
             }
         }
+        AudioManager.Instance.PlaySFX("Explosion");
         CameraShakeManager.Instance?.Shake(2.0f); 
         HitStopManager.Instance?.DoHitStop(0.1f);
 

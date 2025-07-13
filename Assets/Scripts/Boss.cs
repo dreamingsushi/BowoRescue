@@ -250,10 +250,11 @@ public class Boss : NetworkBehaviour, IDamageable
 
     public void BreakShieldFromBomb()
     {
-        if (!IsServer || !isInvulnerable) return;
+        if (!isInvulnerable) return;
+        isInvulnerable = false;
         anim.SetBool("IsShielded", false);
-
         anim.SetBool("IsDizzy", true);
+        ToggleShieldEffectClientRpc(false);
         Debug.Log("Boss shield broken by bomb!");
     }
 
