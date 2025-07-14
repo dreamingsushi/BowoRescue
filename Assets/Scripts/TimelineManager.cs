@@ -6,6 +6,7 @@ using System.Collections;
 public class TimelineManager : NetworkBehaviour
 {
     public PlayableDirector timeline;
+    public CountdownTimer countdownTimer;
     private bool hasHandled = false;
 
     private void Start()
@@ -29,6 +30,8 @@ public class TimelineManager : NetworkBehaviour
                 controller.EnableInputs();
             }
         }
+
+        countdownTimer.StartCountdown();
 
         timeline.stopped -= OnTimelineFinished; // Cleanup
     }

@@ -31,7 +31,7 @@ public class HealthBarManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "MainMenu" || scene.name == "EndScene")
+        if (scene.name == "MainMenu" || scene.name == "EndScene"|| scene.name == "LobbyScene")
         {
             HealthBarManager.Instance.HideAllHealthBars();
         }

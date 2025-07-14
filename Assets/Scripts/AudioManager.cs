@@ -20,6 +20,7 @@ public class AudioManager : MonoBehaviour
     private Dictionary<string, string> sceneMusicMap = new Dictionary<string, string>()
     {
         { "MainMenu", "MainMenuTheme" },
+        { "LobbyScene", "LobbyTheme"},
         { "Level 1", "Level1Theme" },
         { "Level 2", "Level2Theme" },
         { "Level 3 (boss)", "MainMenuTheme" },
