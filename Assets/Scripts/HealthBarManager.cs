@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class HealthBarManager : MonoBehaviour
 {
@@ -18,6 +19,24 @@ public class HealthBarManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
     }
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "MainMenu" || scene.name == "EndScene")
+        {
+            HealthBarManager.Instance.HideAllHealthBars();
+        }
+    }
+
 
     public void RegisterPlayer(int playerIndex, PlayerHealth playerHealth)
     {
@@ -32,4 +51,14 @@ public class HealthBarManager : MonoBehaviour
         ui.Setup(playerHealth);
         playerHealth.healthBarUI = ui;
     }
+
+    public void HideAllHealthBars()
+    {
+        foreach (var bar in healthBarSlots)
+        {
+            if (bar != null)
+                bar.gameObject.SetActive(false);
+        }
+    }
+
 }

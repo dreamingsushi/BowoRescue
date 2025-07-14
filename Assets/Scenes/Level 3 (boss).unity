@@ -46139,6 +46139,8 @@ PlayableDirector:
     value: {fileID: 1591669839}
   - key: {fileID: 974939162878510937, guid: c018131ec6fafdf4cba8ad430df5ec43, type: 2}
     value: {fileID: 874773202}
+  - key: {fileID: -3039350785037547611, guid: c018131ec6fafdf4cba8ad430df5ec43, type: 2}
+    value: {fileID: 1924215324}
   m_ExposedReferences:
     m_References: []
 --- !u!4 &1090540535
@@ -57667,10 +57669,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -96572,6 +96574,10 @@ PrefabInstance:
       propertyPath: bossTP
       value: 
       objectReference: {fileID: 1457868683}
+    - target: {fileID: 1428389588330842188, guid: ddc78236394b91043b65f2298015eb17, type: 3}
+      propertyPath: maxHealth
+      value: 1000
+      objectReference: {fileID: 0}
     - target: {fileID: 1428389588330842188, guid: ddc78236394b91043b65f2298015eb17, type: 3}
       propertyPath: bossCamera
       value: 
