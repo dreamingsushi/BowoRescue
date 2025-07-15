@@ -61,6 +61,9 @@ public class DialogueManager : MonoBehaviour
         currentLine = 0;
         isTalking = true;
 
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
         nameText.text = data.npcName;
         choicesPanel.SetActive(true);
         DisplayLine();
@@ -167,6 +170,9 @@ public class DialogueManager : MonoBehaviour
         dialogueUI.SetActive(false);
         isTalking = false;
         isTyping = false;
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
 
         dialogueText.text = "";
         nameText.text = "";

@@ -186,6 +186,8 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 4834a68d155a4c24c9b252e968e7961f, type: 3}
   - name: EndTheme
     clip: {fileID: 8300000, guid: 0a4fc4878c98f48469740320c558c637, type: 3}
+  - name: LobbyTheme
+    clip: {fileID: 8300000, guid: e8e15b7a71b65624e96891b065813ca4, type: 3}
   sfxSounds:
   - name: Menu
     clip: {fileID: 8300000, guid: 060dac2dc6de2f64c8fc952e46d7112e, type: 3}
@@ -225,6 +227,8 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: daf69a57d0cf0674798309a93bfdaefe, type: 3}
   - name: Cinematic
     clip: {fileID: 8300000, guid: 065dcaa49cda74245b7926f3f8431975, type: 3}
+  - name: Trap
+    clip: {fileID: 8300000, guid: 34b05423884901349af2a44995dfde6e, type: 3}
   musicSource: {fileID: 6224900262932165598}
   sfxSource: {fileID: 435985575352770708}
   masterSlider: {fileID: 0}

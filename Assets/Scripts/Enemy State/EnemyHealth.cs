@@ -25,14 +25,7 @@ public class EnemyHealth : NetworkBehaviour, IDamageable, IKnockbackable
 
     public void TakeDamage(float damage)
     {
-        if (!IsServer)
-        {
-            TakeDamageServerRpc(damage);
-        }
-        else
-        {
-            ApplyDamage(damage);
-        }
+        TakeDamageServerRpc(damage);
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -134,13 +127,11 @@ public class EnemyHealth : NetworkBehaviour, IDamageable, IKnockbackable
 
         transform.position = endPos;
 
-        if (IsServer && NetworkObject.IsSpawned)
+        DestroyEnemyClientRpc();
+
+        if (NetworkObject.IsSpawned)
         {
             NetworkObject.Despawn(); // Proper networked despawn
-        }
-        else
-        {
-            DestroyEnemyClientRpc();
         }
     }
 

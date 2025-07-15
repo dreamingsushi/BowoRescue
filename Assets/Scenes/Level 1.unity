@@ -1409,7 +1409,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0:12
+  m_text: --:--
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: db10c9be89ad4584faaf49e8459a915a, type: 2}
   m_sharedMaterial: {fileID: -1079247094447688100, guid: db10c9be89ad4584faaf49e8459a915a, type: 2}
@@ -10287,6 +10287,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1231334429}
     m_Modifications:
+    - target: {fileID: 245765216355422491, guid: 6d4ca4f793bcff649aa2aa5e10976d14, type: 3}
+      propertyPath: PositionInterpolationType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 245765216355422491, guid: 6d4ca4f793bcff649aa2aa5e10976d14, type: 3}
+      propertyPath: RotationInterpolationType
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2767220536422567980, guid: 6d4ca4f793bcff649aa2aa5e10976d14, type: 3}
       propertyPath: m_Name
       value: Basic Item (7)
@@ -10575,6 +10583,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1231334429}
     m_Modifications:
+    - target: {fileID: 245765216355422491, guid: 6d4ca4f793bcff649aa2aa5e10976d14, type: 3}
+      propertyPath: PositionInterpolationType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 245765216355422491, guid: 6d4ca4f793bcff649aa2aa5e10976d14, type: 3}
+      propertyPath: RotationInterpolationType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 245765216355422491, guid: 6d4ca4f793bcff649aa2aa5e10976d14, type: 3}
+      propertyPath: SwitchTransformSpaceWhenParented
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2767220536422567980, guid: 6d4ca4f793bcff649aa2aa5e10976d14, type: 3}
       propertyPath: m_Name
       value: Basic Item (5)
@@ -21210,7 +21230,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mode: 1
-  size: {x: 293.74872, y: 44.007286, z: 241.59833}
+  size: {x: 293.74872, y: 44.00729, z: 241.59833}
   overrideRendererFilters: 0
   minRendererVolumeSize: 0.1
   objectLayerMask:
@@ -21250,7 +21270,7 @@ Transform:
   m_GameObject: {fileID: 694737916}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -36.12564, y: 10.916718, z: 16.40245}
+  m_LocalPosition: {x: -36.12564, y: 10.916719, z: 16.40245}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -21547,6 +21567,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1231334429}
     m_Modifications:
+    - target: {fileID: 245765216355422491, guid: 6d4ca4f793bcff649aa2aa5e10976d14, type: 3}
+      propertyPath: PositionInterpolationType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 245765216355422491, guid: 6d4ca4f793bcff649aa2aa5e10976d14, type: 3}
+      propertyPath: RotationInterpolationType
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2767220536422567980, guid: 6d4ca4f793bcff649aa2aa5e10976d14, type: 3}
       propertyPath: m_Name
       value: Basic Item (3)
@@ -21817,6 +21845,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1231334429}
     m_Modifications:
+    - target: {fileID: 245765216355422491, guid: 6d4ca4f793bcff649aa2aa5e10976d14, type: 3}
+      propertyPath: PositionInterpolationType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 245765216355422491, guid: 6d4ca4f793bcff649aa2aa5e10976d14, type: 3}
+      propertyPath: RotationInterpolationType
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2767220536422567980, guid: 6d4ca4f793bcff649aa2aa5e10976d14, type: 3}
       propertyPath: m_Name
       value: Basic Item (2)
@@ -24745,8 +24781,8 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   NetworkTransformExpanded: 0
   AutoOwnerAuthorityTickOffset: 1
-  PositionInterpolationType: 0
-  RotationInterpolationType: 0
+  PositionInterpolationType: 1
+  RotationInterpolationType: 1
   ScaleInterpolationType: 0
   PositionLerpSmoothing: 1
   PositionMaxInterpolationTime: 0.1
@@ -24755,7 +24791,7 @@ MonoBehaviour:
   ScaleLerpSmoothing: 1
   ScaleMaxInterpolationTime: 0.1
   AuthorityMode: 0
-  TickSyncChildren: 0
+  TickSyncChildren: 1
   UseUnreliableDeltas: 0
   SyncPositionX: 1
   SyncPositionY: 1
@@ -24772,7 +24808,7 @@ MonoBehaviour:
   UseQuaternionSynchronization: 0
   UseQuaternionCompression: 0
   UseHalfFloatPrecision: 0
-  InLocalSpace: 0
+  InLocalSpace: 1
   SwitchTransformSpaceWhenParented: 0
   Interpolate: 1
   SlerpPosition: 0
@@ -26406,8 +26442,8 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   NetworkTransformExpanded: 0
   AutoOwnerAuthorityTickOffset: 1
-  PositionInterpolationType: 0
-  RotationInterpolationType: 0
+  PositionInterpolationType: 1
+  RotationInterpolationType: 1
   ScaleInterpolationType: 0
   PositionLerpSmoothing: 1
   PositionMaxInterpolationTime: 0.1
@@ -26416,7 +26452,7 @@ MonoBehaviour:
   ScaleLerpSmoothing: 1
   ScaleMaxInterpolationTime: 0.1
   AuthorityMode: 0
-  TickSyncChildren: 0
+  TickSyncChildren: 1
   UseUnreliableDeltas: 0
   SyncPositionX: 1
   SyncPositionY: 1
@@ -26433,7 +26469,7 @@ MonoBehaviour:
   UseQuaternionSynchronization: 0
   UseQuaternionCompression: 0
   UseHalfFloatPrecision: 0
-  InLocalSpace: 0
+  InLocalSpace: 1
   SwitchTransformSpaceWhenParented: 0
   Interpolate: 1
   SlerpPosition: 0
@@ -32015,6 +32051,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1231334429}
     m_Modifications:
+    - target: {fileID: 245765216355422491, guid: 6d4ca4f793bcff649aa2aa5e10976d14, type: 3}
+      propertyPath: PositionInterpolationType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 245765216355422491, guid: 6d4ca4f793bcff649aa2aa5e10976d14, type: 3}
+      propertyPath: RotationInterpolationType
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2767220536422567980, guid: 6d4ca4f793bcff649aa2aa5e10976d14, type: 3}
       propertyPath: m_Name
       value: Basic Item (4)
@@ -32945,7 +32989,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   countdownText: {fileID: 34209761}
-  startTime: 10
+  startTime: 300
   timesUpTxt: {fileID: 1458065008}
 --- !u!1001 &1078982712
 PrefabInstance:
@@ -42495,6 +42539,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1231334429}
     m_Modifications:
+    - target: {fileID: 245765216355422491, guid: 6d4ca4f793bcff649aa2aa5e10976d14, type: 3}
+      propertyPath: PositionInterpolationType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 245765216355422491, guid: 6d4ca4f793bcff649aa2aa5e10976d14, type: 3}
+      propertyPath: RotationInterpolationType
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2767220536422567980, guid: 6d4ca4f793bcff649aa2aa5e10976d14, type: 3}
       propertyPath: m_Name
       value: Basic Item (1)
@@ -50101,8 +50153,8 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   NetworkTransformExpanded: 0
   AutoOwnerAuthorityTickOffset: 1
-  PositionInterpolationType: 0
-  RotationInterpolationType: 0
+  PositionInterpolationType: 1
+  RotationInterpolationType: 1
   ScaleInterpolationType: 0
   PositionLerpSmoothing: 1
   PositionMaxInterpolationTime: 0.1
@@ -50111,7 +50163,7 @@ MonoBehaviour:
   ScaleLerpSmoothing: 1
   ScaleMaxInterpolationTime: 0.1
   AuthorityMode: 0
-  TickSyncChildren: 0
+  TickSyncChildren: 1
   UseUnreliableDeltas: 0
   SyncPositionX: 1
   SyncPositionY: 1
@@ -50128,7 +50180,7 @@ MonoBehaviour:
   UseQuaternionSynchronization: 0
   UseQuaternionCompression: 0
   UseHalfFloatPrecision: 0
-  InLocalSpace: 0
+  InLocalSpace: 1
   SwitchTransformSpaceWhenParented: 0
   Interpolate: 1
   SlerpPosition: 0
@@ -51211,6 +51263,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1231334429}
     m_Modifications:
+    - target: {fileID: 245765216355422491, guid: 6d4ca4f793bcff649aa2aa5e10976d14, type: 3}
+      propertyPath: PositionInterpolationType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 245765216355422491, guid: 6d4ca4f793bcff649aa2aa5e10976d14, type: 3}
+      propertyPath: RotationInterpolationType
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2767220536422567980, guid: 6d4ca4f793bcff649aa2aa5e10976d14, type: 3}
       propertyPath: m_Name
       value: Basic Item
@@ -64737,6 +64797,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1231334429}
     m_Modifications:
+    - target: {fileID: 245765216355422491, guid: 6d4ca4f793bcff649aa2aa5e10976d14, type: 3}
+      propertyPath: PositionInterpolationType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 245765216355422491, guid: 6d4ca4f793bcff649aa2aa5e10976d14, type: 3}
+      propertyPath: RotationInterpolationType
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2767220536422567980, guid: 6d4ca4f793bcff649aa2aa5e10976d14, type: 3}
       propertyPath: m_Name
       value: Basic Item (6)

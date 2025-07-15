@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: 6700800149134034201}
   m_Layer: 0
   m_Name: Enemy Turtle
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -159,7 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 678326939
+  GlobalObjectIdHash: 2259791682
   InScenePlacedSourceGlobalObjectIdHash: 678326939
   DeferredDespawnTick: 0
   Ownership: 1
@@ -186,6 +186,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   maxHealth: 80
+  currentHealth:
+    m_InternalValue: 100
   mesh: {fileID: 4598545019187628617}
   isDead: 0
   hitVFXPrefab: {fileID: 4693827097229612602, guid: 36232887f851da54f96c3faecb2d0672, type: 3}
@@ -590,7 +592,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0.42, z: 0}
