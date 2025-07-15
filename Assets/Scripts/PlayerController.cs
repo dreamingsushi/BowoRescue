@@ -311,11 +311,15 @@ public class PlayerController : NetworkBehaviour
     private void OpenMenu()
     {
         pauseMenu.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     private void CloseMenu()
     {
         pauseMenu.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
 

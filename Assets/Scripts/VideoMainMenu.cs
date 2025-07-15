@@ -5,10 +5,11 @@ using UnityEngine.SceneManagement;
 public class VideoToMainMenu : MonoBehaviour
 {
     public string mainMenuSceneName = "MainMenu"; // Change to your scene name
-
+    public GameObject skipMenu;
+    public VideoPlayer vp;
     void Start()
     {
-        VideoPlayer vp = GetComponent<VideoPlayer>();
+        vp = GetComponent<VideoPlayer>();
         if (vp != null)
         {
             vp.loopPointReached += OnVideoEnd;
@@ -19,7 +20,16 @@ public class VideoToMainMenu : MonoBehaviour
     {
         SceneManager.LoadScene(mainMenuSceneName);
     }
-
+    public void OpenSkipMenu()
+    {
+        skipMenu.SetActive(true);
+        vp.Pause();
+    }
+    public void CloseSkipMenu()
+    {
+        skipMenu.SetActive(false);
+        vp.Play();
+    }
     public void SkipButton()
     {
         SceneManager.LoadScene(mainMenuSceneName);
