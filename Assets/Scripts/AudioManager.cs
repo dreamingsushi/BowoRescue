@@ -23,7 +23,7 @@ public class AudioManager : MonoBehaviour
         { "LobbyScene", "LobbyTheme"},
         { "Level 1", "Level1Theme" },
         { "Level 2", "Level2Theme" },
-        { "Level 3 (boss)", "MainMenuTheme" },
+        { "Level 3 (boss)", "Level3Theme" },
         // Add more as needed
     };
 

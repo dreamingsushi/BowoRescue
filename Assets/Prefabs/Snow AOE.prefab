@@ -5012,7 +5012,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 1
-  m_BoundingSphereOverride: {x: 3.7793e-41, y: 0, z: 0, w: -7.682202e-20}
+  m_BoundingSphereOverride: {x: 1.1697e-41, y: 2.524355e-29, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ForceVisible: 0
@@ -10131,7 +10131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3655db91a82880c438d9e8ba8423f5d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damagePerSecond: 10
+  damagePerSecond: 15
   slowMultiplier: 0.5
   slowDuration: 1
 --- !u!1 &4457847844320776928

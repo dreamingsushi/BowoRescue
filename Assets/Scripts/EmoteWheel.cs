@@ -49,6 +49,7 @@ void SendEmoteClientRpc(string message, ulong senderClientId)
     // Spawns a local emote bubble (TMP text) under the world canvas
     public void SpawnEmoteBubble(string message)
     {
+        AudioManager.Instance.PlaySFX("ItemDrop");
         if (spawnPoint == null)
         {
             Debug.LogWarning("spawnPoint not assigned on " + gameObject.name);

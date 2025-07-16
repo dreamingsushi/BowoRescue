@@ -43,6 +43,11 @@ public class LobbyUIManager : MonoBehaviour
         readyButton.onClick.AddListener(ToggleReadyStatus);
 
         characterCustomization = FindAnyObjectByType<CharacterCustomization>();
+
+        if (LobbyManagerZK.Instance != null)
+        {
+            LobbyManagerZK.Instance.ResetMyReadyStatus();
+        }
     }
 
     void Update()
@@ -65,6 +70,7 @@ public class LobbyUIManager : MonoBehaviour
     {
         ClearLobby();
         Hide();
+        SceneManager.LoadScene("MainMenu");
     }
 
     private void UpdateLobby_Event(object sender, LobbyManagerZK.LobbyEventArgs e)

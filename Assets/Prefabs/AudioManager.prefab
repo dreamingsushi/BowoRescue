@@ -183,7 +183,7 @@ MonoBehaviour:
   - name: Level2Theme
     clip: {fileID: 8300000, guid: a08bd372ecc8153488ed05ec9d6fe335, type: 3}
   - name: BossTheme
-    clip: {fileID: 8300000, guid: 4834a68d155a4c24c9b252e968e7961f, type: 3}
+    clip: {fileID: 8300000, guid: 004f86fbfef65384582e5e124f3ba2a9, type: 3}
   - name: EndTheme
     clip: {fileID: 8300000, guid: 0a4fc4878c98f48469740320c558c637, type: 3}
   - name: LobbyTheme
@@ -229,6 +229,10 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 065dcaa49cda74245b7926f3f8431975, type: 3}
   - name: Trap
     clip: {fileID: 8300000, guid: 34b05423884901349af2a44995dfde6e, type: 3}
+  - name: Dragon
+    clip: {fileID: 8300000, guid: 6cf92b0bc46497b4f9713c11a65d6023, type: 3}
+  - name: Victory
+    clip: {fileID: 8300000, guid: 0e6c8e38f30e3bb40888ade5ee549283, type: 3}
   musicSource: {fileID: 6224900262932165598}
   sfxSource: {fileID: 435985575352770708}
   masterSlider: {fileID: 0}

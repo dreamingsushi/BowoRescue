@@ -396,7 +396,37 @@ public class LobbyManagerZK : NetworkBehaviour
         }
     }
 
-    
+    public async void ResetMyReadyStatus()
+    {
+        if (joinedLobby != null)
+        {
+            try
+            {
+                UpdatePlayerOptions options = new UpdatePlayerOptions();
+
+                options.Data = new Dictionary<string, PlayerDataObject>() {
+                    {
+                        KEY_PLAYER_READY, new PlayerDataObject(
+                            visibility: PlayerDataObject.VisibilityOptions.Public,
+                            value: "false")
+                    }
+                };
+
+                string playerId = AuthenticationService.Instance.PlayerId;
+
+                Lobby lobby = await LobbyService.Instance.UpdatePlayerAsync(joinedLobby.Id, playerId, options);
+                joinedLobby = lobby;
+
+                OnJoinedLobbyUpdate?.Invoke(this, new LobbyEventArgs { lobby = joinedLobby });
+                Debug.Log("✅ Reset ready status to false");
+            }
+            catch (LobbyServiceException e)
+            {
+                Debug.Log(e);
+            }
+        }
+    }
+
 
 
     public async void LeaveLobby()

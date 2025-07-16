@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
 using Tiny;
+using UnityEngine.SceneManagement;
 
 public class PlayerAttack : NetworkBehaviour
 {
@@ -16,6 +17,29 @@ public class PlayerAttack : NetworkBehaviour
 
     [SerializeField] private float attackDuration = 0.5f;
     [SerializeField] private float attackCooldown = 0.5f;
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // Reset weapon state
+        if (equippedWeapon != null)
+            equippedWeapon.SetActive(false);
+
+        equippedWeapon = null;
+        isHoldingWeapon = false;
+        vfx = null;
+        dmgCollider = null;
+        isAttacking = false;
+        canAttack = true;
+    }
 
     public void OnAttack(InputAction.CallbackContext context)
     {

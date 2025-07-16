@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 using System.Collections;
 using Unity.Cinemachine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
+
 
 public class PlayerController : NetworkBehaviour
 {
@@ -34,6 +36,7 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private GameObject emoteWheel;
     [SerializeField] private GameObject emoteWheelUI;
     private DialogueManager dialogueManager;
+    private PlayerTeleporter playerTeleporter;
     private bool isMenuOpen = false;
     private Lever nearbyLever;
     [Header("VFX")]
@@ -75,8 +78,26 @@ public class PlayerController : NetworkBehaviour
         controller = GetComponent<CharacterController>();
         playerInput = GetComponent<PlayerInput>();
         dialogueManager = GetComponent<DialogueManager>();
+        playerTeleporter = GetComponent < PlayerTeleporter>();
         originalSpeed = m_Speed;
     }
+
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        isHeld = false;
+        heldItem = null;
+    }
+
 
     public override void OnNetworkSpawn()
     {
@@ -148,7 +169,19 @@ public class PlayerController : NetworkBehaviour
         }
 
         DetectPickupTarget();
+
+
+        if (IsOwner && transform.position.y < -25f)
+        {
+            HandleFallOutOfWorld();
+        }
     }
+    private void HandleFallOutOfWorld()
+    {
+        playerTeleporter.Teleport(playerTeleporter.teleportDestination);
+    }
+
+
     [ClientRpc]
     void SpawnWalkVFXClientRpc()
     {
@@ -380,6 +413,19 @@ public class PlayerController : NetworkBehaviour
     private IPickupable currentTarget;
     void PickupItem()
     {
+        if (isHeld)
+        {
+            // Extra safety: auto-reset if the held object got destroyed
+            if (heldItem == null)
+            {
+                isHeld = false;
+            }
+            else
+            {
+                return; // Already holding something valid
+            }
+        }
+
         if (currentTarget != null && !isHeld)
         {
             heldItem = ((MonoBehaviour)currentTarget).gameObject;
@@ -390,6 +436,7 @@ public class PlayerController : NetworkBehaviour
             AudioManager.Instance.PlaySFX("ItemPickUp");
         }
     }
+    
 
     void DetectPickupTarget()
     {

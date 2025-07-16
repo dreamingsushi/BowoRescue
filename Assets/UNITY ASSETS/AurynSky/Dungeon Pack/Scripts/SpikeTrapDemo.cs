@@ -7,6 +7,7 @@ public class SpikeTrapDemo : MonoBehaviour
     public float startDelay = 2f;
     public float openTime = 2f;
     public float closeTime = 2f;
+    public AudioSource audioSfx;
 
     void Awake()
     {
@@ -25,6 +26,7 @@ public class SpikeTrapDemo : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(openTime);
+            audioSfx.PlayOneShot(audioSfx.clip);
             spikeTrapAnim.SetTrigger("open");
             yield return new WaitForSeconds(closeTime);
             spikeTrapAnim.SetTrigger("close");

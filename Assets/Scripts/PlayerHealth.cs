@@ -2,12 +2,14 @@ using System.Collections;
 using UnityEngine;
 using Unity.Netcode;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class PlayerHealth : NetworkBehaviour, IDamageable
 {
     [Header("Health Settings")]
     public int maxHealth = 100;
     public NetworkVariable<int> currentHealth = new NetworkVariable<int>();
+    [SerializeField] private TextMeshProUGUI respawnTimerText;
     
     [Header("Armor Settings")]
     public int armor = 0;
@@ -15,7 +17,7 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
 
     [Header("Invincibility Settings")]
     public bool isInvincible = false;
-    public float invincibilityDuration = 1f;
+    public float invincibilityDuration = 0.2f;
 
     [Header("Health Regeneration")]
     public bool canRegenerate = true;
@@ -55,9 +57,9 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
         StartCoroutine(DelayedRegisterToUI());
     }
 
-    private IEnumerator DelayedRegisterToUI()
+    public IEnumerator DelayedRegisterToUI()
     {
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(5f);
         int index = PlayerIndexManager.Instance.GetPlayerIndex(OwnerClientId);
         Debug.Log("index is " + index);
 
@@ -106,7 +108,7 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
         }
         else
         {
-            StartCoroutine(TriggerInvincibility());
+            TriggerInvincibility();
         }
     }
     [ClientRpc]
@@ -151,6 +153,8 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
         isDead.Value = true;
         Debug.Log("Player has died.");
 
+        TeamLivesManager.Instance.ReduceLifeServerRpc();
+
         // Disable player controls here if necessary
         DisableInputsClientRpc(OwnerClientId);
 
@@ -178,19 +182,61 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
 
     private IEnumerator RespawnCoroutine()
     {
-        yield return new WaitForSeconds(5f);
+        float respawnTime = 5f;
+
+        if (respawnTimerText != null)
+        {
+            respawnTimerText.gameObject.SetActive(true);
+        }
+
+        while (respawnTime > 0f)
+        {
+            if (respawnTimerText != null)
+            {
+                respawnTimerText.text = "Respawning in: " + Mathf.CeilToInt(respawnTime);
+            }
+
+            yield return new WaitForSeconds(1f);
+            respawnTime -= 1f;
+        }
+
+        if (respawnTimerText != null)
+        {
+            respawnTimerText.gameObject.SetActive(false);
+        }
+
         EnableInputsClientRpc(OwnerClientId);
-        // Reset health
+
         currentHealth.Value = maxHealth;
         isDead.Value = false;
 
         Vector3 spawnPos = RespawnManager.Instance.GetSafeRespawnPosition();
         playerTeleporter.Teleport(spawnPos);
         UpdateHealthBarClientRpc(currentHealth.Value);
+
         Debug.Log("Player respawned.");
     }
 
-    private IEnumerator TriggerInvincibility()
+
+    public void TriggerInvincibility()
+    {
+        if (IsOwner)
+        {
+            RequestInvincibilityServerRpc();
+        }
+    }
+
+    [ServerRpc]
+    private void RequestInvincibilityServerRpc()
+    {
+        if (!isDead.Value)
+        {
+            StartCoroutine(InvincibilityCoroutine());
+        }
+    }
+
+
+    private IEnumerator InvincibilityCoroutine()
     {
         isInvincible = true;
         yield return new WaitForSeconds(invincibilityDuration);

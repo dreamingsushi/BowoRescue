@@ -183,7 +183,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  maxHealth: 500
+  maxHealth: 1500
   currentHealth:
     m_InternalValue: 100
   mesh: {fileID: 5681804345856599290}

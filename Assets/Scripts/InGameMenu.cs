@@ -8,6 +8,7 @@ public class InGameMenu : MonoBehaviour
     public GameObject gameMenuUI;
     public void ExitToMainMenu()
     {
+        AudioManager.Instance.PlaySFX("Menu");
         // Disconnect from NGO networking
         if (NetworkManager.Singleton != null)
         {
@@ -36,18 +37,21 @@ public class InGameMenu : MonoBehaviour
     public void BackToGame()
     {
         gameObject.SetActive(false);
+        AudioManager.Instance.PlaySFX("Menu");
     }
 
     public void Settings()
     {
         settingsPanel.SetActive(true);
         gameMenuUI.SetActive(false);
+        AudioManager.Instance.PlaySFX("Menu");
     }
 
     public void BackToGameMenu()
     {
         settingsPanel.SetActive(false);
-        gameMenuUI.SetActive(true);        
+        gameMenuUI.SetActive(true);
+        AudioManager.Instance.PlaySFX("Menu");        
     }
 
     public void SetMasterVolume(float volume)

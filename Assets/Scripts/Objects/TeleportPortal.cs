@@ -7,7 +7,7 @@ public class TeleportPortal : MonoBehaviour
     [Header("Destination")]
     public TeleportPortal destinationPortal;
     public Collider destinationPortalCollider;
-    public PlayerController playerController;
+    private PlayerController playerController;
     [SerializeField] private Vector3 originalScale;
 
     private bool isTeleporting = false;

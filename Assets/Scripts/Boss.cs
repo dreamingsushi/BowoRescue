@@ -206,6 +206,7 @@ public class Boss : NetworkBehaviour, IDamageable
     {
         if (!IsServer) return; // Only server should spawn
 
+        AudioManager.Instance.PlaySFX("Dragon");
         if (dragonSummonVFX != null)
         {
             GameObject vfx = Instantiate(dragonSummonVFX, dragonSummonVFXSpawnpoints.position, Quaternion.identity);

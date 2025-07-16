@@ -31,9 +31,13 @@ public class HealthBarManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "MainMenu" || scene.name == "EndScene"|| scene.name == "LobbyScene")
+        if (scene.name == "MainMenu" || scene.name == "EndScene" || scene.name == "LobbyScene")
         {
-            HealthBarManager.Instance.HideAllHealthBars();
+            HideAllHealthBars();
+        }
+        else if (scene.name == "Level 1" || scene.name == "Level 2" || scene.name == "Level 3 (boss)")
+        {
+            ShowAllActiveHealthBars();
         }
     }
 
@@ -60,5 +64,17 @@ public class HealthBarManager : MonoBehaviour
                 bar.gameObject.SetActive(false);
         }
     }
+
+    private void ShowAllActiveHealthBars()
+    {
+        foreach (var bar in healthBarSlots)
+        {
+            if (bar != null && bar.IsAssigned()) // You can add this method in HealthBarUI
+            {
+                bar.gameObject.SetActive(true);
+            }
+        }
+    }
+
 
 }

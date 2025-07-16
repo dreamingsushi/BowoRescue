@@ -47,6 +47,10 @@ public class BossFinishTrigger : NetworkBehaviour
         sadBowo.SetActive(false);
         cage.SetActive(false);
         endUI.SetActive(true);
+        AudioManager.Instance.PlaySFX("Victory");
+        AudioManager.Instance.PlaySFX("BowoHappy");
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     private void SendEveryoneToEndScene()
@@ -74,6 +78,6 @@ public class BossFinishTrigger : NetworkBehaviour
     {
         NetworkManager.Singleton.Shutdown();
         yield return new WaitForSeconds(0.5f); // Wait a bit before loading
-        SceneManager.LoadScene("EndScene");
+        SceneTransitionManager.Instance.StartTransitionAndLoadScene("EndScene");
     }
 }

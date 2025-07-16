@@ -14,14 +14,14 @@ public class SceneTransitionManager : NetworkBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(transform.root.gameObject);
         }
         else
         {
-            Destroy(gameObject);
+            Destroy(transform.root.gameObject);
         }
 
-        if (SceneManager.GetActiveScene().name == "MainMenu") return;
+        if (SceneManager.GetActiveScene().name == "StartScene") return;
 
         EndTransition();
     }
@@ -41,6 +41,10 @@ public class SceneTransitionManager : NetworkBehaviour
         if (NetworkManager.Singleton.IsServer)
         {
             NetworkManager.Singleton.SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
+        }
+        else
+        {
+            SceneManager.LoadScene(sceneName);
         }
         yield return new WaitUntil(() => SceneManager.GetActiveScene().isLoaded);
         yield return new WaitForSeconds(1);

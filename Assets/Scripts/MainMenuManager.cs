@@ -3,6 +3,7 @@ using System;
 using Unity.Netcode;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Unity.VisualScripting;
 public class MainMenuManager : NetworkBehaviour
 {
 
@@ -19,6 +20,7 @@ public class MainMenuManager : NetworkBehaviour
     {
         if (Input.anyKeyDown)
         {
+            if (Input.GetKeyDown(KeyCode.Escape)) return;
             // Optional: Check if the button is interactable and visible
             if (targetButton != null && targetButton.interactable && targetButton.gameObject.activeInHierarchy)
             {

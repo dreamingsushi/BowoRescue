@@ -27,4 +27,10 @@ public class HealthBarUI : MonoBehaviour
         fillImage.fillAmount = adjusted;
     }
 
+    public bool IsAssigned()
+    {
+        return target != null;
+    }
+
+
 }

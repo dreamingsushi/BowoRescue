@@ -18,20 +18,23 @@ public class VideoToMainMenu : MonoBehaviour
 
     void OnVideoEnd(VideoPlayer vp)
     {
-        SceneManager.LoadScene(mainMenuSceneName);
+        SceneTransitionManager.Instance.StartTransitionAndLoadScene(mainMenuSceneName);
     }
     public void OpenSkipMenu()
     {
         skipMenu.SetActive(true);
         vp.Pause();
+        AudioManager.Instance.PlaySFX("Menu");
     }
     public void CloseSkipMenu()
     {
         skipMenu.SetActive(false);
         vp.Play();
+        AudioManager.Instance.PlaySFX("Menu");
     }
     public void SkipButton()
     {
-        SceneManager.LoadScene(mainMenuSceneName);
+        AudioManager.Instance.PlaySFX("Menu");
+        SceneTransitionManager.Instance.StartTransitionAndLoadScene(mainMenuSceneName);
     }
 }

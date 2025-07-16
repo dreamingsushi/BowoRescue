@@ -33,6 +33,7 @@ public class Statue : NetworkBehaviour
         if (gem == requiredGem)
         {
             isActivated.Value = true;
+            AudioManager.Instance.PlaySFX("Gem");
             Debug.Log($"{requiredGem} Statue Activated!");
             StatueManager.Instance.CheckAllStatuesActivated();
         }

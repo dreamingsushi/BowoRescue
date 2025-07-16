@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using Unity.Netcode;
 
 public class Bomb : MonoBehaviour
 {
@@ -89,9 +90,26 @@ public class Bomb : MonoBehaviour
         CameraShakeManager.Instance?.Shake(2.0f); 
         HitStopManager.Instance?.DoHitStop(0.1f);
 
-        if (spawnedIndicator != null)
-            Destroy(spawnedIndicator);
+        DestroyIndicatorClientRpc();
         Destroy(gameObject);
+    }
+
+    [ClientRpc]
+    private void DestroyIndicatorClientRpc()
+    {
+        if (spawnedIndicator != null)
+        {
+            Destroy(spawnedIndicator);
+        }
+    }
+
+    void OnDestroy()
+    {
+        if (spawnedIndicator != null)
+        {
+            Destroy(spawnedIndicator);
+        }
+
     }
 
     private void OnDrawGizmosSelected()

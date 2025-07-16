@@ -20,6 +20,11 @@ public class UIManager : MonoBehaviour
     {
         ActivatePanel(StartMenuPanel.name);
     }
+    public void GoToStartMenu()
+    {
+        ActivatePanel(StartMenuPanel.name);
+        AudioManager.Instance.PlaySFX("Menu");        
+    }
     public void GoToMainMenu()
     {
         ActivatePanel(MainMenuPanel.name);
@@ -89,11 +94,7 @@ public class UIManager : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.Escape)|| Input.GetKeyDown(KeyCode.JoystickButton1))
         {
-            // If you're NOT in the main menu, go back to it
-            if (!MainMenuPanel.activeSelf)
-            {
-                GoToMainMenu();
-            }
+            GoToStartMenu();
         }
     }
 
