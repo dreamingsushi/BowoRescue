@@ -18,7 +18,7 @@ public class VideoToMainMenu : MonoBehaviour
 
     void OnVideoEnd(VideoPlayer vp)
     {
-        SceneTransitionManager.Instance.StartTransitionAndLoadScene(mainMenuSceneName);
+        SceneTransitionManager.Instance.StartTransitionAndLoadLocalScene(mainMenuSceneName);
     }
     public void OpenSkipMenu()
     {
@@ -35,6 +35,6 @@ public class VideoToMainMenu : MonoBehaviour
     public void SkipButton()
     {
         AudioManager.Instance.PlaySFX("Menu");
-        SceneTransitionManager.Instance.StartTransitionAndLoadScene(mainMenuSceneName);
+        SceneTransitionManager.Instance.StartTransitionAndLoadLocalScene(mainMenuSceneName);
     }
 }

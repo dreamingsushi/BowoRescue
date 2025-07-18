@@ -78,6 +78,6 @@ public class BossFinishTrigger : NetworkBehaviour
     {
         NetworkManager.Singleton.Shutdown();
         yield return new WaitForSeconds(0.5f); // Wait a bit before loading
-        SceneTransitionManager.Instance.StartTransitionAndLoadScene("EndScene");
+        SceneTransitionManager.Instance.StartTransitionAndLoadLocalScene("EndScene");
     }
 }

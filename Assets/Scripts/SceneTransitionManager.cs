@@ -29,6 +29,10 @@ public class SceneTransitionManager : NetworkBehaviour
     {
         StartCoroutine(LoadSceneWithTransition(sceneName));
     }
+    public void StartTransitionAndLoadLocalScene(string sceneName)
+    {
+        StartCoroutine(LoadLocalSceneWithTransition(sceneName));
+    }
 
     private IEnumerator LoadSceneWithTransition(string sceneName)
     {
@@ -38,7 +42,7 @@ public class SceneTransitionManager : NetworkBehaviour
         yield return new WaitForSeconds(transitionTime);
 
         // Use NetworkSceneManager if using Netcode for GameObjects
-        if (NetworkManager.Singleton != null && NetworkManager.Singleton.IsServer)
+        if (NetworkManager.Singleton.IsServer)
         {
             NetworkManager.Singleton.SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
         }
@@ -46,6 +50,18 @@ public class SceneTransitionManager : NetworkBehaviour
         {
             SceneManager.LoadScene(sceneName);
         }
+        yield return new WaitUntil(() => SceneManager.GetActiveScene().isLoaded);
+        yield return new WaitForSeconds(1);
+        anim.SetTrigger("End");
+    }
+
+    private IEnumerator LoadLocalSceneWithTransition(string sceneName)
+    {
+        anim.SetTrigger("Start");
+        PlayTransitionClientRpc();
+
+        yield return new WaitForSeconds(transitionTime);
+        SceneManager.LoadScene(sceneName);
         yield return new WaitUntil(() => SceneManager.GetActiveScene().isLoaded);
         yield return new WaitForSeconds(1);
         anim.SetTrigger("End");
