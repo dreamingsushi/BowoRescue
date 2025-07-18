@@ -54,12 +54,6 @@ public class PlayerTeleporter : NetworkBehaviour
         transform.position = destination;
 
         if (controller) controller.enabled = true;
-        var playerController = GetComponent<PlayerController>();
-        if (playerController != null)
-        {
-            playerController.enabled = true;
-            playerController.EnableInputs();
-        }
 
         Debug.Log($"Teleported {OwnerClientId} to {destination}");
     }
@@ -83,6 +77,12 @@ public class PlayerTeleporter : NetworkBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             Teleport(teleportDestination);
+            var playerController = GetComponent<PlayerController>();
+            if (playerController != null)
+            {
+                playerController.enabled = true;
+                playerController.EnableInputs();
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.L))
