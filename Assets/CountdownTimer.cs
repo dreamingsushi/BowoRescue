@@ -64,7 +64,7 @@ public class CountdownTimer : NetworkBehaviour
     public void StartCountdown()
     {
         if (!IsServer) return;
-        startTimestamp.Value = NetworkManager.Singleton.ServerTime.Time + 3.0;
+        startTimestamp.Value = NetworkManager.Singleton.ServerTime.Time;
         isRunning = true;
         hasFinished = false;
 
@@ -87,7 +87,7 @@ public class CountdownTimer : NetworkBehaviour
     public void ResetCountdown()
     {
         if (!IsServer) return;
-        startTimestamp.Value = NetworkManager.Singleton.ServerTime.Time + 3.0;
+        startTimestamp.Value = NetworkManager.Singleton.ServerTime.Time;
         isRunning = false;
         hasFinished = false;
     }
