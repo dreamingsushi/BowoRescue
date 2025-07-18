@@ -67,7 +67,17 @@ public class CountdownTimer : NetworkBehaviour
         startTimestamp.Value = NetworkManager.Singleton.ServerTime.Time + 3.0;
         isRunning = true;
         hasFinished = false;
+
+        StartCountdownClientRpc();
     }
+
+    [ClientRpc]
+    private void StartCountdownClientRpc()
+    {
+        isRunning = true;
+        hasFinished = false;
+    }
+
 
     public void StopCountdown()
     {
