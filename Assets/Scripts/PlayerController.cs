@@ -554,6 +554,15 @@ public class PlayerController : NetworkBehaviour
         playerInput.ActivateInput();
     }
 
+    public void DisableInputs()
+    {
+        playerInput.DeactivateInput();
+    }
+    public void EnableInputs()
+    {
+        playerInput.DeactivateInput();
+    }
+
     // --- NPC Dialogue ---
     public void SetNearbyNPC(NPC npc)
     {
