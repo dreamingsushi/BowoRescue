@@ -1,4 +1,5 @@
 using UnityEngine;
+using Unity.Netcode;
 
 public class SnowDamage : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class SnowDamage : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
+        if (!NetworkManager.Singleton.IsServer) return;
+
         if (other.CompareTag("Boss") || other.CompareTag("Enemy"))
             return;
         

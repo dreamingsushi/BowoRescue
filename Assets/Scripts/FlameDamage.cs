@@ -1,4 +1,5 @@
 using UnityEngine;
+using Unity.Netcode;
 
 public class FlameDamage : MonoBehaviour
 {
@@ -6,6 +7,7 @@ public class FlameDamage : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
+        if (!NetworkManager.Singleton.IsServer) return;
 
         if (other.CompareTag("Boss") || other.CompareTag("Enemy"))
             return;
