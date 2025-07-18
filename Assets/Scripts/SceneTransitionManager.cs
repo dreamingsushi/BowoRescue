@@ -38,7 +38,7 @@ public class SceneTransitionManager : NetworkBehaviour
         yield return new WaitForSeconds(transitionTime);
 
         // Use NetworkSceneManager if using Netcode for GameObjects
-        if (NetworkManager.Singleton.IsServer)
+        if (NetworkManager.Singleton != null && NetworkManager.Singleton.IsServer)
         {
             NetworkManager.Singleton.SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
         }
