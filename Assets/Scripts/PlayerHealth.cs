@@ -162,7 +162,7 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
 
         // Disable player controls here if necessary
         DisableInputsClientRpc(OwnerClientId);
-        playerController.DisableInputs();
+        DisableInput2ClientRpc();
 
         StartCoroutine(RespawnCoroutine());
     }
@@ -184,6 +184,19 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
             playerController.EnableInputsClientRpc();
         }
     }
+
+    [ClientRpc]
+    private void EnableInput2ClientRpc()
+    {
+        playerController.EnableInputs();
+    }
+
+    [ClientRpc]
+    private void DisableInput2ClientRpc()
+    {
+        playerController.DisableInputs();
+    }
+
 
     private IEnumerator RespawnCoroutine()
     {
@@ -213,7 +226,7 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
         }
 
         EnableInputsClientRpc(OwnerClientId);
-        playerController.EnableInputs();
+        EnableInput2ClientRpc();
 
         currentHealth.Value = maxHealth;
         isDead.Value = false;
@@ -228,19 +241,13 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
     [ClientRpc]
     private void ShowDeathUIClientRpc()
     {
-        if (IsOwner)
-        {
-            respawnTimerText.gameObject.SetActive(false);
-        }
+        respawnTimerText.gameObject.SetActive(true);
     }
 
     [ClientRpc]
     private void HideDeathUIClientRpc()
     {
-        if (IsOwner)
-        {
-            respawnTimerText.gameObject.SetActive(false);
-        }
+        respawnTimerText.gameObject.SetActive(false);
     }
 
 
