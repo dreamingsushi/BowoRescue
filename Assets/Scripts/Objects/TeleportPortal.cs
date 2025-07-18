@@ -1,78 +1,81 @@
 using UnityEngine;
 using System.Collections;
+using Unity.Netcode;
 using System.Collections.Generic;
 
-public class TeleportPortal : MonoBehaviour
+public class TeleportPortal : NetworkBehaviour
 {
     [Header("Destination")]
     public TeleportPortal destinationPortal;
     public Collider destinationPortalCollider;
-    private PlayerController playerController;
+
     [SerializeField] private Vector3 originalScale;
 
-    private bool isTeleporting = false;
+    // Tracks teleporting players individually
+    private HashSet<ulong> teleportingClients = new HashSet<ulong>();
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!isTeleporting && other.CompareTag("Player"))
-        {
-            playerController = other.gameObject.GetComponent<PlayerController>();
-            if (playerController == null) return;
-            Debug.Log("Teleporting");
-            StartCoroutine(Teleport(other.transform));
-        }
+        if (!IsServer) return;
+        if (!other.CompareTag("Player")) return;
+
+        NetworkObject netObj = other.GetComponent<NetworkObject>();
+        if (netObj == null || teleportingClients.Contains(netObj.OwnerClientId)) return;
+
+        PlayerController playerController = other.GetComponent<PlayerController>();
+        if (playerController == null) return;
+
+        Debug.Log("Server: Teleporting player " + netObj.OwnerClientId);
+        teleportingClients.Add(netObj.OwnerClientId);
+        StartCoroutine(Teleport(netObj, playerController));
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (!IsServer || !other.CompareTag("Player")) return;
+
+        NetworkObject netObj = other.GetComponent<NetworkObject>();
+        if (netObj != null)
         {
-            isTeleporting = false;
-            Debug.Log("Player exited portal");  
+            teleportingClients.Remove(netObj.OwnerClientId);
+            Debug.Log("Server: Player exited portal " + netObj.OwnerClientId);
         }
     }
-    
 
-    private IEnumerator Teleport(Transform player)
+    private IEnumerator Teleport(NetworkObject playerNetObj, PlayerController playerController)
     {
-        isTeleporting = true;
-        playerController.enabled = false;
+        // Disable player control
         playerController.DisableInputs();
+        playerController.enabled = false;
+
+        Transform player = playerController.transform;
         Vector3 playerOriginalScale = player.localScale;
 
-        // Step 1: Sink into current portal
+        // Step 1: Sink
         yield return StartCoroutine(SinkIntoPortal(player, 0.25f, playerOriginalScale));
 
-        // Step 2: Move player to destination
+        // Step 2: Move to destination
         AudioManager.Instance.PlaySFX("Teleport");
         player.position = destinationPortal.transform.position + new Vector3(0, 1.2f, 0);
 
-        // Step 3: Temporarily disable destination portal collider
-        destinationPortal.isTeleporting = true;
-
-        // Step 4: Pop out of destination portal
+        // Step 3: Destination logic
+        destinationPortal.teleportingClients.Add(playerNetObj.OwnerClientId);
         yield return destinationPortal.StartCoroutine(destinationPortal.PopOutOfPortal(player, 0.25f, originalScale));
-
-        // Step 5: Wait until player exits destination portal, then re-enable it
         yield return new WaitForSeconds(0.02f);
-        //yield return new WaitUntil(() => !destinationPortalCollider.bounds.Contains(player.position));
-        destinationPortal.isTeleporting = false;
 
+        destinationPortal.teleportingClients.Remove(playerNetObj.OwnerClientId);
+
+        // Step 4: Re-enable controls
         playerController.EnableInputs();
         playerController.enabled = true;
         playerController.Jump();
-
-        isTeleporting = false;
-        playerController = null;
     }
-
 
     IEnumerator SinkIntoPortal(Transform player, float duration, Vector3 originalScale)
     {
         Vector3 endScale = new Vector3(originalScale.x, 0.1f, originalScale.z);
-
         Vector3 startPos = player.position;
-        Vector3 endPos = startPos + Vector3.down * 0.5f; // move slightly down
+        Vector3 endPos = startPos + Vector3.down * 0.5f;
 
         float elapsed = 0f;
         while (elapsed < duration)
@@ -90,7 +93,7 @@ public class TeleportPortal : MonoBehaviour
 
     IEnumerator PopOutOfPortal(Transform player, float duration, Vector3 originalScale)
     {
-        Vector3 startScale = new Vector3(originalScale.x, 0.1f, originalScale.z); // almost flat
+        Vector3 startScale = new Vector3(originalScale.x, 0.1f, originalScale.z);
         Vector3 endScale = originalScale;
 
         Vector3 startPos = player.position + Vector3.down * 0.5f;
@@ -112,6 +115,4 @@ public class TeleportPortal : MonoBehaviour
         player.localScale = endScale;
         player.position = endPos;
     }
-
-
 }
