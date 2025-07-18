@@ -388,6 +388,8 @@ public class Boss : NetworkBehaviour, IDamageable
 
     void CastSpell()
     {
+        if (currentTarget == null || !currentTarget.gameObject.activeInHierarchy)
+            SelectNextTarget();
         Debug.Log("Boss is casting a random spell...");
 
         // Check if there are any spells
@@ -413,7 +415,7 @@ public class Boss : NetworkBehaviour, IDamageable
     private IEnumerator CastSpellWithDelay(GameObject spellPrefab, Vector3 targetPosition)
     {
         ShowSpellIndicatorClientRpc(targetPosition);
-        
+
         anim.SetTrigger("CastSpell"); // play cast animation immediately
 
         yield return new WaitForSeconds(1f); // delay before spell spawns
