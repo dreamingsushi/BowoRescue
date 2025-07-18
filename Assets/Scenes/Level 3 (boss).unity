@@ -97163,13 +97163,33 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2014812533}
     - target: {fileID: 1428389588330842188, guid: ddc78236394b91043b65f2298015eb17, type: 3}
+      propertyPath: chaseSpeed
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1428389588330842188, guid: ddc78236394b91043b65f2298015eb17, type: 3}
+      propertyPath: attackRange
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1428389588330842188, guid: ddc78236394b91043b65f2298015eb17, type: 3}
+      propertyPath: patrolSpeed
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1428389588330842188, guid: ddc78236394b91043b65f2298015eb17, type: 3}
       propertyPath: patrolCenter
       value: 
       objectReference: {fileID: 665898402}
     - target: {fileID: 1428389588330842188, guid: ddc78236394b91043b65f2298015eb17, type: 3}
+      propertyPath: patrolWaitTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1428389588330842188, guid: ddc78236394b91043b65f2298015eb17, type: 3}
       propertyPath: dragonSummonPoint
       value: 
       objectReference: {fileID: 3209494498022833547}
+    - target: {fileID: 1428389588330842188, guid: ddc78236394b91043b65f2298015eb17, type: 3}
+      propertyPath: spellCastInterval
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 1428389588330842188, guid: ddc78236394b91043b65f2298015eb17, type: 3}
       propertyPath: dragonSummonVFXSpawnpoints
       value: 

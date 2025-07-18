@@ -16,7 +16,12 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
     public float damageReductionPercent = 0.1f;
 
     [Header("Invincibility Settings")]
-    public bool isInvincible = false;
+    public NetworkVariable<bool> isInvincible = new NetworkVariable<bool>(
+    false,
+    NetworkVariableReadPermission.Everyone,
+    NetworkVariableWritePermission.Server
+    );
+
     public float invincibilityDuration = 0.2f;
 
     [Header("Health Regeneration")]
@@ -76,7 +81,7 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
     public void TakeDamage(float damageAmount)
     {
         if (!IsOwner) return;
-        if (isInvincible || currentHealth.Value <= 0) return;
+        if (isInvincible.Value || currentHealth.Value <= 0) return;
 
         RequestDamageServerRpc(damageAmount);
         HitStopManager.Instance?.DoHitStop(0.1f);
@@ -238,9 +243,9 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
 
     private IEnumerator InvincibilityCoroutine()
     {
-        isInvincible = true;
+        isInvincible.Value = true;
         yield return new WaitForSeconds(invincibilityDuration);
-        isInvincible = false;
+        isInvincible.Value = false;
     }
 
     private IEnumerator RegenerateHealth()
