@@ -17,6 +17,7 @@ public class TeleportPortal : MonoBehaviour
         if (!isTeleporting && other.CompareTag("Player"))
         {
             playerController = other.gameObject.GetComponent<PlayerController>();
+            if (playerController == null) return;
             Debug.Log("Teleporting");
             StartCoroutine(Teleport(other.transform));
         }
@@ -27,7 +28,7 @@ public class TeleportPortal : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isTeleporting = false;
-            Debug.Log("Player exited portal");
+            Debug.Log("Player exited portal");  
         }
     }
     

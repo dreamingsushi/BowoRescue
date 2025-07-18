@@ -8,7 +8,7 @@ public class TeamLivesManager : NetworkBehaviour
     [SerializeField] private int maxLives = 5;
 
     private NetworkVariable<int> currentLives = new NetworkVariable<int>(
-        3, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
+        5, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
 
     public delegate void LivesChangedDelegate(int newLives);
     public event LivesChangedDelegate OnLivesChanged;
