@@ -225,14 +225,14 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
 
     public void TriggerInvincibility()
     {
-        if (IsOwner)
-        {
-            RequestInvincibilityServerRpc();
-        }
+        if (IsServer)
+            StartCoroutine(InvincibilityCoroutine());
+        else
+            TriggerInvincibilityServerRpc();
     }
 
-    [ServerRpc]
-    private void RequestInvincibilityServerRpc()
+    [ServerRpc (RequireOwnership = false)]
+    private void TriggerInvincibilityServerRpc()
     {
         if (!isDead.Value)
         {
