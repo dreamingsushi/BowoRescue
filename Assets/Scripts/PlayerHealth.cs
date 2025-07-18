@@ -210,9 +210,11 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
 
         while (respawnTime > 0f)
         {
+            string display = "Respawning in: " + Mathf.CeilToInt(respawnTime);
             if (respawnTimerText != null)
             {
-                respawnTimerText.text = "Respawning in: " + Mathf.CeilToInt(respawnTime);
+                respawnTimerText.text = display;
+                UpdateRespawnTextClientRpc(display);
             }
 
             yield return new WaitForSeconds(1f);
@@ -248,6 +250,15 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
     private void HideDeathUIClientRpc()
     {
         respawnTimerText.gameObject.SetActive(false);
+    }
+
+    [ClientRpc]
+    private void UpdateRespawnTextClientRpc(string text)
+    {
+        if (respawnTimerText != null)
+        {
+            respawnTimerText.text = text;
+        }
     }
 
 
