@@ -557,7 +557,7 @@ public class Boss : NetworkBehaviour, IDamageable
 
         StartCoroutine(DealMeleeDamageWithDelay(0.5f));
 
-        SelectNextTarget();
+        //SelectNextTarget();
     }
 
 
