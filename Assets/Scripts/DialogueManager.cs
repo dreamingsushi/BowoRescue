@@ -55,7 +55,7 @@ public class DialogueManager : MonoBehaviour
     public void StartDialogue(DialogueData data)
     {
         AudioManager.Instance.PlaySFX("Mumbling");
-        playerController.DisableInputs();
+        playerController.DisableInputsClientRpc();
         dialogueUI.SetActive(true);
         currentData = data;
         currentLine = 0;
@@ -166,7 +166,7 @@ public class DialogueManager : MonoBehaviour
 
     public void EndDialogue()
     {
-        playerController.EnableInputs();
+        playerController.EnableInputsClientRpc();
         dialogueUI.SetActive(false);
         isTalking = false;
         isTyping = false;

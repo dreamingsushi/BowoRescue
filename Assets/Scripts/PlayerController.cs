@@ -542,12 +542,14 @@ public class PlayerController : NetworkBehaviour
 
     // --- Input Control ---
 
-    public void DisableInputs()
+    [ClientRpc]
+    public void DisableInputsClientRpc()
     {
         playerInput.DeactivateInput();
     }
 
-    public void EnableInputs()
+    [ClientRpc]
+    public void EnableInputsClientRpc()
     {
         playerInput.ActivateInput();
     }

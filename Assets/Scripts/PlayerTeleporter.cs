@@ -81,7 +81,7 @@ public class PlayerTeleporter : NetworkBehaviour
             if (playerController != null)
             {
                 playerController.enabled = true;
-                playerController.EnableInputs();
+                playerController.EnableInputsClientRpc();
             }
         }
 

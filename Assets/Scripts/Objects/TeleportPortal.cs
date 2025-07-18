@@ -37,7 +37,7 @@ public class TeleportPortal : MonoBehaviour
     {
         isTeleporting = true;
         playerController.enabled = false;
-        playerController.DisableInputs();
+        playerController.DisableInputsClientRpc();
         Vector3 playerOriginalScale = player.localScale;
 
         // Step 1: Sink into current portal
@@ -58,7 +58,7 @@ public class TeleportPortal : MonoBehaviour
         //yield return new WaitUntil(() => !destinationPortalCollider.bounds.Contains(player.position));
         destinationPortal.isTeleporting = false;
 
-        playerController.EnableInputs();
+        playerController.EnableInputsClientRpc();
         playerController.enabled = true;
         playerController.Jump();
 

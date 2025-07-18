@@ -412,13 +412,8 @@ public class Boss : NetworkBehaviour, IDamageable
 
     private IEnumerator CastSpellWithDelay(GameObject spellPrefab, Vector3 targetPosition)
     {
-        if (spellIndicatorPrefab != null)
-        {
-            Quaternion rot = Quaternion.Euler(-90f, 0f, 0f);
-            GameObject indicator = Instantiate(spellIndicatorPrefab, targetPosition, rot);
-            Destroy(indicator, 1f);
-        }
-
+        ShowSpellIndicatorClientRpc(targetPosition);
+        
         anim.SetTrigger("CastSpell"); // play cast animation immediately
 
         yield return new WaitForSeconds(1f); // delay before spell spawns
@@ -431,6 +426,18 @@ public class Boss : NetworkBehaviour, IDamageable
                 netObj.Spawn();
         }
     }
+
+    [ClientRpc]
+    void ShowSpellIndicatorClientRpc(Vector3 position)
+    {
+        if (spellIndicatorPrefab != null)
+        {
+            Quaternion rot = Quaternion.Euler(-90f, 0f, 0f);
+            GameObject indicator = Instantiate(spellIndicatorPrefab, position, rot);
+            Destroy(indicator, 1f);
+        }
+    }
+
 
 
     private IEnumerator SpawnMonstersLoop()

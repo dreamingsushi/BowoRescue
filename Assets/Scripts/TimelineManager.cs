@@ -15,7 +15,7 @@ public class TimelineManager : NetworkBehaviour
         {
             if (client.PlayerObject.TryGetComponent(out PlayerController controller))
             {
-                controller.DisableInputs();
+                controller.DisableInputsClientRpc();
             }
         }
         timeline.stopped += OnTimelineFinished;
@@ -27,7 +27,7 @@ public class TimelineManager : NetworkBehaviour
         {
             if (client.PlayerObject.TryGetComponent(out PlayerController controller))
             {
-                controller.EnableInputs();
+                controller.EnableInputsClientRpc();
             }
         }
 

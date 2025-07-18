@@ -166,7 +166,7 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
     {
         if (NetworkManager.Singleton.LocalClientId == clientId)
         {
-            playerController.DisableInputs();
+            playerController.DisableInputsClientRpc();
         }
     }
 
@@ -175,7 +175,7 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
     {
         if (NetworkManager.Singleton.LocalClientId == clientId)
         {
-            playerController.EnableInputs();
+            playerController.EnableInputsClientRpc();
         }
     }
 

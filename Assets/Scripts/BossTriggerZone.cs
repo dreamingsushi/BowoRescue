@@ -23,7 +23,7 @@ public class BossTriggerZone : MonoBehaviour
         {
             if (client.PlayerObject.TryGetComponent(out PlayerController controller))
             {
-                controller.DisableInputs();
+                controller.DisableInputsClientRpc();
             }
         }
 
@@ -54,7 +54,7 @@ public class BossTriggerZone : MonoBehaviour
         {
             if (client.PlayerObject.TryGetComponent(out PlayerController controller))
             {
-                controller.EnableInputs();
+                controller.EnableInputsClientRpc();
                 bossScript.StartPhase1();
                 AudioManager.Instance.PlayMusic("BossTheme");
                 bossHealthBar.SetActive(true);
