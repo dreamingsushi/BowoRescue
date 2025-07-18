@@ -57,6 +57,7 @@ public class PlayerTeleporter : NetworkBehaviour
         var playerController = GetComponent<PlayerController>();
         if (playerController != null)
         {
+            playerController.enabled = true;
             playerController.EnableInputs();
         }
 
