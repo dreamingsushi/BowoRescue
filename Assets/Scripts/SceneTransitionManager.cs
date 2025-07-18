@@ -49,6 +49,7 @@ public class SceneTransitionManager : NetworkBehaviour
         yield return new WaitUntil(() => SceneManager.GetActiveScene().isLoaded);
         yield return new WaitForSeconds(1);
         anim.SetTrigger("End");
+        EndTransitionClientRpc();
     }
 
     private IEnumerator LoadLocalSceneWithTransition(string sceneName)
@@ -74,6 +75,13 @@ public class SceneTransitionManager : NetworkBehaviour
     {
         if (anim != null)
             anim.SetTrigger("Start");
+    }
+
+    [ClientRpc]
+    void EndTransitionClientRpc()
+    {
+        if (anim != null)
+            anim.SetTrigger("End");
     }
 
 }
