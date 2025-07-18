@@ -560,7 +560,7 @@ public class PlayerController : NetworkBehaviour
     }
     public void EnableInputs()
     {
-        playerInput.DeactivateInput();
+        playerInput.ActivateInput();
     }
 
     // --- NPC Dialogue ---
