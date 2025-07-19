@@ -157,8 +157,15 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
     {
         isDead.Value = true;
         Debug.Log("Player has died.");
-
-        TeamLivesManager.Instance.ReduceLifeServerRpc();
+        
+        if (TeamLivesManager.Instance != null)
+        {
+            TeamLivesManager.Instance.ReduceLifeServerRpc();
+        }
+        else
+        {
+            Debug.LogWarning("TeamLivesManager.Instance is NULL. Skipping ReduceLifeServerRpc.");
+        }
 
         // Disable player controls here if necessary
         DisableInputsClientRpc(OwnerClientId);
