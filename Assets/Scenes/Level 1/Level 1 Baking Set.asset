@@ -77,8 +77,8 @@ MonoBehaviour:
     m_Extent: {x: 202.5, y: 81, z: 162}
   bakedSimplificationLevels: 3
   bakedMinDistanceBetweenProbes: 1
-  bakedProbeOcclusion: 0
-  bakedSkyOcclusionValue: 0
+  bakedProbeOcclusion: 1
+  bakedSkyOcclusionValue: 1
   bakedSkyShadingDirectionValue: 0
   bakedProbeOffset: {x: 0, y: 0, z: 0}
   bakedMaskCount: 1
@@ -91,11 +91,11 @@ MonoBehaviour:
   L0ChunkSize: 65536
   L1ChunkSize: 32768
   L2TextureChunkSize: 32768
-  ProbeOcclusionChunkSize: 0
+  ProbeOcclusionChunkSize: 32768
   sharedValidityMaskChunkSize: 8192
-  sharedSkyOcclusionL0L1ChunkSize: 0
+  sharedSkyOcclusionL0L1ChunkSize: 65536
   sharedSkyShadingDirectionIndicesChunkSize: 0
-  sharedDataChunkSize: 8192
+  sharedDataChunkSize: 73728
   supportPositionChunkSize: 98304
   supportValidityChunkSize: 32768
   supportTouchupChunkSize: 32768
@@ -112,7 +112,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   minRendererVolumeSize: 0.1
-  skyOcclusion: 0
+  skyOcclusion: 1
   skyOcclusionBakingSamples: 2048
   skyOcclusionBakingBounces: 2
   skyOcclusionAverageAlbedo: 0.6
