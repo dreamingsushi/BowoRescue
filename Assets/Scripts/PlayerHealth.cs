@@ -164,7 +164,7 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
         DisableInputsClientRpc(OwnerClientId);
         DisableInput2ClientRpc();
 
-        StartCoroutine(RespawnCoroutine());
+        StartRespawnClientRpc();
     }
 
     [ClientRpc]
@@ -197,6 +197,11 @@ public class PlayerHealth : NetworkBehaviour, IDamageable
         playerController.DisableInputs();
     }
 
+    [ClientRpc]
+    private void StartRespawnClientRpc()
+    {
+        StartCoroutine(RespawnCoroutine());
+    }
 
     private IEnumerator RespawnCoroutine()
     {

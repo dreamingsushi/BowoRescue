@@ -18,7 +18,8 @@ public class EnemyHealth : NetworkBehaviour, IDamageable, IKnockbackable
 
     void Start()
     {
-        currentHealth.Value = maxHealth;
+        if (IsServer)
+            currentHealth.Value = maxHealth;
         enemyAI = GetComponent<EnemyAI>();
         isDead = false;
     }
