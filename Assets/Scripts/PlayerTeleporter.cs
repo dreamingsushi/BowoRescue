@@ -89,5 +89,10 @@ public class PlayerTeleporter : NetworkBehaviour
         {
             NetworkManager.Singleton.SceneManager.LoadScene("Level 3 (boss)", LoadSceneMode.Single);
         }
+        
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            NetworkManager.Singleton.SceneManager.LoadScene("Level 2", LoadSceneMode.Single);
+        }
     }
 }
