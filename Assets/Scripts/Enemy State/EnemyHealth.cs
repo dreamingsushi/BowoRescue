@@ -110,7 +110,7 @@ public class EnemyHealth : NetworkBehaviour, IDamageable, IKnockbackable
             Destroy(gameObject); // no delay
             yield break; // end coroutine early
         }
-        StartCoroutine(SinkAndDestroy(4f, 1.5f));
+        StartCoroutine(SinkAndDestroy(1f, 1.5f));
     }
 
     private IEnumerator SinkAndDestroy(float duration, float sinkDistance)

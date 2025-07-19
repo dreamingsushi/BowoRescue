@@ -15,6 +15,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject defaultSettingsButton;
     [SerializeField] private GameObject defaultQuitButton;
     private GameObject currentDefaultButton;
+    public CameraTransition cameraTransition;
 
     void Start()
     {
@@ -23,6 +24,7 @@ public class UIManager : MonoBehaviour
     public void GoToStartMenu()
     {
         ActivatePanel(StartMenuPanel.name);
+        cameraTransition.UpdateCamera(cameraTransition.startMenuCamera);
         AudioManager.Instance.PlaySFX("Menu");        
     }
     public void GoToMainMenu()
