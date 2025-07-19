@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 8484469141423863370}
   - component: {fileID: 5696634407422038530}
   - component: {fileID: 4578222621824752618}
+  - component: {fileID: 1785010499340167991}
   - component: {fileID: 8009198180810347563}
   - component: {fileID: 8560037014176450315}
-  - component: {fileID: 1785010499340167991}
   - component: {fileID: 8304913197788900723}
   m_Layer: 0
   m_Name: Enemy Slime
@@ -173,40 +173,6 @@ MonoBehaviour:
   AutoObjectParentSync: 1
   SyncOwnerTransformWhenParented: 1
   AllowOwnerToParent: 0
---- !u!114 &8009198180810347563
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7339569471322274257}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65011d0ba8009de43a7d9045a03713b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
-  maxHealth: 30
-  currentHealth:
-    m_InternalValue: 100
-  mesh: {fileID: 4939204302175870086}
-  isDead: 0
-  hitVFXPrefab: {fileID: 4693827097229612602, guid: 36232887f851da54f96c3faecb2d0672, type: 3}
---- !u!114 &8560037014176450315
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7339569471322274257}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e1bf401b3c4c8749bc3713d885e1643, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
-  dropPrefab: {fileID: 5112618718430853559, guid: c1a66f177af999d4a8c7d2226a1b7d9c, type: 3}
-  dropChance: 1
 --- !u!114 &1785010499340167991
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -253,6 +219,40 @@ MonoBehaviour:
   SwitchTransformSpaceWhenParented: 0
   Interpolate: 1
   SlerpPosition: 0
+--- !u!114 &8009198180810347563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7339569471322274257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65011d0ba8009de43a7d9045a03713b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  maxHealth: 30
+  currentHealth:
+    m_InternalValue: 100
+  mesh: {fileID: 4939204302175870086}
+  isDead: 0
+  hitVFXPrefab: {fileID: 4693827097229612602, guid: 36232887f851da54f96c3faecb2d0672, type: 3}
+--- !u!114 &8560037014176450315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7339569471322274257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e1bf401b3c4c8749bc3713d885e1643, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  dropPrefab: {fileID: 5112618718430853559, guid: c1a66f177af999d4a8c7d2226a1b7d9c, type: 3}
+  dropChance: 1
 --- !u!114 &8304913197788900723
 MonoBehaviour:
   m_ObjectHideFlags: 0

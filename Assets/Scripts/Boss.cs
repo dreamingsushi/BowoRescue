@@ -464,6 +464,7 @@ public class Boss : NetworkBehaviour, IDamageable
 
     public void SpawnMonstersWithinMap()
     {
+        if (!IsServer) return;
         if (slimePrefab == null) return;
 
         Vector3 center = patrolCenter != null ? patrolCenter.position : transform.position;
@@ -628,6 +629,7 @@ public class Boss : NetworkBehaviour, IDamageable
         AudioManager.Instance.PlaySFX("Cinematic");
         AudioManager.Instance.PlaySFX("BossDie");
         AudioManager.Instance.PlayMusic("EndTheme");
+        PlayEndThemeClientRpc();
         agent.enabled = false;
 
         anim.SetBool("IsWalking", false);
@@ -642,6 +644,16 @@ public class Boss : NetworkBehaviour, IDamageable
         if (!IsServer)
             Destroy(gameObject); // client destroys local copy
     }
+
+    [ClientRpc]
+    private void PlayEndThemeClientRpc()
+    {
+        anim.SetTrigger("DieTrigger");
+        AudioManager.Instance.PlaySFX("Cinematic");
+        AudioManager.Instance.PlaySFX("BossDie");
+        AudioManager.Instance.PlayMusic("EndTheme");
+    }
+
     
     void OnDrawGizmosSelected()
     {
