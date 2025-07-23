@@ -4,7 +4,6 @@ using UnityEngine.AI;
 public class RespawnManager : MonoBehaviour
 {
     public static RespawnManager Instance;
-
     [SerializeField] private Transform respawnArea;
 
     private void Awake()
@@ -18,7 +17,6 @@ public class RespawnManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
     }
-
     public Vector3 GetSafeRespawnPosition()
     {
         BoxCollider box = respawnArea.GetComponent<BoxCollider>();
@@ -42,7 +40,6 @@ public class RespawnManager : MonoBehaviour
                 return hit.position;
             }
         }
-
         Debug.LogWarning("Failed to find valid respawn point inside camera safe zone.");
         return respawnArea.position;
     }

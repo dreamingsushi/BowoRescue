@@ -25,9 +25,9 @@ public class InGameMenu : MonoBehaviour
         }
 
         // Leave the lobby (custom manager, safe call)
-        if (LobbyManagerZK.Instance != null)
+        if (LobbyManager.Instance != null)
         {
-            LobbyManagerZK.Instance.LeaveLobby();
+            LobbyManager.Instance.LeaveLobby();
         }
 
         // Load main menu

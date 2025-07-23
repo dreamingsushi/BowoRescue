@@ -41,6 +41,13 @@ public class AudioManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        // Stop music on EndScene
+        if (scene.name == "EndScene")
+        {
+            musicSource.Stop();
+            return; // Early return to skip further checks
+        }
+
         if (sceneMusicMap.TryGetValue(scene.name, out string musicName))
         {
             if (currentMusic != musicName) // Prevent restarting same track
@@ -91,7 +98,6 @@ public class AudioManager : MonoBehaviour
         }
 
         ApplyVolumes();
-        PlayMusic("BGM");
     }
 
     public void PlayMusic(string name)

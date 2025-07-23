@@ -3,6 +3,7 @@ using UnityEngine;
 public class Gate : MonoBehaviour
 {
     private Animator anim;
+    [SerializeField] private AudioSource audioSource;
 
     void Start()
     {
@@ -11,10 +12,12 @@ public class Gate : MonoBehaviour
     public void OpenGate()
     {
         anim.SetTrigger("OpenGate");
+        audioSource.PlayOneShot(audioSource.clip);
     }
 
     public void CloseGate()
     {
         anim.SetTrigger("CloseGate");
+        audioSource.PlayOneShot(audioSource.clip);
     }
 }

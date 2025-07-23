@@ -37,9 +37,9 @@ public class PlayerCard : MonoBehaviour
     public void UpdatePlayer(Player player)
     {
         this.player = player;
-        playerNameText.text = player.Data[LobbyManagerZK.KEY_PLAYER_NAME].Value;
+        playerNameText.text = player.Data[LobbyManager.KEY_PLAYER_NAME].Value;
 
-        if (player.Data.TryGetValue(LobbyManagerZK.KEY_PLAYER_READY, out var readyData))
+        if (player.Data.TryGetValue(LobbyManager.KEY_PLAYER_READY, out var readyData))
         {
             bool isReady = readyData.Value == "true";
             SetReadyStatus(isReady);
@@ -54,7 +54,7 @@ public class PlayerCard : MonoBehaviour
     {
         if (player != null)
         {
-            LobbyManagerZK.Instance.KickPlayer(player.Id);
+            LobbyManager.Instance.KickPlayer(player.Id);
         }
     }
 

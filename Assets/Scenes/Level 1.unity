@@ -2165,7 +2165,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8233036440100188994, guid: 7c15bde00dddfd446a12bc986ff177a8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.68
+      value: -3.45
       objectReference: {fileID: 0}
     - target: {fileID: 8233036440100188994, guid: 7c15bde00dddfd446a12bc986ff177a8, type: 3}
       propertyPath: m_LocalPosition.z
@@ -61392,7 +61392,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 1
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -71678,6 +71678,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 989188581307144764, guid: fed6e74fea3f43341bc4f43d8a65f9ae, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4712971635732261946, guid: fed6e74fea3f43341bc4f43d8a65f9ae, type: 3}
       propertyPath: m_Intensity
       value: 79577.39
@@ -73707,6 +73711,10 @@ PrefabInstance:
       propertyPath: InScenePlacedSourceGlobalObjectIdHash
       value: 2755613811
       objectReference: {fileID: 0}
+    - target: {fileID: 7131335171855382557, guid: 414623b578665a649862cc441b0b2d0e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7794084803825031662, guid: 414623b578665a649862cc441b0b2d0e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 67.81
@@ -73793,20 +73801,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 845c415f3181b4840ab566c40e714752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isRotating: 0
+  isRotating: 1
   rotateX: 0
-  rotateY: 0
+  rotateY: 1
   rotateZ: 0
-  rotationSpeed: 90
-  isFloating: 0
+  rotationSpeed: 85.67
+  isFloating: 1
   useEasingForFloating: 1
   floatHeight: 1
-  floatSpeed: 1
-  startScale: {x: 0, y: 0, z: 0}
-  endScale: {x: 0, y: 0, z: 0}
+  floatSpeed: 0.4
+  startScale: {x: 1, y: 1, z: 1}
+  endScale: {x: 1.2, y: 1.2, z: 1.2}
   isScaling: 0
   useEasingForScaling: 0
-  scaleLerpSpeed: 1
+  scaleLerpSpeed: 1.11
 --- !u!1 &6056470135589554991
 GameObject:
   m_ObjectHideFlags: 0
@@ -74437,6 +74445,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1231334429}
     m_Modifications:
+    - target: {fileID: 281426022599492991, guid: 9369faeee4e8d78428a3ba3fa81134ba, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3561787867875914765, guid: 9369faeee4e8d78428a3ba3fa81134ba, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 3421270600

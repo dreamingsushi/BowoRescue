@@ -32,33 +32,29 @@ public class MainMenuManager : NetworkBehaviour
     public void OnHostButtonClicked()
     {
         SceneTransitionManager.Instance.StartTransitionAndLoadScene("LobbyScene");
-        LobbyManagerZK.Instance.OnJoinedLobby += HandleLobbyJoinedHost;
-        LobbyManagerZK.Instance.CreateLobby();
+        LobbyManager.Instance.OnJoinedLobby += HandleLobbyJoinedHost;
+        LobbyManager.Instance.CreateLobby();
         AudioManager.Instance.PlaySFX("Menu");
     }
 
     private void HandleLobbyJoinedHost(object sender, EventArgs e)
     {
-        LobbyManagerZK.Instance.OnJoinedLobby -= HandleLobbyJoinedHost;
-
-        LobbyManagerZK.Instance.CreateRelayAndStartHost();
-        //NetworkManager.Singleton.StartHost();
-        //NetworkManager.Singleton.SceneManager.LoadScene("LobbyScene", LoadSceneMode.Single);
+        LobbyManager.Instance.OnJoinedLobby -= HandleLobbyJoinedHost;
+        LobbyManager.Instance.CreateRelayAndStartHost();
     }
 
     public void OnJoinButtonClicked()
     {
         SceneTransitionManager.Instance.StartTransitionAndLoadScene("LobbyScene");
-        LobbyManagerZK.Instance.OnJoinedLobby += HandleLobbyJoinedClient;
-        LobbyManagerZK.Instance.QuickJoinLobby();
+        LobbyManager.Instance.OnJoinedLobby += HandleLobbyJoinedClient;
+        LobbyManager.Instance.QuickJoinLobby();
         AudioManager.Instance.PlaySFX("Menu");
     }
 
     private void HandleLobbyJoinedClient(object sender, EventArgs e)
     {
-        LobbyManagerZK.Instance.OnJoinedLobby -= HandleLobbyJoinedClient;
-        LobbyManagerZK.Instance.JoinRelayAndStartClient();
-        //NetworkManager.Singleton.StartClient();
+        LobbyManager.Instance.OnJoinedLobby -= HandleLobbyJoinedClient;
+        LobbyManager.Instance.JoinRelayAndStartClient();
     }
 
     public void ExitGame()

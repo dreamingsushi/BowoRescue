@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using Unity.Netcode;
 
 public class BasicItem : NetworkBehaviour, IPickupable
@@ -60,7 +60,6 @@ public class BasicItem : NetworkBehaviour, IPickupable
         FinalizeDrop(dropForce, holderObj.transform);
         UpdateDropClientRpc(dropForce, holderObj);
     }
-
     [ServerRpc(RequireOwnership = false)]
     private void DropServerRpc(Vector3 dropForce, NetworkObjectReference holderRef)
     {
@@ -70,7 +69,6 @@ public class BasicItem : NetworkBehaviour, IPickupable
             UpdateDropClientRpc(dropForce, holderRef);
         }
     }
-
     private void FinalizeDrop(Vector3 dropForce, Transform holder)
     {
         transform.SetParent(null);

@@ -54956,6 +54956,7 @@ MonoBehaviour:
     currentIndex: 0
   helmetText: {fileID: 663836579}
   headText: {fileID: 648998357}
+  nameInputField: {fileID: 476383923}
   customizeCamera: {fileID: 155239373}
 --- !u!95 &888614396
 Animator:
@@ -67771,7 +67772,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1094792805
 RectTransform:
   m_ObjectHideFlags: 0
@@ -135792,6 +135793,7 @@ MonoBehaviour:
     currentIndex: 0
   helmetText: {fileID: 0}
   headText: {fileID: 0}
+  nameInputField: {fileID: 0}
   customizeCamera: {fileID: 0}
 --- !u!4 &7016820151043499402
 Transform:

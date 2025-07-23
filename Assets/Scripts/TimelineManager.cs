@@ -31,8 +31,14 @@ public class TimelineManager : NetworkBehaviour
             }
         }
 
-        countdownTimer.StartCountdown();
+        StartCoroutine(HandleTimelineFinishedDelayed());
 
         timeline.stopped -= OnTimelineFinished; // Cleanup
+    }
+
+    private IEnumerator HandleTimelineFinishedDelayed()
+    {
+        yield return new WaitForSeconds(1f);
+        countdownTimer.StartCountdown();
     }
 }

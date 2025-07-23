@@ -29,12 +29,12 @@ public class LobbyUIManager : MonoBehaviour
 
     private void Start()
     {
-        LobbyManagerZK.Instance.OnJoinedLobby += UpdateLobby_Event;
-        LobbyManagerZK.Instance.OnJoinedLobbyUpdate += UpdateLobby_Event;
-        LobbyManagerZK.Instance.OnLobbyGameModeChanged += UpdateLobby_Event;
-        LobbyManagerZK.Instance.OnPlayerUpdateName += UpdateLobby_Event;
-        LobbyManagerZK.Instance.OnLeftLobby += LobbyManager_OnLeftLobby;
-        LobbyManagerZK.Instance.OnKickedFromLobby += LobbyManager_OnLeftLobby;
+        LobbyManager.Instance.OnJoinedLobby += UpdateLobby_Event;
+        LobbyManager.Instance.OnJoinedLobbyUpdate += UpdateLobby_Event;
+        LobbyManager.Instance.OnLobbyGameModeChanged += UpdateLobby_Event;
+        LobbyManager.Instance.OnPlayerUpdateName += UpdateLobby_Event;
+        LobbyManager.Instance.OnLeftLobby += LobbyManager_OnLeftLobby;
+        LobbyManager.Instance.OnKickedFromLobby += LobbyManager_OnLeftLobby;
 
         Hide();
 
@@ -44,9 +44,9 @@ public class LobbyUIManager : MonoBehaviour
 
         characterCustomization = FindAnyObjectByType<CharacterCustomization>();
 
-        if (LobbyManagerZK.Instance != null)
+        if (LobbyManager.Instance != null)
         {
-            LobbyManagerZK.Instance.ResetMyReadyStatus();
+            LobbyManager.Instance.ResetMyReadyStatus();
         }
     }
 
@@ -73,14 +73,14 @@ public class LobbyUIManager : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
-    private void UpdateLobby_Event(object sender, LobbyManagerZK.LobbyEventArgs e)
+    private void UpdateLobby_Event(object sender, LobbyManager.LobbyEventArgs e)
     {
         UpdateLobby();
     }
 
     private void UpdateLobby()
     {
-        UpdateLobby(LobbyManagerZK.Instance.GetJoinedLobby());
+        UpdateLobby(LobbyManager.Instance.GetJoinedLobby());
     }
 
     private void UpdateLobby(Lobby lobby)
@@ -94,7 +94,7 @@ public class LobbyUIManager : MonoBehaviour
             PlayerCard playerCardUI = playerCard.GetComponent<PlayerCard>();
 
             playerCardUI.SetKickPlayerButtonVisible(
-                LobbyManagerZK.Instance.IsLobbyHost() &&
+                LobbyManager.Instance.IsLobbyHost() &&
                 player.Id != AuthenticationService.Instance.PlayerId // Don't allow kick self
             );
 
@@ -104,7 +104,7 @@ public class LobbyUIManager : MonoBehaviour
         lobbyNameText.text = lobby.Name;
         playerCountText.text = lobby.Players.Count + "/" + lobby.MaxPlayers;
 
-        bool isHost = LobbyManagerZK.Instance.IsLobbyHost();
+        bool isHost = LobbyManager.Instance.IsLobbyHost();
         startGameButton.gameObject.SetActive(isHost && AreAllPlayersReady());
 
         Show();
@@ -131,7 +131,7 @@ public class LobbyUIManager : MonoBehaviour
 
     void OnStartGamePressed()
     {
-        if (!LobbyManagerZK.Instance.IsLobbyHost()) return;
+        if (!LobbyManager.Instance.IsLobbyHost()) return;
 
         // Optional: Only start if all players are ready
         if (!AreAllPlayersReady()) return;
@@ -142,16 +142,16 @@ public class LobbyUIManager : MonoBehaviour
 
     void OnLeaveLobbyPressed()
     {
-        LobbyManagerZK.Instance.LeaveLobby();
+        LobbyManager.Instance.LeaveLobby();
         SceneManager.LoadScene("MainMenu");
     }
 
     private bool AreAllPlayersReady()
     {
-        var lobby = LobbyManagerZK.Instance.GetJoinedLobby();
+        var lobby = LobbyManager.Instance.GetJoinedLobby();
         foreach (var player in lobby.Players)
         {
-            if (!player.Data.TryGetValue(LobbyManagerZK.KEY_PLAYER_READY, out var readyData) || readyData.Value != "true")
+            if (!player.Data.TryGetValue(LobbyManager.KEY_PLAYER_READY, out var readyData) || readyData.Value != "true")
             {
                 return false;
             }
@@ -163,18 +163,18 @@ public class LobbyUIManager : MonoBehaviour
     {
         isReady = !isReady;
 
-        LobbyManagerZK.Instance.UpdatePlayerReady(isReady);
+        LobbyManager.Instance.UpdatePlayerReady(isReady);
     }
 
     private void OnDestroy()
     {
-        if (LobbyManagerZK.Instance != null)
+        if (LobbyManager.Instance != null)
         {
-            LobbyManagerZK.Instance.OnJoinedLobby -= UpdateLobby_Event;
-            LobbyManagerZK.Instance.OnJoinedLobbyUpdate -= UpdateLobby_Event;
-            LobbyManagerZK.Instance.OnLobbyGameModeChanged -= UpdateLobby_Event;
-            LobbyManagerZK.Instance.OnLeftLobby -= LobbyManager_OnLeftLobby;
-            LobbyManagerZK.Instance.OnKickedFromLobby -= LobbyManager_OnLeftLobby;
+            LobbyManager.Instance.OnJoinedLobby -= UpdateLobby_Event;
+            LobbyManager.Instance.OnJoinedLobbyUpdate -= UpdateLobby_Event;
+            LobbyManager.Instance.OnLobbyGameModeChanged -= UpdateLobby_Event;
+            LobbyManager.Instance.OnLeftLobby -= LobbyManager_OnLeftLobby;
+            LobbyManager.Instance.OnKickedFromLobby -= LobbyManager_OnLeftLobby;
         }
     }
 

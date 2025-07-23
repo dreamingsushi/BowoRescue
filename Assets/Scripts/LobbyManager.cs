@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using System;
 
-public class LobbyManagerZK : NetworkBehaviour
+public class LobbyManager : NetworkBehaviour
 {
     private Lobby hostLobby;
     private Lobby joinedLobby;
@@ -39,7 +39,7 @@ public class LobbyManagerZK : NetworkBehaviour
         public Lobby lobby;
     }
 
-    public static LobbyManagerZK Instance { get; private set; }
+    public static LobbyManager Instance { get; private set; }
 
     void Awake()
     {

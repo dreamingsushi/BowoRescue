@@ -69,7 +69,7 @@ public class PlayerController : NetworkBehaviour
     private Vector3 pushDirection;
     private GameObject interactingObject;
     private IPushable cachedPushable;
-
+    private IPickupable currentTarget;
 
     // --- Unity Lifecycle ---
 
@@ -96,6 +96,7 @@ public class PlayerController : NetworkBehaviour
     {
         isHeld = false;
         heldItem = null;
+        currentTarget = null;
     }
 
 
@@ -321,6 +322,7 @@ public class PlayerController : NetworkBehaviour
         if (context.started || context.performed)
         {
             emoteWheelUI.SetActive(true);
+            OpenMenu();
         }
         else if (context.canceled)
         {
@@ -337,6 +339,7 @@ public class PlayerController : NetworkBehaviour
                 }
             }
             emoteWheelUI.SetActive(false);
+            CloseMenu();
         }
     }
 
@@ -410,7 +413,7 @@ public class PlayerController : NetworkBehaviour
     }
 
     // --- Item Interactions ---
-    private IPickupable currentTarget;
+
     void PickupItem()
     {
         if (isHeld)
@@ -442,9 +445,10 @@ public class PlayerController : NetworkBehaviour
     {
         Vector3 origin = new Vector3(transform.position.x, transform.position.y - 0.8f, transform.position.z);
 
-        if (Physics.SphereCast(origin, pickupRadius, transform.forward, out RaycastHit hit, pickupRange))
+        Collider[] hits = Physics.OverlapSphere(origin + transform.forward * pickupRange * 0.5f, pickupRadius);
+        foreach (var hit in hits)
         {
-            IPickupable pickupable = hit.collider.GetComponent<IPickupable>();
+            IPickupable pickupable = hit.GetComponent<IPickupable>();
             if (pickupable != null && !isHeld)
             {
                 if (pickupable != currentTarget)
@@ -456,6 +460,7 @@ public class PlayerController : NetworkBehaviour
                 return;
             }
         }
+
 
         ClearCurrentTarget();
     }
@@ -487,14 +492,18 @@ public class PlayerController : NetworkBehaviour
     {
         Vector3 origin = new Vector3(transform.position.x, transform.position.y - 0.8f, transform.position.z);
 
-        if (Physics.SphereCast(origin, pickupRadius, transform.forward, out RaycastHit hit, pickupRange))
+        Vector3 center = origin + transform.forward * pickupRange * 0.5f;
+
+        Collider[] hits = Physics.OverlapSphere(center, pickupRadius);
+        foreach (var hit in hits)
         {
-            IPushable pushable = hit.collider.GetComponent<IPushable>();
+            IPushable pushable = hit.GetComponent<IPushable>();
             if (pushable != null && !isPushing)
             {
                 isPushing = true;
-                interactingObject = hit.collider.gameObject;
+                interactingObject = hit.gameObject;
                 cachedPushable = pushable;
+                return;
             }
         }
     }
@@ -608,12 +617,11 @@ public class PlayerController : NetworkBehaviour
 
     void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.cyan;
         Vector3 origin = new Vector3(transform.position.x, transform.position.y - 0.8f, transform.position.z);
-        Vector3 endPoint = origin + transform.forward * pickupRange;
+        Vector3 center = origin + transform.forward * pickupRange * 0.5f;
 
-        Gizmos.DrawLine(origin, endPoint);
-        Gizmos.DrawWireSphere(origin, pickupRadius);
-        Gizmos.DrawWireSphere(endPoint, pickupRadius);
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(center, pickupRadius);
+
     }
 }

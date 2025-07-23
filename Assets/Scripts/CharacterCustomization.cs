@@ -10,7 +10,7 @@ public class CharacterCustomization : NetworkBehaviour
     public List<CustomPart> parts;
     public TextMeshProUGUI helmetText;
     public TextMeshProUGUI headText;
-    //public TMP_InputField nameInputField;
+    public TMP_InputField nameInputField;
     public GameObject customizeCamera;
     private LobbyUIManager lobbyUIManager;
     private PlayerCharacter playerCharacter;
@@ -150,7 +150,6 @@ public class CharacterCustomization : NetworkBehaviour
         var (headIndex, headTotal) = GetPartIndexInfo(PartType.Head);
         headText.text = $"Head: {headIndex} / {headTotal}";
     }
-
     public void DoneCustomize()
     {
         PlayerPrefs.Save();
@@ -161,24 +160,17 @@ public class CharacterCustomization : NetworkBehaviour
         playerManager.NameUpdate();
 
 
-        // string playerName = nameInputField.text.Trim();
-        // if (!string.IsNullOrEmpty(playerName))
-        // {
-        //     PlayerPrefs.SetString("PlayerName", playerName);
-        //     PlayerPrefs.Save();
-
-        //     LobbyManagerZK.Instance.UpdatePlayerName(playerName);
-        //     customizeCamera.SetActive(false);
-        //     lobbyUIManager.canvas.SetActive(true);
-        //     Debug.Log($"Player name set to: {playerName}");
-        //     SendCustomizationToNetworkedPlayer();
-        //     playerCharacter.LoadAndApplySavedCustomization();
-        //     playerManager.NameUpdate();
-        // }
-        // else
-        // {
-        //     Debug.LogWarning("Player name is empty.");
-        // }
+        string playerName = nameInputField.text.Trim();
+        if (!string.IsNullOrEmpty(playerName))
+        {
+            PlayerPrefs.SetString("PlayerName", playerName);
+            PlayerPrefs.Save();
+            LobbyManager.Instance.UpdatePlayerName(playerName);
+        }
+        else
+        {
+            Debug.LogWarning("Player name is empty.");
+        }
     }
 
     public CustomizationData GetCurrentData()
@@ -193,7 +185,6 @@ public class CharacterCustomization : NetworkBehaviour
             rightArmIndex = parts.Find(p => p.partType == PartType.RightArm)?.currentIndex ?? 0
         };
     }
-
     public void SendCustomizationToNetworkedPlayer()
     {
         var data = GetCurrentData();
@@ -208,7 +199,4 @@ public class CharacterCustomization : NetworkBehaviour
             Debug.LogWarning("NetworkCharacterCustomization not found or not the owner.");
         }
     }
-
-
-
 }
