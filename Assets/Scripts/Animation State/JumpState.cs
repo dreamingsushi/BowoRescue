@@ -26,10 +26,6 @@ public class JumpState : BaseState
         {
             player.TransitionToState(new WalkState(player));
         }
-        else if (player.health.isInvincible.Value)
-        {
-            //layer.TransitionToState(new HurtState(player));
-        }
         else if (player.controller.isPushing)
         {
             player.TransitionToState(new PushState(player));
