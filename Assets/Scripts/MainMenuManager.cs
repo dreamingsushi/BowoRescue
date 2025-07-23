@@ -62,6 +62,17 @@ public class MainMenuManager : NetworkBehaviour
         Application.Quit();
     }
 
-
+    public void SetMasterVolume(float volume)
+    {
+        AudioManager.Instance.SetMasterVolume(volume);
+    }
+    public void SetSFXVolume(float volume)
+    {
+        AudioManager.Instance.SetSFXVolume(volume);
+    }
+    public void SetMusicVolume(float volume)
+    {
+        AudioManager.Instance.SetMusicVolume(volume);
+    }
 
 }

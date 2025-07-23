@@ -322,7 +322,7 @@ public class PlayerController : NetworkBehaviour
         if (context.started || context.performed)
         {
             emoteWheelUI.SetActive(true);
-            OpenMenu();
+            CursorFree();
         }
         else if (context.canceled)
         {
@@ -339,7 +339,7 @@ public class PlayerController : NetworkBehaviour
                 }
             }
             emoteWheelUI.SetActive(false);
-            CloseMenu();
+            CursorLock();
         }
     }
 
@@ -354,6 +354,18 @@ public class PlayerController : NetworkBehaviour
     private void CloseMenu()
     {
         pauseMenu.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
+    private void CursorFree()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
+    private void CursorLock()
+    {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
