@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Oversailed.sln"
+    "dotnet.defaultSolution": "BowoRescue.sln"
 }
